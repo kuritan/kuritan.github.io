@@ -8,7 +8,7 @@ subtitle: しょうもないつぶやき
 description:
 keywords:
 author: kuritan
-language: ja
+language: en
 timezone: Asia/Tokyo
 
 # URL
@@ -75,6 +75,7 @@ pagination_dir: page
 ## Themes: https://hexo.io/themes/
 theme: next
 google_analytics: UA-119591036-1
+since: 2018
 
 # Deployment
 ## Docs: https://hexo.io/docs/deployment.html
