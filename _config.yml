@@ -3,13 +3,14 @@
 ## Source: https://github.com/hexojs/hexo/
 
 # Site
-title: Hexo
-subtitle:
+title: kuritan's café
+subtitle: しょうもないつぶやき
 description:
 keywords:
-author: John Doe
-language:
-timezone:
+author: kuritan
+avatar: https://drive.google.com/file/d/1D6LqAxK2xGUG5OyeHsaq6GTqc66-oZVh/view?usp=sharing
+language: zh-Hans
+timezone: Asia/Tokyo
 
 # URL
 ## If your site is put in a subdirectory, set url as 'http://yoursite.com/child' and root as '/child/'
