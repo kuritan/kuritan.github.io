@@ -3,8 +3,8 @@
 menu:
   home: /
   tags: /tags/
-  categories: /categories/
-  archives: /archives/
+  categories: /categories/ || th
+  archives: /archives/ || archive
 
 # SubNav
 subnav:
