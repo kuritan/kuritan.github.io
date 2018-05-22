@@ -3,7 +3,7 @@
 ## Source: https://github.com/hexojs/hexo/
 
 # Site
-title: KuriSearcher
+title: KuriSearch
 subtitle: しょうもないつぶやき
 description:
 keywords: Oversea's Life
@@ -75,7 +75,6 @@ pagination_dir: page
 ## Themes: https://hexo.io/themes/
 theme: next
 #theme: yilia
-google_analytics: UA-119591036-1
 since: 2018
 
 # Deployment
