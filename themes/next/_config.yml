@@ -105,6 +105,7 @@ menu:
 menu_icons:
   enable: true
 
+google_analytics: UA-119591036-1
 
 # ---------------------------------------------------------------
 # Scheme Settings
