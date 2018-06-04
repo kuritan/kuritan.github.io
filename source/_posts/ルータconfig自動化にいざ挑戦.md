@@ -7,16 +7,16 @@ tags:
  - JP
 ---
 
-## 背景
-新拠点立ち上げ時、必ず本社ネットワークと接続しなければならない要件がある。
+# 背景
+新拠点立ち上げ時、必ず本社ネットワークと接続しなければならない要件がある。
 今まで、毎回手入力で拠点ルータ作成＆本社ルータコンフィグ修正を行いましたが、ミスの可能性が多く、ダブルチェックもかなり時間がかかる。これを改善したく、全プロセスの自動化改造に挑戦。
 <!--more-->
 
-## デバイス
+# デバイス
 - Yamaha RTX 1200（本社）
 - Yamaha RTX 1200（拠点）
 
-## 備考
+# 備考
 - スクリプト本体とパラメータファイル両方に分けて、毎回違うIPやPP情報をパラメータファイルに記入しスクリプトを動かせば、自動的にconfigをルータに入力
 - paramikoライブラリーはルータやスィッチのような機器に対応するので、pythonを使う
 - SSHを利用することになるので、事前にルータのSSH configを手入力
@@ -27,7 +27,7 @@ tags:
 - 実行環境標準化のため、dockerを使う
 - 比較的新しいバージョンのdockerとdocker-composeが入っている機器をホスト機として選定
 
-## 拠点新設時、ルータ作成
+# 拠点新設時、ルータ作成
 - 事前手入力で、ssh関連、lan3 ip、DCへのルート、ログインユーザとPW、admin pwを設定しなければならない
 - SSH維持のため、事後自動削除はできない。LAN3ポートIPとルート一つ追加、業務に影響なし
 - 事前必ず「SetRTX1200_Config_parameter.ini」を状況に応じて修正
@@ -37,7 +37,7 @@ ___[Github Link](https://github.com/kuritan/paramiko)___
 >- SetRTX1200_Config_parameter.ini
 
 
-## 本社ルータ修正
+# 本社ルータ修正
 - 事前必ず「SetRTX1200_Config_parameter.ini」を状況に応じて修正
 
 ___[Github Link](https://github.com/kuritan/paramiko)___
@@ -47,13 +47,13 @@ ___[Github Link](https://github.com/kuritan/paramiko)___
 パラメータファイルですが、毎回ワンセットで、店舗側と本社側は同じファイルを使う
 SetRTX1200_Config_parameter.ini
 
-## 実行環境
+# 実行環境
 - centosVM(briana181)
 - python2.7.X
 - パッケージ: paramiko(バージョンこだわりがない)
 
-## 環境準備
-### 目標
+# 環境準備
+## 目標
 ** 柔軟な運用や継続改善をサポート(要は複数人でも、ローカルで編集し、コンテナで実行・テストを可能に)するため、本スクリプト必要になるpython2.7.Xおよび関連ライブラリーをdocker化し、centosVMで起動させる。**
 
 コンテナbuildや管理の利便性の視点から、結構新しいバージョンのdocker-composeが入っているbriana181を今回のホスト機として利用。
@@ -69,7 +69,7 @@ SetRTX1200_Config_parameter.ini
 
 ___[dockerHub link](https://hub.docker.com/r/kuritan/paramikoenv/)___
 
-## ボリューム準備(ホストにて)
+# ボリューム準備(ホストにて)
 dockerデータの永続化を実現するため、ホスト側でボリュームを作成し、コンテナ側にマウントさせる。
 - 今回のボリューム（ディリクトリ）
 /home/AutoRTX-python2.7/
@@ -89,7 +89,7 @@ mkdirしてから、作成済みのpythonスクリプトを全部こちらにコ
 
 後程、詳しく各部分をご説明します。
 
-## Dockerfile準備
+# Dockerfile準備
 必要な元imageとパッケージをインストールした Dockerfile を作成
 
 ```
@@ -108,7 +108,7 @@ mkdirしてから、作成済みのpythonスクリプトを全部こちらにコ
 - RUN pip install --no-cache-dir -r requirements.txt　# requirements.txtに書かれた内容を全部pipでインストール（cacheを利用しない）
 - COPY . /home/AutoRTX-python2.7/　# ホスト側今のディリクトリ内のものを全部コンテナ側の/home/AutoRTX-python2.7/ディリクトリにコピー
 
-### requirements.txt作成
+## requirements.txt作成
 パッケージ要件を定義するファイルです。
 今回は基本baseパッケージを使うほか、paramikoだけ追加インストールすれば十分ので、paramikoだけを記入
 
@@ -124,7 +124,7 @@ requirements.txt
 >- ↑こうすれば、開発環境で使われたpipパッケージを全部requirements.txtにまとめる（docker識別可能のフォーマットので、そのまま使える。）
 >- ただ、この方法でも、後程のbuildで、結構エラーになるケースが多いみたい、エラーになったら都度該当項目を削除、あるいは、必要最低限のものしか書かないとしましょう。
 
-## docker-composeファイル準備
+# docker-composeファイル準備
 docker-composeバージョン確認
 
 ```
@@ -150,7 +150,7 @@ docker-compose version 1.6.2, build 4d72027
 - 後程buildするimageを記入(想定)
 - volumes：ホスト側:コンテナ側、ボリュームを組めばホスト側とコンテナ側のファイルがリアルタイムで同期できる
 
-## イメージbuild & コンテナUP
+# イメージbuild & コンテナUP
 下記コマンドを順番に実行
 
 ```
@@ -168,7 +168,7 @@ Creating AutoRTX-python2.7　
 # AutoRTX-python2.7は今回の指定名
 ```
 
-## 環境確認
+# 環境確認
 上記のすべてをクリアすれば、理論上は準備終了ですが、動作確認として、実際コンテナの中に入って、pythonのバージョンやモジュールが正常にimportできるかを確認。
 
 ![container](https://github.com/kuritan/images/raw/master/docker.PNG)
@@ -178,7 +178,7 @@ Creating AutoRTX-python2.7　
 
 ここまでOKであれば、毎回こちらのホストにSSHでログインしてから、下記のようにスクリプトを実行できる。
 
-## pyスクリプト実行方法
+# pyスクリプト実行方法
 - ホスト機にSSHログイン
 - dockerコンテナを確認
  - docker ps -a
@@ -187,7 +187,7 @@ Creating AutoRTX-python2.7　
 - スクリプトを実行
  - python XXXX.py
 
-## ～番外編～Run.shスクリプトを用意
+# ～番外編～Run.shスクリプトを用意
 ただ、上記のように、毎回 docker コマンドにオプション渡すのも面倒くさいので、
 かんたんな run.shを用意
 
@@ -213,7 +213,7 @@ Creating AutoRTX-python2.7　
 #./run.sh XXXX.py
 ```
 
-## 参考URL
+# 参考URL
 - docker buildのオプションまとめ
 https://qiita.com/Gin/items/dde3c3085f13f0a45c40
 
