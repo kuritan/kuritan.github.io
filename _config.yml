@@ -11,6 +11,12 @@ author: kuritan
 language: en
 timezone: Asia/Tokyo
 
+# Social links
+#social:
+#  GitHub: https://github.com/kuritan
+#  Weibo: https://www.weibo.com/1935491594
+#  zhihu: http://www.zhihu.com/people/kuritan
+
 # URL
 ## If your site is put in a subdirectory, set url as 'http://yoursite.com/child' and root as '/child/'
 url: http://yoursite.com
@@ -75,6 +81,7 @@ pagination_dir: page
 ## Themes: https://hexo.io/themes/
 theme: next
 #theme: yilia
+#theme: indigo
 since: 2018
 
 # Deployment
