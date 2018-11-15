@@ -1,5 +1,5 @@
 ---
-title: AWSでオンラインストレートを作ろう(ownCloud)
+title: AWSでオンラインストレージを作ろう(ownCloud)
 date: 2018-11-06 14:01:48
 categories: infra
 tags:
