@@ -157,7 +157,7 @@ site_state: true
 social:
   GitHub: https://github.com/kuritan || github
   Weibo: https://www.weibo.com/1935491594 || weibo
-  Zhihu: http://www.zhihu.com/people/kuritan || zhihu
+  Zhihu: http://www.zhihu.com/people/kuritan || custom zhihu
   E-Mail: mailto:lizi103@hotmail.com || envelope
   #Google: https://plus.google.com/yourname || google
   #Twitter: https://twitter.com/yourname || twitter
