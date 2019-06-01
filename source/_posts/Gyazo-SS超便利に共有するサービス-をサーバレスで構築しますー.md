@@ -140,7 +140,7 @@ BOUNDARY = ご指定の文字
 　　　　　　"Effect": "Allow",
 　　　　　　"Principal": "*",
 　　　　　　"Action": "s3:GetObject",
-　　　　　　"Resource": "arn:aws:s3:::gyazo.drev.jp/*",
+　　　　　　"Resource": "arn:aws:s3:::gyazo/*", #bucket名
 　　　　　　"Condition": {
 　　　　　　　　"IpAddress": {
 　　　　　　　　　"aws:SourceIp": [
