@@ -18,6 +18,7 @@
         notify: {{ theme.valine.notify }},
         appId: '{{ theme.valine.appid }}',
         appKey: '{{ theme.valine.appkey }}',
+        lang: '{{ theme.valine.lang }}',
         placeholder: '{{ theme.valine.placeholder }}',
         avatar:'{{ theme.valine.avatar }}',
         meta:guest,
