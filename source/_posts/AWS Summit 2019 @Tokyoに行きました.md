@@ -12,7 +12,7 @@ tags:
 <!--more-->
 
 # 会場外
-![会場外](https://wx4.sinaimg.cn/mw1024/735d420agy1g40j7laxguj21400u0hdt.jpg)
+![会場外](https://wx4.sinaimg.cn/mw690/735d420agy1g40j7laxguj21400u0hdt.jpg)
 TGSと同じ会場、幕張メッセ〜  
 やはり都内から行くと、どうしても遠く感じますね。  
 今回は、3日間のイベントですが、僕が行ったのは真ん中の2日目でした。  
