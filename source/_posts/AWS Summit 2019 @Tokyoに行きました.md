@@ -1,6 +1,7 @@
 ---
 title: AWS Summit 2019 @Tokyoに行きました
 date: 2019-06-14 21:52:24
+categories: Event
 tags:
 - AWS
 - JP
