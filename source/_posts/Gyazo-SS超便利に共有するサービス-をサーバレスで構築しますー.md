@@ -6,6 +6,7 @@ tags:
 
  - JP
  - Work
+ - AWS
  - Serverless
 ---
 
