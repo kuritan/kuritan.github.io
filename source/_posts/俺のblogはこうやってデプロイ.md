@@ -8,7 +8,7 @@ tags:
 - CI&CD
 ---
 
-# Just One Word
+# TL;DR
 一言申し上げますと、本ブログは、GitHub + HEXOで構成され、travis-CIでCI＆CDを実行される仕組みである。
 <!--more-->
 
