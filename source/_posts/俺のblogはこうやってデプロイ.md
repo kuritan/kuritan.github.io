@@ -10,6 +10,7 @@ tags:
 
 # TL;DR
 一言申し上げますと、本ブログは、GitHub + HEXOで構成され、travis-CIでCI＆CDを実行される仕組みである。
+サーバレスの構成で、費用はですね、なんと、0です〜
 <!--more-->
 
 # 諸々説明
@@ -56,5 +57,10 @@ deploy:
   branch: master  #ソースコードbranch名
   target_branch: pages-branch #pages-branch名
  ```
-
+# 最後
+サーバ費用：なし  
+運用費用：なし  
+その他費用：なし  
+総計コスト：ゼロ  
+  
 いかがでしょう、もしあなたのブログ作成にお役に立てると、嬉しい限りですー
