@@ -16,6 +16,11 @@ Google社主催のイベントGoogle Cloud Next'19 in Tokyoが07/30〜08/01に�
 スローガンとして、「かつてないクラウドを体験しよう。」と掲げられているみたい。
 ![スローガン](http://wx2.sinaimg.cn/mw690/735d420agy1g5jx8dx0ymj22io1w0b29.jpg)
 
+スポンサー企業様〜
+![スポンサー企業](http://wx2.sinaimg.cn/mw690/735d420agy1g5k15ff96fj21w02io7wh.jpg)
+![ユーザ声](http://wx4.sinaimg.cn/mw690/735d420agy1g5k15mhlldj22io1w0b29.jpg)
+
+
 早速受付でチェックインし、中に入ろうじゃないか。
 ![オフシャル資料集](http://wx3.sinaimg.cn/mw690/735d420agy1g5izwwxzazj21400u0quy.jpg)
 # 基調講演
@@ -44,6 +49,14 @@ Google社主催のイベントGoogle Cloud Next'19 in Tokyoが07/30〜08/01に�
 やっぱパークタワー東京の方が面白い〜
 ![next'19](http://wx4.sinaimg.cn/mw690/735d420agy1g5jx88fohwj21w02io4qq.jpg)
 
-来年もまた、next'20とかが開催されるみたいで、その時また現場の様子をお届けしますー
+特製かき氷も無料で食べられますよ〜
+![](http://wx4.sinaimg.cn/mw690/735d420agy1g5k156u3gwj22io1w0b2a.jpg)
 
-![next'19](http://wx1.sinaimg.cn/mw690/735d420agy1g5jx8hikhzj21w02io7wh.jpg)
+Googleの人がおすすめの書籍コーナー  
+![書籍コーナー1](http://wx4.sinaimg.cn/mw690/735d420agy1g5k14yrifuj22io1w07wi.jpg)
+![書籍コーナー2](http://wx3.sinaimg.cn/mw690/735d420agy1g5k146405vj22io1w07wi.jpg)
+
+来年もまた、next'20とかが開催されるみたいで、その時また現場の様子をお届けしますー  
+
+最後に東京タワーを一枚！
+![東京タワー](http://wx3.sinaimg.cn/mw690/735d420agy1g5k12la9fxj21w02iob29.jpg)
