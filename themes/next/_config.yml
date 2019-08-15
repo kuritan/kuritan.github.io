@@ -32,11 +32,6 @@ cache:
   #styles: source/_data/styles.styl
 
 
-# Security
-##
-encrypt:
-    enable: true
-
 
 # ---------------------------------------------------------------
 # Site Information Settings
