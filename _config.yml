@@ -84,11 +84,6 @@ theme: next
 #theme: indigo
 since: 2018
 
-# Security
-##
-encrypt:
-    enable: true
-
 # Deployment
 ## Docs: https://hexo.io/docs/deployment.html
 deploy:
