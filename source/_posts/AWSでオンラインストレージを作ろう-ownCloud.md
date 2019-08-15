@@ -16,24 +16,24 @@ ___しかし、これっていいのかというと、もちろんよくない�
 <!--more-->
 
 # 構成
-![完成品](http://wx3.sinaimg.cn/mw690/735d420agy1fwya9c8rihj211x0hrn0b.jpg)
-ざっとこういう感じです、以上。  
+![完成品](http://wx3.sinaimg.cn/mw690/735d420agy1fwya9c8rihj211x0hrn0b.jpg)  
+__ざっとこういう感じです、以上。__  
 
 ......と言いたいところですが、ダメですねw  
 簡単というと、  
-システム全体はAWSのEC2二台を立ち上げそれぞれownCloudのAMIを適用させる。  
-ELBも立ち上げ、二台EC2をグループに入れる。  
-EC2内部いじる（ownCloud）  
-RDSいじる(ownCloudのDBとして利用,MySQL)
-S3バケットつくる  
-ElasticSearchServiceいじる(accesslog収集、kibanaで描画)  
-Lambdaいじる(S3で格納してるownCloudのaccesslogをElasticSearchServiceに)
-ルートテーブル、セキュリティグループとACLいじる  
-ドメイン確保、DNSレコード記入  
+1. システム全体はAWSのEC2二台を立ち上げそれぞれownCloudのAMIを適用させる。  
+1. ELBも立ち上げ、二台EC2をグループに入れる。  
+1. C2内部いじる（ownCloud）  
+1. RDSいじる(ownCloudのDBとして利用,MySQL)
+1. S3バケットつくる  
+1. ElasticSearchServiceいじる(accesslog収集、kibanaで描画)  
+1. Lambdaいじる(S3で格納してるownCloudのaccesslogをElasticSearchServiceに)
+1. ルートテーブル、セキュリティグループとACLいじる  
+1. ドメイン確保、レコード登録  
 
 どう？簡単しょ？w  
 
-## ダメ、わからんー
+## ダメだ、わからんよーセンセイ！
 じゃ、実際ユーザーのリクエストの流れに沿って、シナリオを説明しますー
 ![イメージ図](http://wx2.sinaimg.cn/mw690/735d420agy1fwya9d1du5j211v0gz0v3.jpg)
 - ユーザーアクセスが来たら、まずELBに到達、ドメイン利用したアクセスだけ許可、直接EC2のパブリックIPを叩いても、無反応だけ。プラス、強制的にHTTPSにリダイレクト
@@ -45,12 +45,8 @@ Lambdaいじる(S3で格納してるownCloudのaccesslogをElasticSearchService�
 - 必要であれば、システムにアクセス可能なソースIPも限定できる（ELBで）
 
 # この構成のメリットは？
-1. 各パーツ使い捨て、データはAWSサービスを利用し、永久化した
-1. 基本AWSのサービスを利用するので、運用が楽
-1. システムフルコントロールは自社把握、カスタマイズ自由
-1. 主流なOSSを利用し、google先生に聞けば、色々資料が出てくるはず
-1. 費用は市販サービスより大幅に低減
-
-
-
-
+- 各パーツ使い捨て、データはAWSサービスを利用し、永久化した
+- 基本AWSのサービスを利用するので、運用が楽
+- システムフルコントロールは自社把握、カスタマイズ自由
+- 主流なOSSを利用し、google先生に聞けば、色々資料が出てくるはず
+- 費用は市販サービスより大幅に低減
