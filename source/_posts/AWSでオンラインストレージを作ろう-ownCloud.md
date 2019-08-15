@@ -22,13 +22,13 @@ __ざっとこういう感じです、以上。__
 ......と言いたいところですが、ダメですねw  
 簡単というと、  
 1. システム全体はAWSのEC2二台を立ち上げそれぞれownCloudのAMIを適用させる。  
-1. ELBも立ち上げ、二台EC2をグループに入れる。  
-1. C2内部いじる（ownCloud）  
+1. ALBも立ち上げ、二台EC2をグループに入れる。  
+1. EC2内部いじる（ownCloud）  
 1. RDSいじる(ownCloudのDBとして利用,MySQL)
-1. S3バケットつくる  
+1. S3バケットつくる(実際のデータ格納場所)  
 1. ElasticSearchServiceいじる(accesslog収集、kibanaで描画)  
 1. Lambdaいじる(S3で格納してるownCloudのaccesslogをElasticSearchServiceに)
-1. ルートテーブル、セキュリティグループとACLいじる  
+1. ルートテーブル、セキュリティグループとACLいじる(IP制限もかける)
 1. ドメイン確保、レコード登録  
 
 どう？簡単しょ？w  
