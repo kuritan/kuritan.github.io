@@ -30,9 +30,12 @@ __[Github repo](https://github.com/kuritan/aws_config_replace_unauthorized_ports
 ## AWS Config
 まず、Config機能を有効化し、EC2リソースにモニタリングできるように設定してください。（全リソースでも構いませんが、費用感が若干違う）
 
+
 ## AWS Config Rule
 ルールを新規追加しましょう。  
-AWS提供のモノで大丈夫です、名前は「VPC_SG_OPEN_ONLY_TO_AUTHORIZED_PORTS」
+AWS提供のモノで大丈夫です、名前は「VPC_SG_OPEN_ONLY_TO_AUTHORIZED_PORTS」  
+
+![config](http://wx1.sinaimg.cn/mw690/735d420agy1g8pn6gn3w2j20rj0ow415.jpg)
 
 ## AWS Config Rule 修復アクション
 ここは、今回の肝ですね。  
@@ -44,6 +47,9 @@ AWS提供の修復アクションはいろいろあって、中に「vpc-sg-open
 
 ちょっと話が長くなたっが、ここで「PublishSNSNotification」という修復アクションを選択してください。  
 もちろん、それに合わせてIAMロールも準備してあげてくださいね。
+![config rule](http://wx3.sinaimg.cn/mw690/735d420agy1g8pn6jy2kgj20qo0mqtbo.jpg)
+
+修復アクションの実行履歴は、AWS SystemManagerで確認できます。
 
 ## AWS SNS トピック
 新規SNSトピックを作りましょう。  
