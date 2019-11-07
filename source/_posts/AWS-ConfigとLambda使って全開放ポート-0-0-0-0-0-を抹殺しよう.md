@@ -20,7 +20,7 @@ tags:
 - 予め設置したlambda関数がトリガーされ、該当全開放ルールをリプレース
 - インシデントマネジャーからアラート受信（オプション）
 
-![全体イメージ](https://wx3.sinaimg.cn/mw690/735d420agy1g8plt36jwyj20ne0gkdgf.jpg)
+![全体イメージ](http://wx3.sinaimg.cn/mw690/735d420agy1g8plt36jwyj20ne0gkdgf.jpg)
 
 # どうやって使うの？
 基本は全部githubにあげて、READMEに記載しましたが、ちょっとだけ解説します。  
