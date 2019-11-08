@@ -30,6 +30,11 @@ __[Github repo](https://github.com/kuritan/aws_config_replace_unauthorized_ports
 ## AWS Config
 まず、Config機能を有効化し、EC2リソースにモニタリングできるように設定してください。（全リソースでも構いませんが、費用感が若干違う）
 
+## 費用感
+[AWS Config料金](https://aws.amazon.com/jp/config/pricing/)
+新料金プランになってから、だいぶ安くなりました。  
+LambdaFunctionも使い道よりますが、たいていは安価のイメージで、料金について、あんまり心配する必要がない風に考えています。  
+参考までに、月間 $5 前後の感じですかね。
 
 ## AWS Config Rule
 ルールを新規追加しましょう。  
