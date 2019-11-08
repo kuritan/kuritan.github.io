@@ -67,6 +67,7 @@ unauthorized_ipv4 は明示的に0.0.0.0/0を表明するためのもので、�
 
 元々全VPC対応したいから自前でやるので、関数を非VPCにしてから、IAMはお任せしますね。
 
+Runtime: Python3.6
 ```python3:config-lambda.py
 import os
 import json
