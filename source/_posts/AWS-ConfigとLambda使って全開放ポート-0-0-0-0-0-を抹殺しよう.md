@@ -60,6 +60,8 @@ AWS提供の修復アクションはいろいろあって、中に「vpc-sg-open
 ENVとして、authorized_global_ipv4を設定しましょう。(0.0.0.0/0にリプレースするIPに設定、例えばオフィス拠点のグローバルIP)  
 unauthorized_ipv4 は明示的に0.0.0.0/0を表明するためのもので、素直に0.0.0.0/0に設定してくださいね。
 
+元々全VPC対応したいから自前でやるので、関数を非VPCにしてから、IAMはお任せしますね。
+
 ```python3:config-lambda.py
 import os
 import json
