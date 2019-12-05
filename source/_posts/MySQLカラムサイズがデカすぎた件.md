@@ -1,5 +1,5 @@
 ---
-title: Mysqlカラムサイズデカすぎた件
+title: MySQLカラムサイズがデカすぎた件
 date: 2019-12-05 15:32:01
 categories: infra
 tags:
@@ -85,7 +85,16 @@ utf -> utf8mb4に変更したらどうだ！喰らえー
 ......むむ......  
 どういう事だ......さっぱりわからん。  
 要は、utf8mb4だと、カラムのバイト数オーバーでしょう。  
-手を打うー  
+
+### 原因
+[参考情報源](https://qiita.com/xhnagata/items/4d5c3333cbae53888f37)  
+>ActiveRecordのstring型カラムがvarchar(255)で定義されるので、utf8mb4ではインデックスのキープレフィックスが767byteを超えてしまう。
+
+>MySQL5.7未満では、テーブル作成時にROW_FORMAT=DYNAMICを渡してやらなければならない。
+
+>Rails4だとモンキーパッチを使って、テーブル作成時のオプションにROW_FORMAT=DYNAMICを追加してやる
+
+じゃ、手を打うー  
 database(mysql)の設定を見直し、767超えても大丈夫なように、ファイルフォーマットをAntelopeからBarracudaに変更。  
 AWS RDSを使っているので、パラメータグループで、「innodb_file_format」を「Barracuda」を指定する。  
 
