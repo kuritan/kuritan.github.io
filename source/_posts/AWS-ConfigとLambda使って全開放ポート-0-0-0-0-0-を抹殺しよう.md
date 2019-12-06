@@ -1,5 +1,5 @@
 ---
-title: AWS ConfigとLambda使って全開放ポート(0.0.0.0/0)を抹殺しよう
+title: AWS ConfigとLambda使って全開放ポート(0.0.0.0/0に向けた)を抹殺しよう
 date: 2019-11-07 18:17:34
 categories: infra
 tags:
