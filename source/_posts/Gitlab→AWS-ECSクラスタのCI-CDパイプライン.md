@@ -1,7 +1,6 @@
 ---
 title: Gitlab→AWS ECSクラスタのCI/CDパイプライン
 date: 2020-02-03 18:25:19
-tags:
 categories: infra
 tags:
 - JP
