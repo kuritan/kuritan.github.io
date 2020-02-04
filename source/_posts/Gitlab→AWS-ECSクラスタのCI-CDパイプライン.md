@@ -43,10 +43,10 @@ githubだと簡単にできるが、あいにくうちはプライベートのgi
 - サービスアカウント内app_deployユーザのクレデンシャル、infraに聞く
   - SSH_PRIVATE_KEY
   - 該当リポジトリをpullできるユーザのkey
-- .gitlab-ci.ymlファイル内
+- .gitlab-ci.ymlファイル内(適宜に変更)
   - UPLOAD_REGION : ap-northeast-1(※東京リージョン)
-  - UPLOAD_BUCKET : ${SERVICECODE}-code-pipeline
-  - UPLOAD_FOLDER : ${SERVICECODE}-docker-image
+  - UPLOAD_BUCKET : code-pipeline
+  - UPLOAD_FOLDER : docker-image
   - UPLOAD_FILE_ALL : docker_image.zip(※出力zipファイルのフルネーム)
 - Dockerfile
 - buildspec.yml(buildステージ必須)
