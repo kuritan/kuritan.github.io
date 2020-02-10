@@ -31,12 +31,25 @@ __ご存知の通り、SSL証明書の取得って、面倒の塊のようなも
 - [acmesmith-google-cloud-storage](https://github.com/minimum2scp/acmesmith-google-cloud-storage)(google storageに証明書を保存するためのgem)
 
 # どんな構成
-![構成図](http://wx4.sinaimg.cn/large/735d420agy1g47qxo1amwj20x30ne0vv.jpg)
+![構成図](http://wx3.sinaimg.cn/mw690/735d420agy1gbrfgyyf15j20x30neq6c.jpg)
 上記の通り、クライアントからリクエストが来たら、まずPATHによって判断されます。  
 管理ページみたい場合、一覧を表示される。apiを利用したい場合、必要によって処理を走り、適当なリスポンスを投げ返す。  
 GAEのcronjob機能を利用し、証明書の有効期限を自動延長します！  
+
+## 追加Gem
+```
+gem "acmesmith"
+gem "acmesmith-google-cloud-storage"
+gem "google-cloud-storage"
+gem "activejob-google_cloud_pubsub"
+```
+
 ......  
 ホントは、ここで実際rubyとgoのコードを見せながら説明を進んだ方がもっとわかりやすいですが、大人の事情のやつで、ここはコードを割愛させてくださいm(＿ ＿)m
+
+## update
+Cloud PubSubを利用し、非同期処理も入れました。  
+要は、Webページでポッチたらhomepageにリダイレクトし、裏で証明書の処理を対応する仕組みですね。
 
 # どんな効果
 本番環境はさすがにACMなどを利用し、証明書を取得する方が得策の気がします。  
