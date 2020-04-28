@@ -55,5 +55,10 @@ ISP契約としてはソフトバンク光、マンション型、ベストエ�
 
 皆様、すできなテレワークをお過ごしくださいませー
 
+# 助っ人
+![RT-ac68u](http://wx4.sinaimg.cn/mw690/735d420agy1ge9kou1hm1j21400u0x6q.jpg)
+__ASUS RT-AC68u__  
+オリジナルのfirmwarよりwrt-Merlin firmwareがオススメです。  
+
 # 参考URL
 https://blog.pastime.ne.jp/personal_computer/hardware/2800
