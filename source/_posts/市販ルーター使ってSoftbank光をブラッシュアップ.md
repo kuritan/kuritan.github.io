@@ -33,7 +33,7 @@ ISP契約としてはソフトバンク光、マンション型、ベストエ�
 # 改善案
 ![改善案](http://wx1.sinaimg.cn/mw690/735d420agy1ge9bww1k01j20x30netd4.jpg)
 ﾁｮｯﾄ説明しますね。  
-1. BB Uintのweb管理画面から、DMZ機能を有効化
+1. BB Unitのweb管理画面から、DMZ機能を有効化
 1. DMZ用のIPを指定(ここは192.168.3.250を仮定)
 1. BB UnitのLAN口から一本LANケーブル追加し、ac68uのWAN口と接続
 1. ac68uのweb管理画面にて、WAN設定を静的IPアドレスに変更の上、先程指定したDMZ用IPを入力(192.168.3.250)
