@@ -11,7 +11,9 @@ abstract: Password, Please.
 message: Sorry, it's personal stuff.
 ---
 
-## ID・URL
+## Profile
+- 社会人6年目
+- SRE
 - Name: Zhai Yujia(ざい　うか、ザイ雨佳)
 - Nationality: Chinese（中国）
 - Blog: https://kuritan.github.io
@@ -23,7 +25,12 @@ message: Sorry, it's personal stuff.
 >オンプレミス・クラウド環境企画・構築・運用・監視・DevOps  
 >また、ユーザ系エンタープライズ企業情シス担当経験 3年  
 >プラス、ITアプライアンスメーカーのプリセールス経験 1年
-### DevOps
+>
+>大学は理系ですが、独学で日本語を勉強し、資格も取得(日本語能力試験N1)
+>卒業後ゲーム会社で翻訳の仕事をやりつつ、VBAによる業務効率化も図った
+>IT系仕事に転身してから、積極的に新技術を取り込み、業務改善を実施
+>独学でクラウドあたりのノウハウを身につけ、WEB系企業にジョイン
+### DevOps Skill
 - AWS, GKE, IDCF
 - k8s(EKS, GKE, Rancher), OpenStack
 - Terraform, Ansible, Chef(Itamae)
@@ -115,8 +122,3 @@ ___アイシン・エィ・ダブリュ株式会社の上海支社___
   - ゲームのQA/宣伝活動参加
   - VBAによる業務効率化
 
-## その他
-- 大学は理系ですが、独学で日本語を勉強し、資格も取得(日本語能力試験N1)
-- 卒業後ゲーム会社で翻訳の仕事をやりつつ、VBAによる業務効率化も図った
-- IT系仕事に転身してから、積極的に新技術を取り込み、業務改善を実施
-- 独学でクラウドあたりのノウハウを身につけ、WEB系企業にジョイン
