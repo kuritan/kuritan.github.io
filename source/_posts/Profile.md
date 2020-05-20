@@ -32,7 +32,7 @@ message: Sorry, it's personal stuff.
 >独学でクラウドあたりのノウハウを身につけ、WEB系企業にジョイン
 ### DevOps Skill
 - AWS, GKE, IDCF
-- k8s(EKS, GKE, Rancher), OpenStack
+- kubernetes(EKS, GKE, Rancher), OpenStack
 - Terraform, Ansible, Chef(Itamae)
 - Ruby On Rails, Python, Shell
 - Terraform, Packer
@@ -45,6 +45,9 @@ message: Sorry, it's personal stuff.
 - etc.
 
 ### ハードウェア
+- データセンター経験
+  - 3U アプライアンスまで
+  - 5 ラックまで
 - ネットワーク
   - Cisco 2960シリーズ/Yamaha RTX1200・WLX402/Juniper SRXシリーズ
 - サーバ

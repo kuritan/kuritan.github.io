@@ -23,7 +23,7 @@ tags:
 
 ### DevOps Skill
 - AWS, GKE, IDCF
-- k8s(EKS, GKE, Rancher), OpenStack
+- kubernetes(EKS, GKE, Rancher), OpenStack
 - Terraform, Ansible, Chef(Itamae)
 - Ruby On Rails, Python, Shell
 - Terraform, Packer
@@ -36,7 +36,7 @@ tags:
 - etc.
 
 ### ハードウェア
-- DC経験
+- データセンター経験
   - 3U アプライアンスまで
   - 5 ラックまで
 - ネットワーク
