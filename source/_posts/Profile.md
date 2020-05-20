@@ -19,20 +19,25 @@ message: Sorry, it's personal stuff.
 <!--more-->
 
 ## 職務経歴(キーワード)
->オンプレミス・クラウド環境企画・構築・運用・監視  
->いわゆる情シス経験 3年(概ねオンプレミス 2年、クラウド 1年)  
->プラス、プリセールス経験 1年
-### クラウド
-- AWSにてシステム企画・構築
-  - 企画・構築:  生中継システム、オンラインストレージシステム
-  - 使用サービス: EC2/ELB/S3/RDS/Lambda/CloudWatch/  
-    Elasticsearch/SNS/Route53/MediaLive/MediaPackages etc.
-- AWS(Lambda)をベースにしたマイクロサービス企画・構築
-  - zabbixアラート内容をチャットに流す
-  - Webサーバ(Apache,Nginx)アクセスログをElasticSearchに流す
-- Kuberneters関連
+>上場IT企業でSRE（SiteReliabilityEngineer）をやっております  
+>オンプレミス・クラウド環境企画・構築・運用・監視・DevOps  
+>また、ユーザ系エンタープライズ企業情シス担当経験 3年  
+>プラス、ITアプライアンスメーカーのプリセールス経験 1年
+### DevOps
+- AWS, GKE, IDCF
+- k8s(EKS, GKE, Rancher), OpenStack
+- Terraform, Ansible, Chef(Itamae)
+- Ruby On Rails, Python, Shell
+- Terraform, Packer
+- Ansible, Chef(Itamae)
+- Mackerel, Zabbix, Pagerduty, NewRelic
+- Fluentd, TreasureData
+- MySQL, Redis, Memcached
+- Vagrant, Docker
+- Github, Gitlab
+- etc.
 
-### ハード
+### ハードウェア
 - ネットワーク
   - Cisco 2960シリーズ/Yamaha RTX1200・WLX402/Juniper SRXシリーズ
 - サーバ
@@ -43,48 +48,29 @@ message: Sorry, it's personal stuff.
   - HP 3par/DELL NX3230
 - クライアント
   - Windows/Mac/Linux
-
-### ソフト
-- スクリプト
-  - bat/shell
-  - python
-    - Paramiko, Django, Flask, etc.
-  - javascript
-- Webアプリケーション企画・構築
-  - ライブ配信サイト
-    - RMTP/HLSストリーミング
-    - fluentd+ElasticSearch+Kibana(Grafana)によるログ収集・分析・可視化
-  - オンラインストレージシステム企画・構築
-    - ownCloud+EC2+RDS+S3+ELB
-- DB
-  - Mysql/Maria DB
-  - Microsoft SQL Server
-  - Postgres DB
-- その他
-  - Git/Subversion
-  - Redmine/Knowledge
-  - Travis-ci/Bitbucket Pipelines
-  - Ansible
-  - Zabbix/Grafana
-  - Slack/Hangout
-
-### バーチャル
-- Hyper-V, Vmware, Citrix基盤運用
-- Docker運用
-  - docker-compose
+- etc.
 
 ### エンジニア育成
 - 新卒エンジニアのOJT担当
 
 ### コード関連
-- 部内infrastructure as Code推進者
-- shell実務経験あり(2年)、普通に読み書きができる
-- python実務経験あり(1年+)、ライブラリーを利用し、いくつかのマニュアル手順を全自動化にした
-- JavaScript(Google Apps Script)趣味関連で利用、主にGoogleスプレッドシートあたり
+- shell実務経験あり(3年+)
+- python実務経験あり(2年+)
+- terraformによるInfrastructure as Code(1年+)
 
 ## 職務経歴(現職)
 ### 株式会社ドリコム(2019/04~)
-
+#### SRE部署
+- クラウド：AWS,GCP,IDCF,IIJ GIO
+- OS：CentOS
+- ミドルウェア：MySQL,Redis,Memcached等
+- チャット：Chatwork
+- 情報共有：Confluence
+- コード管理：Gitlab,Github enterprise
+- 仮想化：Vagrant,Docker,Kubernetes
+- 監視：Mackerel,Zabbix,Consul
+- 構成管理：Terraform,Chef,Ansible等
+  - Infrastructure as Codeをポリシーとした構成管理を行っています。
 
 ## 職務経歴(過去)
 ### パーソルテクノロジースタッフ株式会社(2017/10~2019/03)
@@ -133,3 +119,4 @@ ___アイシン・エィ・ダブリュ株式会社の上海支社___
 - 大学は理系ですが、独学で日本語を勉強し、資格も取得(日本語能力試験N1)
 - 卒業後ゲーム会社で翻訳の仕事をやりつつ、VBAによる業務効率化も図った
 - IT系仕事に転身してから、積極的に新技術を取り込み、業務改善を実施
+- 独学でクラウドあたりのノウハウを身につけ、WEB系企業にジョイン
