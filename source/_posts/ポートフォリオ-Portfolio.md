@@ -1,19 +1,11 @@
 ---
-title: Profile
-date: 2018-11-8 12:44:42
-categories: Life
-notshow: true
+title: ポートフォリオ
+date: 2020-05-20 16:44:52
 tags:  
  - JP
  - Work
-password: SparklingWater
-abstract: Password, Please.
-message: Sorry, it's personal stuff.
 ---
-
 ## ID・URL
-- Name: Zhai Yujia(ざい　うか、ザイ雨佳)
-- Nationality: Chinese（中国）
 - Blog: https://kuritan.github.io
 - Github: https://github.com/kuritan
 <!--more-->
@@ -23,7 +15,11 @@ message: Sorry, it's personal stuff.
 >オンプレミス・クラウド環境企画・構築・運用・監視・DevOps  
 >また、ユーザ系エンタープライズ企業情シス担当経験 3年  
 >プラス、ITアプライアンスメーカーのプリセールス経験 1年
-### DevOps
+>
+>SES企業でお客様に寄り添って、確実な改善提案をトライ
+>独学でクラウドあたりのノウハウを身につけ、WEB系企業にジョイン
+
+### DevOps Skill
 - AWS, GKE, IDCF
 - k8s(EKS, GKE, Rancher), OpenStack
 - Terraform, Ansible, Chef(Itamae)
@@ -38,6 +34,9 @@ message: Sorry, it's personal stuff.
 - etc.
 
 ### ハードウェア
+- DC経験
+  - 3U アプライアンスまで
+  - 5 ラックまで
 - ネットワーク
   - Cisco 2960シリーズ/Yamaha RTX1200・WLX402/Juniper SRXシリーズ
 - サーバ
@@ -53,14 +52,15 @@ message: Sorry, it's personal stuff.
 ### エンジニア育成
 - 新卒エンジニアのOJT担当
 
-### コード関連
-- shell実務経験あり(3年+)
-- python実務経験あり(2年+)
-- terraformによるInfrastructure as Code(1年+)
+### コード関連実務
+- Shell実務経験あり(3年+)
+- Python実務経験あり(2年+)
+- TerraformによるInfrastructure as Code(1年+)
+- RubyOnRails, Golang, JavaScript微経験
 
 ## 職務経歴(現職)
-### 株式会社ドリコム(2019/04~)
-#### SRE部署
+### 某上場ソーシャルゲーム会社(2019/04~)
+#### SRE部署(正社員)
 - クラウド：AWS,GCP,IDCF,IIJ GIO
 - OS：CentOS
 - ミドルウェア：MySQL,Redis,Memcached等
@@ -73,7 +73,7 @@ message: Sorry, it's personal stuff.
   - Infrastructure as Codeをポリシーとした構成管理を行っています。
 
 ## 職務経歴(過去)
-### パーソルテクノロジースタッフ株式会社(2017/10~2019/03)
+### 某上場ITサービス会社(2017/10~2019/03)
 - 新技術トライアンドエラー
   - 積極的にOSS採用
 - オンラインストーレジシステム
@@ -90,33 +90,18 @@ message: Sorry, it's personal stuff.
   - 開発チームと連携
 - 新卒エンジニアのOJT担当
 
-### 北京ヴィーナステックInc.(2016/09~2017/09)
-- 中国売上高No.1の情報セキュリティ会社にて、海外事業部日本市場セキュリティ製品のプリセールスエンジニアとして、業務遂行
+### 某上場ネットワークアプライアンスメーカー.(2016/09~2017/09)
+- プリセールスエンジニアとして、業務遂行
   - 製品・ソリューションの資料作成
-  - 日本お客様へのプレゼンテーション
+  - お客様へのプレゼンテーション
   - 開発陣⇔お客様のニーズ調整
-- 日本IT展示会出展
-  - IT Week 東京/大阪
+- IT展示会出展
 - 競合他社製品評価
 
-### エィ・ダブリュ上海自動車部品有限会社(2015/05~2016/09)
-___アイシン・エィ・ダブリュ株式会社の上海支社___
+### 某自動車部品メーカー(2015/05~2016/09)
 - 社内統括IT担当
   - 多拠点すべてのITシステム運用
   - 新規サーバ・ネットワーク機器・システムの企画・導入
-  - 日本親会社情シス部署とのやり取り
+  - 親会社情シス部署とのやり取り
   - 外部ベンダーとのやり取り
 - IT部署中期計画考案
-
-### スクウェア・エニックスCHINA(2013/07~2015/05)
-- 開発部ローカライズチーム
-  - 大人気ゲームシリーズの中国語ローカライズ
-  - シナリオ・技術ドキュメント翻訳
-  - ゲームのQA/宣伝活動参加
-  - VBAによる業務効率化
-
-## その他
-- 大学は理系ですが、独学で日本語を勉強し、資格も取得(日本語能力試験N1)
-- 卒業後ゲーム会社で翻訳の仕事をやりつつ、VBAによる業務効率化も図った
-- IT系仕事に転身してから、積極的に新技術を取り込み、業務改善を実施
-- 独学でクラウドあたりのノウハウを身につけ、WEB系企業にジョイン
