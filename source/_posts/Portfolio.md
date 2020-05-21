@@ -23,7 +23,7 @@ tags:
 >独学でクラウドあたりのノウハウを身につけ、WEB系企業にジョイン
 
 ### DevOps Skill
-- AWS, GKE, IDCF
+- AWS, GCP, IDCF
 - kubernetes(EKS, GKE, Rancher), OpenStack
 - Terraform, Ansible, Chef(Itamae), Packer
 - Ruby On Rails, Python, Shell

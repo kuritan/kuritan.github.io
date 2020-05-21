@@ -31,7 +31,7 @@ message: Sorry, it's personal stuff.
 >IT系仕事に転身してから、積極的に新技術を取り込み、業務改善を実施
 >独学でクラウドあたりのノウハウを身につけ、WEB系企業にジョイン
 ### DevOps Skill
-- AWS, GKE, IDCF
+- AWS, GCP, IDCF
 - kubernetes(EKS, GKE, Rancher), OpenStack
 - Terraform, Ansible, Chef(Itamae), Packer
 - Ruby On Rails, Python, Shell
