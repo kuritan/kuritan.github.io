@@ -1,5 +1,5 @@
 ---
-title: ポートフォリオ-Portfolio
+title: Portfolio
 date: 2020-05-20 16:44:52
 categories: Life
 tags:  
@@ -25,10 +25,8 @@ tags:
 ### DevOps Skill
 - AWS, GKE, IDCF
 - kubernetes(EKS, GKE, Rancher), OpenStack
-- Terraform, Ansible, Chef(Itamae)
+- Terraform, Ansible, Chef(Itamae), Packer
 - Ruby On Rails, Python, Shell
-- Terraform, Packer
-- Ansible, Chef(Itamae)
 - Mackerel, Zabbix, Pagerduty, NewRelic
 - Fluentd, TreasureData
 - MySQL, Redis, Memcached

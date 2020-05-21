@@ -33,10 +33,8 @@ message: Sorry, it's personal stuff.
 ### DevOps Skill
 - AWS, GKE, IDCF
 - kubernetes(EKS, GKE, Rancher), OpenStack
-- Terraform, Ansible, Chef(Itamae)
+- Terraform, Ansible, Chef(Itamae), Packer
 - Ruby On Rails, Python, Shell
-- Terraform, Packer
-- Ansible, Chef(Itamae)
 - Mackerel, Zabbix, Pagerduty, NewRelic
 - Fluentd, TreasureData
 - MySQL, Redis, Memcached
