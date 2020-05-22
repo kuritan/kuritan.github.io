@@ -13,7 +13,7 @@ tags:
 - Github: https://github.com/kuritan
 <!--more-->
 
-## 職務経歴(TL;DR)
+## PR(TL;DR)
 >某上場IT企業でSRE（SiteReliabilityEngineer）をやっております  
 >オンプレミス・クラウド環境企画・構築・運用・監視・DevOps  
 >また、ユーザ系エンタープライズ企業情シス担当経験 3年  
@@ -34,7 +34,7 @@ tags:
 - Github, Gitlab
 - etc.
 
-### ハードウェア
+### Appliance
 - データセンター経験
   - 3U アプライアンスまで
   - 5 ラックまで
@@ -50,10 +50,10 @@ tags:
   - Windows/Mac/Linux
 - etc.
 
-### エンジニア育成
-- 新卒エンジニアのOJT担当
+### Training
+- 駆け出しエンジニアのOJT担当
 
-### コード関連実務
+### Coding
 - Shell実務経験あり(3年+)
 - Python実務経験あり(2年+)
 - TerraformによるInfrastructure as Code(1年+)

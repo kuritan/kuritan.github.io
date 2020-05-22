@@ -20,7 +20,7 @@ message: Sorry, it's personal stuff.
 - Github: https://github.com/kuritan
 <!--more-->
 
-## 職務経歴(TL;DR)
+## PR(TL;DR)
 >上場IT企業でSRE（SiteReliabilityEngineer）をやっております  
 >オンプレミス・クラウド環境企画・構築・運用・監視・DevOps  
 >また、ユーザ系エンタープライズ企業情シス担当経験 3年  
