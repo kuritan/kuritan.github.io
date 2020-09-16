@@ -1,5 +1,5 @@
 ---
-title: Postmortem gitlab-ci pulling image failed
+title: Postmortem Gitlab-CI実行不能になった件
 date: 2020-09-16 16:03:12
 categories: infra
 tags:  
@@ -16,8 +16,7 @@ tags:
 
 # 作者
 
-SRE部  
-Zhai
+SRE部  Zhai
 
 # ステータス
 
