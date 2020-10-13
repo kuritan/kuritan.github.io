@@ -39,7 +39,7 @@ message: Sorry, it's personal stuff.
 - Fluentd, TreasureData
 - MySQL, Redis, Memcached
 - Vagrant, Docker
-- Github, Gitlab
+- Github, Gitlab Administrator
 - etc.
 
 ### ハードウェア

@@ -28,7 +28,7 @@ tags:
 - Fluentd, TreasureData
 - MySQL, Redis, Memcached
 - Vagrant, Docker
-- Github, Gitlab
+- Github, Gitlab Administrator
 - etc.
 
 ### Tech Blog
