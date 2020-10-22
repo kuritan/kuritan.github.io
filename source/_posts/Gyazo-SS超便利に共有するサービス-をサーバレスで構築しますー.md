@@ -33,13 +33,13 @@ tags:
   
 # どうやったの？
 ## 元々の設計は以下となります。
-![gyazo-sinatra](http://wx3.sinaimg.cn/mw690/735d420aly1g3knc2qbhhj20x30nedh2.jpg)  
+![gyazo-sinatra](http://ae06.alicdn.com/kf/Ua40fc42922484bc5b1cff65640644617U.png)  
 ご察知の通り、かなりシンプルの構造です。  
 rubyのsinatraをAPPサーバーにし、Nginxを先頭に構え、後ろはS3バケットをストレージ、シンプルだが有効なアーキテクチャです。  
 実際、何年も問題なく、利用されていた。
 
 ## 今回の設計はこうだ
-![gyazo-serverless](http://wx3.sinaimg.cn/mw690/735d420aly1g3knc9mtalj20x30ne41s.jpg)  
+![gyazo-serverless](http://ae04.alicdn.com/kf/Uc26e04134ddb4ae88b959364b1e425d8C.png)  
 ### 要件
 1. ユーザが指定カスタムドメインにアクセスすると、クライアントのダウンロードページと、機能説明ページを見える
 2. 1.のカスタムドメインに向けて、画像ファイルをPOSTすると、S3に保存され、アクセスできるURLが返される
@@ -208,7 +208,7 @@ IF
 もちろん、lambda関数の方の空振り処理はこれのためです。
 
 # 成果物
-![gyazo](http://wx2.sinaimg.cn/mw690/735d420agy1g3ljg2l3bzg20dc07p7wh.gif)
+![gyazo](http://ae01.alicdn.com/kf/U4314967ca4d146b6afd2a0032f5df96ec.png)
 
 これで、ぱっとできる超簡単なスクショ共有サービス（ノーメンテ）バージョンが完成だ！
 それでは、この辺に終わりにしましょうか。  

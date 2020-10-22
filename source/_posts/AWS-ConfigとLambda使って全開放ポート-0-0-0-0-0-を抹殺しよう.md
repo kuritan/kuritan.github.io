@@ -20,7 +20,7 @@ tags:
 - 予め設置したlambda関数がトリガーされ、該当全開放ルールをリプレース
 - インシデントマネジャーからアラート受信（オプション）
 
-![全体イメージ](http://wx3.sinaimg.cn/mw690/735d420agy1g8plt36jwyj20ne0gkdgf.jpg)
+![全体イメージ](http://ae02.alicdn.com/kf/U73d109d6180044568c82435a36353dd7M.png)
 
 # どうやって使うの？
 基本は全部githubにあげて、READMEに記載しましたが、ちょっとだけ解説します。  
@@ -40,7 +40,7 @@ LambdaFunctionも使い道よりますが、たいていは安価のイメージ
 ルールを新規追加しましょう。  
 AWS提供のモノで大丈夫です、名前は「VPC_SG_OPEN_ONLY_TO_AUTHORIZED_PORTS」  
 
-![config](http://wx1.sinaimg.cn/mw690/735d420agy1g8pn6gn3w2j20rj0ow415.jpg)
+![config](http://ae04.alicdn.com/kf/Ub6c769403aaf4665a154943a431565fdE.png)
 
 ## AWS Config Rule 修復アクション
 ここは、今回の肝ですね。  
@@ -52,7 +52,7 @@ AWS提供の修復アクションはいろいろあって、中に「vpc-sg-open
 
 ちょっと話が長くなたっが、ここで「PublishSNSNotification」という修復アクションを選択してください。  
 もちろん、それに合わせてIAMロールも準備してあげてくださいね。
-![config rule](http://wx3.sinaimg.cn/mw690/735d420agy1g8pn6jy2kgj20qo0mqtbo.jpg)
+![config rule](http://ae04.alicdn.com/kf/Ufd83935cfdeb41b1a8541f0cb2961711J.png)
 
 修復アクションの実行履歴は、AWS SystemManagerで確認できます。
 
