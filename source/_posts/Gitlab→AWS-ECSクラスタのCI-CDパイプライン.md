@@ -22,7 +22,7 @@ tags:
 
 # 全体設計
 まずは、全体イメージ図から見てみましょうー  
-![全体イメージ図](http://wx1.sinaimg.cn/mw690/735d420agy1gbjci9smakj21400p00xn.jpg)
+![全体イメージ図](http://ae06.alicdn.com/kf/U4cc8df1362ea4e5b8bca13e6431bd76am.png)
 ご覧の通り、developerとして、必須ファイルをgitlabの指定リポジトリにpushし、  
 masterブランチにmergeされたら、あとの工程は自動的に回します。  
 シンプルかつカンタン、万々歳〜  
@@ -247,9 +247,9 @@ Resources:
 
 # 最終成果物
 ## パイプライン
-![codepipeline](http://wx4.sinaimg.cn/mw690/735d420agy1gbk4nnw6kxj20kd0qfjtq.jpg)
+![codepipeline](http://ae06.alicdn.com/kf/Uf75f7722dd2f475f8cc1f75efda3313df.png)
 ## WebPage
 予め用意したALBにアクセスすると、カスタマイズしたnginx画面が表示された。  
-![web](http://wx1.sinaimg.cn/mw690/735d420agy1gbk4q72xgcj20vp04cweh.jpg)
+![web](http://ae06.alicdn.com/kf/Ue09ad2cdbc1d45078146fc0b14b47f6aW.png)
 
 __これで大成果です！お疲れ様〜__
