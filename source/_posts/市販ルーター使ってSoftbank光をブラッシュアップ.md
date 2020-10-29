@@ -17,7 +17,7 @@ tags:
 ## 現状
 まず、今のステータスをチェックしましょう。
 速度は、どれどれー
-![改善前](http://wx1.sinaimg.cn/mw690/735d420agy1ge9bxdqvsbj20u0140x6q.jpg)
+![改善前](http://ae06.alicdn.com/kf/Uf58e435f693a45d682815c93618ccd10c.png)
 
 ISP契約としてはソフトバンク光、マンション型、ベストエフォート。  
 理論上は100Mbpsの速度ですが、まぁベストエフォートで60Mbps、そんなもんですかね。  
@@ -36,7 +36,7 @@ ISP契約としてはソフトバンク光、マンション型、ベストエ�
 - 毎日ネットワーク使って仕事するので、長時間の工事はNG
 
 # 改善案
-![改善案](http://wx1.sinaimg.cn/mw690/735d420agy1ge9bww1k01j20x30netd4.jpg)
+![改善案](http://ae03.alicdn.com/kf/U8c298e9286f94cc6929000c588a28721Q.png)
 ﾁｮｯﾄ説明しますね。  
 1. BB Unitのweb管理画面から、DMZ機能を有効化
 1. DMZ用のIPを指定(ここは192.168.3.250を仮定)
@@ -48,7 +48,7 @@ ISP契約としてはソフトバンク光、マンション型、ベストエ�
 1. ↑全部OKだったら、BB UnitのWiFi機能をOFFにしましょう
 
 # 結果
-![改善後](http://wx3.sinaimg.cn/mw690/735d420agy1ge9bx3dgvgj20u0140kjm.jpg)
+![改善後](http://ae01.alicdn.com/kf/Ua4d8ee1ad3914866ab464842d2c149e7t.png)
 
 まぁ...LANケーブル一本のコストでこれくらいの効果だから、万々歳ー  
 ※そもそも100Mbpsベストエフォートの契約だし...  
@@ -56,7 +56,7 @@ ISP契約としてはソフトバンク光、マンション型、ベストエ�
 皆様、すできなテレワークをお過ごしくださいませー
 
 # 助っ人
-![RT-ac68u](http://wx4.sinaimg.cn/mw690/735d420agy1ge9kou1hm1j21400u0x6q.jpg)
+![RT-ac68u](http://ae02.alicdn.com/kf/U10c012173dc343a0afca81f019b40222F.png)
 __ASUS RT-AC68u__  
 オリジナルのfirmwarよりwrt-Merlin firmwareがオススメです。  
 

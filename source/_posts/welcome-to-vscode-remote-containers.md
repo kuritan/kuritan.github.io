@@ -34,7 +34,7 @@ RemoteContainersを使ったら、こんなストレス全部いなくなるん�
 
 1. インストールは割愛させてくださいね（VSCodeのExtensionから検索してからのinstallだけ）
 2. Command Paletteからremoteを検索し、Open Folder in Containerを選択
-   ![extension](http://wx3.sinaimg.cn/mw690/735d420agy1gg0wlrkvuvj20gx02k0sw.jpg)
+   ![extension](http://ae06.alicdn.com/kf/Ud1f160dcd27c4d9e82c06aa2900f5730g.png)
 3. 色んなdocker imageが表示されるが、ここはぼくのブログを例にして、node.js 10をポッチと
 4. ﾁｮｯﾄ処理を待ってから、.devcontainerのディレクトリが作られ、中にはDockerfileとdevcontainer.json２つファイルがあります
 5. VSCodeのメニューバーから[View] -> [Terminal]をクリックし、ターミナルを開けると、今はもうcontainer環境内にいることがわかった
@@ -104,7 +104,7 @@ ENV LANG='ja_jp.utf8'
 
 最後に、今回の更新を書いてる時のVSCode画面キャプチャーの一枚で、締めとしましょう。  
 
-![commit](http://wx2.sinaimg.cn/mw690/735d420agy1gg0x1mar5pj20yg0sk0zl.jpg)
+![commit](http://ae05.alicdn.com/kf/Ud59fdb0a498b4af08b44e40d6fe9bf43Y.png)
 
 
 __みなさんも、Remote-Containersで幸せになりましょう！__
