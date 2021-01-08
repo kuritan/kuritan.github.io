@@ -16,7 +16,7 @@ tags:
 
 今の時点(2020/06)で、まだプレビュー段階のRemoteContainersですが、  
 VSCodeにおいての開発手法に新鮮な風を吹き込んでくれることが間違いなし！  
-![Remote-Containers](http://wx1.sinaimg.cn/mw690/735d420agy1gg0wbhyf3lj20ob05rdgm.jpg)
+![Remote-Containers](docker3.jpg)
 
 こいつのどこがいい？そりゃ環境構築の手間が省けることじゃー  
 こんな話、あったことありますか？  
@@ -34,7 +34,7 @@ RemoteContainersを使ったら、こんなストレス全部いなくなるん�
 
 1. インストールは割愛させてくださいね（VSCodeのExtensionから検索してからのinstallだけ）
 2. Command Paletteからremoteを検索し、Open Folder in Containerを選択
-   ![extension](http://ae06.alicdn.com/kf/Ud1f160dcd27c4d9e82c06aa2900f5730g.png)
+   ![extension](docker2.jpg)
 3. 色んなdocker imageが表示されるが、ここはぼくのブログを例にして、node.js 10をポッチと
 4. ﾁｮｯﾄ処理を待ってから、.devcontainerのディレクトリが作られ、中にはDockerfileとdevcontainer.json２つファイルがあります
 5. VSCodeのメニューバーから[View] -> [Terminal]をクリックし、ターミナルを開けると、今はもうcontainer環境内にいることがわかった
@@ -104,7 +104,7 @@ ENV LANG='ja_jp.utf8'
 
 最後に、今回の更新を書いてる時のVSCode画面キャプチャーの一枚で、締めとしましょう。  
 
-![commit](http://ae05.alicdn.com/kf/Ud59fdb0a498b4af08b44e40d6fe9bf43Y.png)
+![commit](docker1.jpg)
 
 
 __みなさんも、Remote-Containersで幸せになりましょう！__

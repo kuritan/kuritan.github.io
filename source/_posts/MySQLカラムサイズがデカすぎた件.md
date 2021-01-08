@@ -51,7 +51,7 @@ poppler
 ```
 rake db:createしようとしたら、エラー！
 ```
-![UTF_unsupport](http://ae02.alicdn.com/kf/U5d9c612db09c4957a10160c3a04481a77.png)
+![UTF_unsupport](db1.jpg)
 utf charsetサポートされていないって、そんなバカな！
 
 ちょっとconfig/database.ymlをいじってみよう。
@@ -80,7 +80,7 @@ utf -> utf8mb4に変更したらどうだ！喰らえー
 ## column size too large
 またエラーだ！！！  
 今回のエラーメッセージがめちゃくちゃ長い！  
-![column_size_too_large](http://ae02.alicdn.com/kf/Ud187ec87db5a4e45be26d91333f0cbafW.png)
+![column_size_too_large](db2.jpg)
 
 ......むむ......  
 どういう事だ......さっぱりわからん。  
@@ -125,7 +125,7 @@ end
 ## retry!
 直前失敗したので、rake db:migrate:resetにする。
 
-![migrate](http://ae04.alicdn.com/kf/U3aa7ae7f1fc3433fb9492c7536098e9ds.png)
+![migrate](db3.jpg)
 
 やった！！！！！作られた！！！！
 

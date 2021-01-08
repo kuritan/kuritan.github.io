@@ -14,14 +14,14 @@ tags:
 <!--more-->
 
 # 諸々説明
-![Gitpages+HEXO](http://ae06.alicdn.com/kf/U09ec5d9c803f4b4a8f026b9fc00ee55cR.png)
+![Gitpages+HEXO](blog1.jpg)
 
 - [HEXO](https://hexo.io/)は、静的サイトジェネレーターの一つで、かなりシンプルで、今回採用しました。
 - [Github pages](https://pages.github.com/)は、githubの一つの機能で、これを利用すると、静的サイトをgithubドメインで公開可能になります。
 - [Travis-ci](https://travis-ci.org/)は、GitHubと連携できる継続的インテグレーションツールのひとつである。
 
 # このブログの仕組み
-![deploy流れ](http://ae02.alicdn.com/kf/Uc7e2dd16abec4f5fad5cbedab7da3250c.png)
+![deploy流れ](blog2.jpg)
 
 1. githubでrepository新規作成し、branch追加する(pages-branch)。settingでsourceをpages-branchにすることで、同じrepositoryでソースコードも格納できるし、gitpagesも閲覧できるように実現。
 2. hexoのインストール＆configure調整。こちらに関しては、割愛させて頂きます。詳細はgoogle先生に聞いてください。

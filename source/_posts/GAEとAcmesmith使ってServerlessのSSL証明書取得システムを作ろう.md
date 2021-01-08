@@ -31,7 +31,7 @@ __ご存知の通り、SSL証明書の取得って、面倒の塊のようなも
 - [acmesmith-google-cloud-storage](https://github.com/minimum2scp/acmesmith-google-cloud-storage)(google storageに証明書を保存するためのgem)
 
 # どんな構成
-![構成図](http://ae03.alicdn.com/kf/U6db3cce5f9e54964ab0f91f0dffbd394V.png)
+![構成図](ssl.jpg)
 上記の通り、クライアントからリクエストが来たら、まずPATHによって判断されます。  
 管理ページみたい場合、一覧を表示される。apiを利用したい場合、必要によって処理を走り、適当なリスポンスを投げ返す。  
 GAEのcronjob機能を利用し、証明書の有効期限を自動延長します！  
