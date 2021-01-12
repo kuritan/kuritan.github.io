@@ -8,7 +8,8 @@ tags:
 ---
 ## Profile
 - 社会人6年目
-- SRE
+- Role: Site Reliability Engineer
+- Aboutme: https://matilde-lab.com/
 - Blog: https://kuritan.github.io
 - Github: https://github.com/kuritan
 <!--more-->
@@ -20,8 +21,8 @@ tags:
 >Networkアプライアンスメーカーのプリセールス経験 1年+
 
 ### DevOps Skill
-- AWS, GCP, IDCF
-- kubernetes(EKS, GKE, Rancher), OpenStack
+- PublicCloud(ex. AWS, GCP, IDCF)
+- kubernetes(ex. EKS, GKE, Rancher)
 - Terraform, Ansible, Chef(Itamae), Packer
 - Ruby On Rails, Python, Shell
 - Mackerel, Zabbix, Pagerduty, NewRelic
