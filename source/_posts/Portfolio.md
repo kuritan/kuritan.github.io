@@ -33,9 +33,9 @@ tags:
 - etc.
 
 ### Tech Blog
-- [俺のblogはこうやってデプロイ](https://kuritan.github.io/2018/09/10/%E4%BF%BA%E3%81%AEblog%E3%81%AF%E3%81%93%E3%81%86%E3%82%84%E3%81%A3%E3%81%A6%E3%83%87%E3%83%97%E3%83%AD%E3%82%A4/)
-- [AWS ConfigとLambda使って全開放ポート(0.0.0.0/0に向けた)を抹殺しよう](https://kuritan.github.io/2019/11/07/AWS-Config%E3%81%A8Lambda%E4%BD%BF%E3%81%A3%E3%81%A6%E5%85%A8%E9%96%8B%E6%94%BE%E3%83%9D%E3%83%BC%E3%83%88-0-0-0-0-0-%E3%82%92%E6%8A%B9%E6%AE%BA%E3%81%97%E3%82%88%E3%81%86/)
-- [Gitlab→AWS ECSクラスタのCI/CDパイプライン](https://kuritan.github.io/2020/02/03/Gitlab%E2%86%92AWS-ECS%E3%82%AF%E3%83%A9%E3%82%B9%E3%82%BF%E3%81%AECI-CD%E3%83%91%E3%82%A4%E3%83%97%E3%83%A9%E3%82%A4%E3%83%B3/)
+- [俺のblogはこうやってデプロイ](https://kuritan.github.io/%E4%BF%BA%E3%81%AEblog%E3%81%AF%E3%81%93%E3%81%86%E3%82%84%E3%81%A3%E3%81%A6%E3%83%87%E3%83%97%E3%83%AD%E3%82%A4/)
+- [AWS ConfigとLambda使って全開放ポート(0.0.0.0/0に向けた)を抹殺しよう](https://kuritan.github.io/AWS-Config%E3%81%A8Lambda%E4%BD%BF%E3%81%A3%E3%81%A6%E5%85%A8%E9%96%8B%E6%94%BE%E3%83%9D%E3%83%BC%E3%83%88-0-0-0-0-0-%E3%82%92%E6%8A%B9%E6%AE%BA%E3%81%97%E3%82%88%E3%81%86/)
+- [Gitlab→AWS ECSクラスタのCI/CDパイプライン](https://kuritan.github.io/gitlab-ecs-ci-cd/)
 - [etc.](https://kuritan.github.io/)
 
 ### Facility & Appliance
