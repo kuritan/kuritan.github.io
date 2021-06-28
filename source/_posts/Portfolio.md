@@ -66,7 +66,8 @@ tags:
 
 ## 職務経歴(現職)
 ### 某上場ソーシャルゲーム会社(2019/04~)
-#### SRE部署(正社員)
+#### Senior SRE(2021/04~)
+#### SRE部 エンジニア(2019/04~2021/03)
 - クラウド：AWS,GCP,IDCF,IIJ GIO
 - OS：CentOS
 - ミドルウェア：MySQL,Redis,Memcached等
