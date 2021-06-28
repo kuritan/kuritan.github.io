@@ -7,7 +7,7 @@ tags:
  - Work
 ---
 ## Profile
-- 社会人6年目
+- 社会人8年目
 - Role: Site Reliability Engineer
 - Aboutme: https://matilde-lab.com/
 - Blog: https://kuritan.github.io
@@ -16,18 +16,18 @@ tags:
 
 ## PR(TL;DR)
 >某上場IT企業でSRE（SiteReliabilityEngineer）をやっております  
->オンプレミス・クラウド環境企画・構築・運用・監視・DevOps 経験あり  
+>パブリッククラウド・オンプレミス環境企画・構築・運用・監視・DevOps 経験5年+  
 >ユーザ系エンタープライズ企業情シス担当経験 3年+  
 >Networkアプライアンスメーカーのプリセールス経験 1年+
 
 ### DevOps Skill
-- PublicCloud(ex. AWS, GCP, IDCF)
-- kubernetes(ex. EKS, GKE, Rancher)
+- Public Cloud(e.g. AWS, GCP, IDCF)
+- kubernetes(e.g. EKS, GKE, Rancher)
 - Terraform, Ansible, Chef(Itamae), Packer
-- Ruby On Rails, Python, Shell
-- Mackerel, Zabbix, Pagerduty, NewRelic
+- Ruby(On Rails), Python, Go, Shell
+- Mackerel, Zabbix, Pagerduty, NewRelic, Sentry
 - Fluentd, TreasureData
-- MySQL, Redis, Memcached
+- MySQL, Redis, Memcached, Spanner
 - Vagrant, Docker
 - Github, Gitlab Administrator
 - etc.
@@ -37,6 +37,16 @@ tags:
 - [AWS ConfigとLambda使って全開放ポート(0.0.0.0/0に向けた)を抹殺しよう](https://kuritan.github.io/AWS-Config%E3%81%A8Lambda%E4%BD%BF%E3%81%A3%E3%81%A6%E5%85%A8%E9%96%8B%E6%94%BE%E3%83%9D%E3%83%BC%E3%83%88-0-0-0-0-0-%E3%82%92%E6%8A%B9%E6%AE%BA%E3%81%97%E3%82%88%E3%81%86/)
 - [Gitlab→AWS ECSクラスタのCI/CDパイプライン](https://kuritan.github.io/gitlab-ecs-ci-cd/)
 - [etc.](https://kuritan.github.io/)
+
+### Coding
+- Shell実務経験あり(5年+)
+- Python実務経験あり(4年+)
+- TerraformによるInfrastructure as Code経験(3年+)
+- Ruby(On Rails), Golang, JavaScript微経験
+
+### Tech Coaching
+- 駆け出しエンジニアのOJT担当
+- 新卒エンジニアメンター
 
 ### Facility & Appliance
 - データセンター経験
@@ -53,15 +63,6 @@ tags:
 - クライアント
   - Windows/Mac/Linux
 - etc.
-
-### Tech Coaching
-- 駆け出しエンジニアのOJT担当
-
-### Coding
-- Shell実務経験あり(3年+)
-- Python実務経験あり(2年+)
-- TerraformによるInfrastructure as Code(1年+)
-- RubyOnRails, Golang, JavaScript微経験
 
 ## 職務経歴(現職)
 ### 某上場ソーシャルゲーム会社(2019/04~)
