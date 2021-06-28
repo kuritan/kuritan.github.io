@@ -66,18 +66,18 @@ tags:
 
 ## 職務経歴(現職)
 ### 某上場ソーシャルゲーム会社(2019/04~)
-#### Senior SRE(2021/04~)
-#### SRE部 エンジニア(2019/04~2021/03)
-- クラウド：AWS,GCP,IDCF,IIJ GIO
-- OS：CentOS
-- ミドルウェア：MySQL,Redis,Memcached等
-- チャット：Chatwork
-- 情報共有：Confluence
-- コード管理：Gitlab,Github enterprise
-- 仮想化：Vagrant,Docker,Kubernetes
-- 監視：Mackerel,Zabbix,Consul
-- 構成管理：Terraform,Chef,Ansible等
-  - Infrastructure as Codeをポリシーとした構成管理を行っています。
+- Senior SRE(2021/04~)
+- SRE部 エンジニア(2019/04~2021/03)
+  - クラウド：AWS,GCP,IDCF,IIJ GIO
+  - OS：CentOS
+  - ミドルウェア：MySQL,Redis,Memcached等
+  - チャット：Chatwork
+  - 情報共有：Confluence
+  - コード管理：Gitlab,Github enterprise
+  - 仮想化：Vagrant,Docker,Kubernetes
+  - 監視：Mackerel,Zabbix,Consul
+  - 構成管理：Terraform,Chef,Ansible等
+    - Infrastructure as Codeをポリシーとした構成管理を行っています。
 
 ## 職務経歴(過去)
 ### 某上場ITサービス会社(2017/10~2019/03)
