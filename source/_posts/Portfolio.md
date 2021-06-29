@@ -44,6 +44,11 @@ tags:
 - TerraformによるInfrastructure as Code経験(3年+)
 - Ruby(On Rails), Golang, JavaScript微経験
 
+### Language
+- Japanese(N1, ビジネス以上、ネイティブ未満)
+- English(TOEIC 835)
+- Mandarin(Native)
+
 ### Tech Coaching
 - 駆け出しエンジニアのOJT担当
 - 新卒エンジニアメンター
