@@ -6,13 +6,13 @@ notshow: true
 tags:  
  - JP
  - Work
-password: SparklingWater
+password: Password
 abstract: Password, Please.
 message: Sorry, it's personal stuff.
 ---
 
 ## Profile
-- 社会人6年目
+- 社会人8年目
 - SRE
 - Name: Zhai Yujia(ざい　うか、ザイ雨佳)
 - Nationality: Chinese（中国）
@@ -21,10 +21,10 @@ message: Sorry, it's personal stuff.
 <!--more-->
 
 ## PR(TL;DR)
->上場IT企業でSRE（SiteReliabilityEngineer）をやっております  
->オンプレミス・クラウド環境企画・構築・運用・監視・DevOps  
->また、ユーザ系エンタープライズ企業情シス担当経験 3年  
->プラス、ITアプライアンスメーカーのプリセールス経験 1年
+>某上場IT企業でSRE（SiteReliabilityEngineer）をやっております  
+>パブリッククラウド・オンプレミス環境企画・構築・運用・監視・DevOps 経験5年+  
+>ユーザ系エンタープライズ企業情シス担当経験 3年+  
+>Networkアプライアンスメーカーのプリセールス経験 1年+
 >
 >大学は理系ですが、独学で日本語を勉強し、資格も取得(日本語能力試験N1)
 >卒業後ゲーム会社で翻訳の仕事をやりつつ、VBAによる業務効率化も図った
@@ -42,6 +42,16 @@ message: Sorry, it's personal stuff.
 - Github, Gitlab Administrator
 - etc.
 
+### Coding
+- Shell実務経験あり(5年+)
+- Python実務経験あり(4年+)
+- TerraformによるInfrastructure as Code経験(3年+)
+- Ruby(On Rails), Golang, JavaScript微経験
+
+### Tech Coaching
+- 駆け出しエンジニアのOJT担当
+- 新卒エンジニアメンター
+
 ### ハードウェア
 - データセンター経験
   - 3U アプライアンスまで
@@ -58,27 +68,20 @@ message: Sorry, it's personal stuff.
   - Windows/Mac/Linux
 - etc.
 
-### エンジニア育成
-- 新卒エンジニアのOJT担当
-
-### コード関連
-- shell実務経験あり(3年+)
-- python実務経験あり(2年+)
-- terraformによるInfrastructure as Code(1年+)
-
 ## 職務経歴(現職)
 ### 株式会社ドリコム(2019/04~)
-#### SRE部署
-- クラウド：AWS,GCP,IDCF,IIJ GIO
-- OS：CentOS
-- ミドルウェア：MySQL,Redis,Memcached等
-- チャット：Chatwork
-- 情報共有：Confluence
-- コード管理：Gitlab,Github enterprise
-- 仮想化：Vagrant,Docker,Kubernetes
-- 監視：Mackerel,Zabbix,Consul
-- 構成管理：Terraform,Chef,Ansible等
-  - Infrastructure as Codeをポリシーとした構成管理を行っています。
+- Senior SRE(2021/04~)
+- SRE部 エンジニア(2019/04~2021/03)
+  - クラウド：AWS,GCP,IDCF,IIJ GIO
+  - OS：CentOS
+  - ミドルウェア：MySQL,Redis,Memcached等
+  - チャット：Chatwork
+  - 情報共有：Confluence
+  - コード管理：Gitlab,Github enterprise
+  - 仮想化：Vagrant,Docker,Kubernetes
+  - 監視：Mackerel,Zabbix,Consul
+  - 構成管理：Terraform,Chef,Ansible等
+    - Infrastructure as Codeをポリシーとした構成管理を行っています。
 
 ## 職務経歴(過去)
 ### パーソルテクノロジースタッフ株式会社(2017/10~2019/03)
