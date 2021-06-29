@@ -13,9 +13,10 @@ message: Sorry, it's personal stuff.
 
 ## Profile
 - 社会人8年目
-- SRE
-- Name: Zhai Yujia(ざい　うか、ザイ雨佳)
+- Name: Zhai Yujia(ざい うか、翟 雨佳)
 - Nationality: Chinese（中国）
+- Role: Senior Site Reliability Engineer
+- Aboutme: https://matilde-lab.com/
 - Blog: https://kuritan.github.io
 - Github: https://github.com/kuritan
 <!--more-->
