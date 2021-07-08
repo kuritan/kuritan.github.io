@@ -1,7 +1,7 @@
 ---
 title: 俺のblogはこうやってデプロイ
 date: 2018-09-10 20:41:36
-categories: infra
+categories: dev
 tags:
 - github
 - JP

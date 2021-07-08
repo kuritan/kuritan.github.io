@@ -1,7 +1,7 @@
 ---
 title: GAEとAcmesmith使ってServerlessのSSL証明書取得システムを作ろう
 date: 2019-06-20 18:04:12
-categories: infra
+categories: dev
 tags:
 
  - JP

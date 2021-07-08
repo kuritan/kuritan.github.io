@@ -1,7 +1,7 @@
 ---
 title: chatworkとlambdaでセルフサービスしようぜ
 date: 2021-04-21 11:52:17
-categories: infra
+categories: dev
 tags:
 - JP
 - aws

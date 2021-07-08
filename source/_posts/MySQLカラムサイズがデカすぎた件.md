@@ -1,7 +1,7 @@
 ---
 title: MySQLカラムサイズがデカすぎた件
 date: 2019-12-05 15:32:01
-categories: infra
+categories: dev
 tags:
 - JP
 - database

@@ -1,7 +1,7 @@
 ---
 title: Gyazo(SS超便利に共有するサービス)をサーバレスで構築しますー
 date: 2019-06-02 12:32:24
-categories: infra
+categories: dev
 tags:
 
  - JP
