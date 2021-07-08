@@ -1,5 +1,5 @@
 ---
-title: "Capistranoでデプロイする際にCould not parse PKey: no start lineで困った件"
+title: "Capistranoデプロイする際にCould not parse PKey: no start lineで困った件"
 date: 2021-07-08 14:15:54
 categories: dev
 tags:
@@ -32,7 +32,7 @@ The deploy has failed with an error: Exception while executing on host <host-add
 困ったなぁ〜  
 
 # ググったら?
-そりゃやりますね〜  
+そりゃやりますよ〜  
 まず、こちらのページにたどり着けました。  
 - [Capistranoでの配備時に`Could not parse PKey: no start line`エラーが発生した時の対処法](https://qiita.com/kadoppe/items/ed1e9c6b75cb7e676322)
 
@@ -53,8 +53,8 @@ public鍵ちゃんとありますよ〜
 $ ssh-add ~/.ssh/id_rsa
 $ bundle exec cap staging deploy
 ...
-...
-...
+......
+.........
 INFO [43d9f003] Finished in 0.045 seconds with exit status 0 (successful).
 ```
 
