@@ -12,19 +12,20 @@ tags:
 - Aboutme: https://matilde-lab.com/
 - Blog: https://kuritan.github.io
 - Github: https://github.com/kuritan
+- Linkedin: https://www.linkedin.com/in/yujia-zhai-kuritan/
 <!--more-->
 
 ## PR(TL;DR)
->某上場IT企業でSRE（SiteReliabilityEngineer）をやっております  
+>某上場Web企業でSRE（SiteReliabilityEngineer）をやっております  
 >パブリッククラウド・オンプレミス環境企画・構築・運用・監視・DevOps 経験5年+  
 >ユーザ系エンタープライズ企業情シス担当経験 3年+  
 >Networkアプライアンスメーカーのプリセールス経験 1年+
 
 ### DevOps Skill
 - Public Cloud(e.g. AWS, GCP, IDCF)
-- kubernetes(e.g. EKS, GKE, Rancher)
+- kubernetes(e.g. EKS, GKE, Rancher), Kustomize, Argocd
 - Terraform, Ansible, Chef(Itamae), Packer
-- Ruby(On Rails), Python, Go, Shell
+- Python, ruby(On Rails), Go, Shell
 - Mackerel, Zabbix, Pagerduty, NewRelic, Sentry
 - Fluentd, TreasureData
 - MySQL, Redis, Memcached, Spanner
@@ -42,7 +43,7 @@ tags:
 - Shell実務経験あり(5年+)
 - Python実務経験あり(4年+)
 - TerraformによるInfrastructure as Code経験(3年+)
-- Ruby(On Rails), Golang, JavaScript微経験
+- Ruby(On Rails), Golang微経験
 
 ### Language
 - Japanese(N1, ビジネス以上、ネイティブ未満)
