@@ -16,10 +16,10 @@ tags:
 <!--more-->
 
 ## PR(TL;DR)
->某上場Web企業でSRE（SiteReliabilityEngineer）をやっております  
+>某上場Web企業でSenior SRE（SiteReliabilityEngineer）をやっております  
 >パブリッククラウド・オンプレミス環境企画・構築・運用・監視・DevOps 経験5年+  
->ユーザ系エンタープライズ企業情シス担当経験 3年+  
->Networkアプライアンスメーカーのプリセールス経験 1年+
+>&& ユーザ系エンタープライズ企業情シス担当経験 3年+  
+>&& Networkアプライアンスメーカーのプリセールス経験 1年+
 
 ### DevOps Skill
 - Public Cloud(e.g. AWS, GCP, IDCF)
