@@ -26,9 +26,11 @@ tags:
 - kubernetes(e.g. EKS, GKE, Rancher), Kustomize, Argocd
 - Terraform, Ansible, Chef(Itamae), Packer
 - Python, ruby(On Rails), Go, Shell
+- Circleci, Travis-CI, Gitlab-CI
 - Mackerel, Zabbix, Pagerduty, NewRelic, Sentry
 - Fluentd, TreasureData
 - MySQL, Redis, Memcached, Spanner
+- Nginx, Envoy
 - Vagrant, Docker
 - Github, Gitlab Administrator
 - etc.
