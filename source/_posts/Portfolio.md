@@ -25,14 +25,14 @@ tags:
 - Public Cloud(e.g. AWS, GCP, IDCF)
 - kubernetes(e.g. EKS, GKE, Rancher), Kustomize, Argocd
 - Terraform, Ansible, Chef(Itamae), Packer
-- Python, ruby(On Rails), Go, Shell
+- Python, Ruby(On Rails), Go, Shell
 - Circleci, Travis-CI, Gitlab-CI
-- Mackerel, Zabbix, Pagerduty, NewRelic, Sentry
+- Mackerel, Zabbix, Pagerduty, NewRelic, Sentry, Datadog
 - Fluentd, TreasureData
 - MySQL, Redis, Memcached, Spanner
 - Nginx, Envoy
 - Vagrant, Docker
-- Github, Gitlab Administrator
+- Github, Gitlab(As a Administrator)
 - etc.
 
 ### Tech Blog
