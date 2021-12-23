@@ -9,6 +9,7 @@ tags:
 ## Profile
 - 社会人8年目
 - Role: Site Reliability Engineer
+- Google Cloud Certified Professional Cloud Developer
 - Aboutme: https://matilde-lab.com/
 - Blog: https://kuritan.github.io
 - Github: https://github.com/kuritan
