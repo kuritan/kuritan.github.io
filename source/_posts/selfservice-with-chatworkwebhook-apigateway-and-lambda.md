@@ -498,26 +498,26 @@ def bot_message(account_id: int, room_id: int, message_id: str, message_type: st
         message = "Always a great pleasure."
     elif message_type is 'nohit':
         message = '''
-        [info][title]作業失敗[/title]
-        BANリストに載ってないみたいので、
-        もう一度接続をお試しください。
-        駄目でしたら、SREメンバーまでご連絡ください。[/info]
-        '''.strip()
+[info][title]作業失敗[/title]
+BANリストに載ってないみたいので、
+もう一度接続をお試しください。
+駄目でしたら、SREメンバーまでご連絡ください。[/info]
+'''.strip()
     elif message_type is "hit":
         message = '''
-        [info][title]作業成功[/title]
-        解除しました!!!
-        Retryをお願いしまーす[/info]
-        '''.strip()
+[info][title]作業成功[/title]
+解除しました!!!
+Retryをお願いしまーす[/info]
+'''.strip()
     else:
         message = '''
-        [info][title]もしやBAN解除したいの？[/title]
-        - SSHブロック通知部屋の該当BAN通知メッセージを引用し、私にTOしてください
-        - 直接Global IPを私にTOしてください
-            - https://www.cman.jp/network/support/go_access.cgi
-            - ここで表示されたIPの事
-        - それでも駄目だったら、SREメンバーにお尋ねください[/info]
-        '''.strip()
+[info][title]もしやBAN解除したいの？[/title]
+- SSHブロック通知部屋の該当BAN通知メッセージを引用し、私にTOしてください
+- 直接Global IPを私にTOしてください
+    - https://www.cman.jp/network/support/go_access.cgi
+    - ここで表示されたIPの事
+- それでも駄目だったら、SREメンバーにお尋ねください[/info]
+'''.strip()
 
     reply_message = "[rp aid=%s to=%s-%s]%s" % (account_id, room_id, message_id, message)
     post_message_url = "%s/rooms/%s/messages" % (endpoint, room_id)
