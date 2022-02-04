@@ -1,11 +1,12 @@
 ---
 title: Argocdで自家製マスターデータ管理を
-date: 2022-02-03 15:37:41
+date: 2022-02-04 11:37:41
 categories: dev
 tags:
 - JP
 - k8s
 ---
+
 ちょっと開発よりのネタをお話できればと、今回思ってましたね。  
 k8s(GKE)を触りつつ、バックエンドのロジックにも関わりまして、モバイルゲームの開発として、  
 やっぱ避けられないのはマスターデータの管理と思い、  
@@ -63,7 +64,8 @@ k8s(GKE)を触りつつ、バックエンドのロジックにも関わりまし
 
 ##### 豆知識
 
-API経由でCircleCIをキックする時、利用するtokenはPersonal API Tokenでないと動けない！
+API経由でCircleCIをキックする時、利用するtokenはPersonal API Tokenでないと動けない！！！  
+
 - [Note: keep in mind that you have to use a personal API token; project tokens are currently not supported on CircleCI API (v2).](https://support.circleci.com/hc/en-us/articles/360050351292-How-to-trigger-a-workflow-via-CircleCI-API-v2)
 - [Personal API Token](https://app.circleci.com/settings/user/tokens)
 - [CircleCI API doc](https://circleci.com/docs/api/v2/#operation/triggerPipeline)
