@@ -7,7 +7,7 @@ tags:
  - Work
 ---
 ## Profile
-- 社会人8年目
+- 社会人9年目
 - Role: Site Reliability Engineer
 - Google Cloud Certified Professional Cloud Developer
 - Aboutme: https://matilde-lab.com/
@@ -23,6 +23,7 @@ tags:
 >&& Networkアプライアンスメーカーのプリセールス経験 1年+
 
 ### DevOps Skill
+
 - Public Cloud(e.g. AWS, GCP, IDCF)
 - kubernetes(e.g. EKS, GKE, Rancher), Kustomize, Argocd
 - Terraform, Ansible, Chef(Itamae), Packer
@@ -37,44 +38,47 @@ tags:
 - etc.
 
 ### Tech Blog
-- [俺のblogはこうやってデプロイ](https://kuritan.github.io/%E4%BF%BA%E3%81%AEblog%E3%81%AF%E3%81%93%E3%81%86%E3%82%84%E3%81%A3%E3%81%A6%E3%83%87%E3%83%97%E3%83%AD%E3%82%A4/)
-- [AWS ConfigとLambda使って全開放ポート(0.0.0.0/0に向けた)を抹殺しよう](https://kuritan.github.io/AWS-Config%E3%81%A8Lambda%E4%BD%BF%E3%81%A3%E3%81%A6%E5%85%A8%E9%96%8B%E6%94%BE%E3%83%9D%E3%83%BC%E3%83%88-0-0-0-0-0-%E3%82%92%E6%8A%B9%E6%AE%BA%E3%81%97%E3%82%88%E3%81%86/)
+
+- [Argocdで自家製マスターデータ管理を](https://kuritan.github.io/master-data-management-via-argocd/)
 - [Gitlab→AWS ECSクラスタのCI/CDパイプライン](https://kuritan.github.io/gitlab-ecs-ci-cd/)
+- [Assume roleでクロスアカウントのAWSリソースを弄ろう](https://kuritan.github.io/bidirectional-assume-role-for-aws/)
+- [chatworkとlambdaでセルフサービスしようぜwith terraform](https://kuritan.github.io/selfservice-with-chatworkwebhook-apigateway-and-lambda/)
 - [etc.](https://kuritan.github.io/)
 
 ### Coding
+
 - Shell実務経験あり(5年+)
 - Python実務経験あり(4年+)
 - TerraformによるInfrastructure as Code経験(3年+)
 - Ruby(On Rails), Golang微経験
 
 ### Language
+
 - Japanese(N1, ビジネス以上、ネイティブ未満)
 - English(TOEIC 835)
 - Mandarin(Native)
 
 ### Tech Coaching
+
 - 駆け出しエンジニアのOJT担当
 - 新卒エンジニアメンター
 
 ### Facility & Appliance
+
 - データセンター経験
   - 3U アプライアンスまで
   - 5 ラックまで
-- ネットワーク
+- 機器
   - Cisco 2960シリーズ/Yamaha RTX1200・WLX402/Juniper SRXシリーズ
-- サーバ
   - Dell PowerEdgeシリーズ/HP ProLiantシリーズ
-- セキュリティ
   - Fortinet/Sophos/SonicWall
-- ストレージ
   - HP 3par/DELL NX3230
-- クライアント
-  - Windows/Mac/Linux
 - etc.
 
 ## 職務経歴(現職)
+
 ### 某上場ソーシャルゲーム会社(2019/04~)
+
 - Senior SRE(2021/04~)
 - SRE部 エンジニア(2019/04~2021/03)
   - クラウド：AWS,GCP,IDCF,IIJ GIO
@@ -89,7 +93,9 @@ tags:
     - Infrastructure as Codeをポリシーとした構成管理を行っています。
 
 ## 職務経歴(過去)
+
 ### 某上場ITサービス会社(2017/10~2019/03)
+
 - オンラインストーレジシステム
   - AWSをベースにしたシステム企画・構築・運用・監視
   - セキュリティを考慮したアーキテクチャー設計
@@ -105,6 +111,7 @@ tags:
 - 駆け出しエンジニアのOJT担当
 
 ### 某上場ネットワークアプライアンスメーカー(2016/09~2017/09)
+
 - プリセールスエンジニアとして、業務遂行
   - 製品・ソリューションの資料作成
   - お客様へのプレゼンテーション
@@ -112,6 +119,7 @@ tags:
 - 競合他社製品評価
 
 ### 某自動車部品メーカー(2015/05~2016/09)
+
 - 社内統括IT担当
   - 多拠点すべてのITシステム運用
   - 新規サーバ・ネットワーク機器・システムの企画・導入
