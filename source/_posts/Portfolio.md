@@ -60,6 +60,7 @@ tags:
 
 ### Tech Coaching
 
+- [Junior IT infrastructure engineer & DevOps engineer & SRE向けのTerraform入門workshop](https://github.com/drecom/terraform-onboarding)
 - 駆け出しエンジニアのOJT担当
 - 新卒エンジニアメンター
 
