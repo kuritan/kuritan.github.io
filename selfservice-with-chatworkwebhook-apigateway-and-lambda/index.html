@@ -1,0 +1,1014 @@
+<!DOCTYPE html>
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+
+<html class="theme-next gemini use-motion" lang="en">
+<head><meta name="generator" content="Hexo 3.9.0">
+  <meta charset="UTF-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#222">
+
+
+
+
+
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform">
+<meta http-equiv="Cache-Control" content="no-siteapp">
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css">
+
+<link href="/css/main.css?v=6.4.0" rel="stylesheet" type="text/css">
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images-cache/apple-touch-icon.JPG?v=6.4.0">
+
+
+  <link rel="icon" type="image/png" sizes="32x32" href="/images-cache/favicon-32x32.JPG?v=6.4.0">
+
+
+  <link rel="icon" type="image/png" sizes="16x16" href="/images-cache/favicon-16x16.JPG?v=6.4.0">
+
+
+  <link rel="mask-icon" href="/images/logo.svg?v=6.4.0" color="#222">
+
+
+
+
+
+
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Gemini',
+    version: '6.4.0',
+    sidebar: {"position":"left","display":"always","offset":12,"b2t":true,"scrollpercent":true,"onmobile":true},
+    fancybox: false,
+    fastclick: false,
+    lazyload: false,
+    tabs: true,
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+  
+
+
+
+
+  <meta name="description" content="ニーズDoS攻撃などを防止するため、sshguardを標準装備として各本番サーバにはインストールされている。昨今、リモートワークが当たり前になって、従業員からのアクセスをBANされたケースが多発され（特にgitまわり）、そのBANのIPの解除はSREメンバーが都度手動でしないといけない状況になっています。エンジニアのtoil撲滅の一環として、これらの作業をセルフサービス化としたいのは今回のゴールで">
+<meta name="keywords" content="JP,python,aws">
+<meta property="og:type" content="article">
+<meta property="og:title" content="chatworkとlambdaでセルフサービスしようぜ">
+<meta property="og:url" content="http://kuritan.github.io/selfservice-with-chatworkwebhook-apigateway-and-lambda/index.html">
+<meta property="og:site_name" content="ビールのおつまみに">
+<meta property="og:description" content="ニーズDoS攻撃などを防止するため、sshguardを標準装備として各本番サーバにはインストールされている。昨今、リモートワークが当たり前になって、従業員からのアクセスをBANされたケースが多発され（特にgitまわり）、そのBANのIPの解除はSREメンバーが都度手動でしないといけない状況になっています。エンジニアのtoil撲滅の一環として、これらの作業をセルフサービス化としたいのは今回のゴールで">
+<meta property="og:locale" content="en">
+<meta property="og:image" content="http://kuritan.github.io/selfservice-with-chatworkwebhook-apigateway-and-lambda/%E3%82%A2%E3%83%BC%E3%82%AD%E3%83%86%E3%82%AF%E3%83%81%E3%83%A3.png">
+<meta property="og:updated_time" content="2022-07-17T03:45:57.580Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="chatworkとlambdaでセルフサービスしようぜ">
+<meta name="twitter:description" content="ニーズDoS攻撃などを防止するため、sshguardを標準装備として各本番サーバにはインストールされている。昨今、リモートワークが当たり前になって、従業員からのアクセスをBANされたケースが多発され（特にgitまわり）、そのBANのIPの解除はSREメンバーが都度手動でしないといけない状況になっています。エンジニアのtoil撲滅の一環として、これらの作業をセルフサービス化としたいのは今回のゴールで">
+<meta name="twitter:image" content="http://kuritan.github.io/selfservice-with-chatworkwebhook-apigateway-and-lambda/%E3%82%A2%E3%83%BC%E3%82%AD%E3%83%86%E3%82%AF%E3%83%81%E3%83%A3.png">
+
+
+
+  <link rel="alternate" href="/atom.xml" title="ビールのおつまみに" type="application/atom+xml">
+
+
+
+
+  <link rel="canonical" href="http://kuritan.github.io/selfservice-with-chatworkwebhook-apigateway-and-lambda/">
+
+
+
+<script type="text/javascript" id="page.configurations">
+  CONFIG.page = {
+    sidebar: "",
+  };
+</script>
+
+  <title>chatworkとlambdaでセルフサービスしようぜ | ビールのおつまみに</title>
+  
+
+
+
+
+<script async src="https://www.googletagmanager.com/gtag/js?id=UA-119591036-1"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+
+  gtag('config', 'UA-119591036-1');
+</script>
+
+
+
+
+
+
+  <noscript>
+  <style type="text/css">
+    .use-motion .motion-element,
+    .use-motion .brand,
+    .use-motion .menu-item,
+    .sidebar-inner,
+    .use-motion .post-block,
+    .use-motion .pagination,
+    .use-motion .comments,
+    .use-motion .post-header,
+    .use-motion .post-body,
+    .use-motion .collection-title { opacity: initial; }
+
+    .use-motion .logo,
+    .use-motion .site-title,
+    .use-motion .site-subtitle {
+      opacity: initial;
+      top: initial;
+    }
+
+    .use-motion {
+      .logo-line-before i { left: initial; }
+      .logo-line-after i { right: initial; }
+    }
+  </style>
+</noscript>
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="en">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail">
+    <div class="headband"></div>
+    
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/" class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">ビールのおつまみに</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+    
+      
+        <p class="site-subtitle">リモート副業探しています</p>
+      
+    
+  </div>
+
+  <div class="site-nav-toggle">
+    <button aria-label="Toggle navigation bar">
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+
+
+<nav class="site-nav">
+  
+    <ul id="menu" class="menu">
+      
+        
+        
+        
+          
+          <li class="menu-item menu-item-home">
+    <a href="/" rel="section">
+      <i class="menu-item-icon fa fa-fw fa-home"></i> <br>Home</a>
+  </li>
+        
+        
+        
+          
+          <li class="menu-item menu-item-tags">
+    <a href="/tags/" rel="section">
+      <i class="menu-item-icon fa fa-fw fa-tags"></i> <br>Tags<span class="badge">26</span></a>
+  </li>
+        
+        
+        
+          
+          <li class="menu-item menu-item-categories">
+    <a href="/categories/" rel="section">
+      <i class="menu-item-icon fa fa-fw fa-th"></i> <br>Categories<span class="badge">4</span></a>
+  </li>
+        
+        
+        
+          
+          <li class="menu-item menu-item-archives">
+    <a href="/archives/" rel="section">
+      <i class="menu-item-icon fa fa-fw fa-archive"></i> <br>Archives<span class="badge">30</span></a>
+  </li>
+
+      
+      
+    </ul>
+  
+
+  
+
+  
+</nav>
+
+
+
+  
+
+
+
+</div>
+    </header>
+
+    
+  
+  
+  
+    
+      
+    
+    <a href="https://github.com/kuritan" class="github-corner" target="_blank" title="Follow me on GitHub" aria-label="Follow me on GitHub"><svg width="80" height="80" viewbox="0 0 250 250" style="fill:#222; color:#fff; position: absolute; top: 0; border: 0; right: 0;" aria-hidden="true"><path d="M0,0 L115,115 L130,115 L142,142 L250,250 L250,0 Z"/><path d="M128.3,109.0 C113.8,99.7 119.0,89.6 119.0,89.6 C122.0,82.7 120.5,78.6 120.5,78.6 C119.2,72.0 123.4,76.3 123.4,76.3 C127.3,80.9 125.5,87.3 125.5,87.3 C122.9,97.6 130.6,101.9 134.4,103.2" fill="currentColor" style="transform-origin: 130px 106px;" class="octo-arm"/><path d="M115.0,115.0 C114.9,115.1 118.7,116.5 119.8,115.4 L133.7,101.6 C136.9,99.2 139.9,98.4 142.2,98.6 C133.8,88.0 127.5,74.4 143.8,58.0 C148.5,53.4 154.0,51.2 159.7,51.0 C160.3,49.4 163.2,43.6 171.4,40.1 C171.4,40.1 176.1,42.5 178.8,56.2 C183.1,58.6 187.2,61.8 190.9,65.4 C194.5,69.0 197.7,73.2 200.1,77.6 C213.8,80.2 216.3,84.9 216.3,84.9 C212.7,93.1 206.9,96.0 205.4,96.6 C205.1,102.4 203.0,107.8 198.3,112.5 C181.9,128.9 168.3,122.5 157.7,114.1 C157.9,116.9 156.7,120.9 152.7,124.9 L141.0,136.5 C139.8,137.7 141.6,141.9 141.8,141.8 Z" fill="currentColor" class="octo-body"/></svg>
+    
+      </a>
+    
+
+
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          
+            
+
+          
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://kuritan.github.io/selfservice-with-chatworkwebhook-apigateway-and-lambda/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="kuritan">
+      <meta itemprop="description" content="情報弱者、ギガ難民">
+      <meta itemprop="image" content="/images-cache/avatar.JPG">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="ビールのおつまみに">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">chatworkとlambdaでセルフサービスしようぜ
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+
+            
+            
+            
+
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">Posted on</span>
+              
+
+              
+                
+              
+
+              <time title="Created: 2021-04-21 11:52:17" itemprop="dateCreated datePublished" datetime="2021-04-21T11:52:17+09:00">2021-04-21</time>
+            
+
+            
+              
+
+              
+                
+                <span class="post-meta-divider">|</span>
+                
+
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-calendar-check-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">Edited on</span>
+                
+                <time title="Modified: 2022-07-17 12:45:57" itemprop="dateModified" datetime="2022-07-17T12:45:57+09:00">2022-07-17</time>
+              
+            
+          </span>
+
+          
+            <span class="post-category">
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">In</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing"><a href="/categories/dev/" itemprop="url" rel="index"><span itemprop="name">dev</span></a></span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <h1 id="ニーズ"><a href="#ニーズ" class="headerlink" title="ニーズ"></a>ニーズ</h1><p>DoS攻撃などを防止するため、sshguardを標準装備として各本番サーバにはインストールされている。<br>昨今、リモートワークが当たり前になって、従業員からのアクセスをBANされたケースが多発され（特にgitまわり）、<br>そのBANのIPの解除はSREメンバーが都度手動でしないといけない状況になっています。<br>エンジニアのtoil撲滅の一環として、これらの作業をセルフサービス化としたいのは今回のゴールである。  </p>
+<a id="more"></a>
+<h1 id="考慮ポイント"><a href="#考慮ポイント" class="headerlink" title="考慮ポイント"></a>考慮ポイント</h1><ul>
+<li>対象</li>
+<li>コスト</li>
+<li>実装方法<ul>
+<li>webサービス<ul>
+<li>実装が遅い</li>
+<li>自前でユーザ認証する必要あり（リモートワーク前提ので）</li>
+<li>実装まわりで経験値を大量ゲットできる</li>
+</ul>
+</li>
+<li>botユーザ(chatwork)<ul>
+<li>実装が速い</li>
+<li>ユーザ認証不要（すでにchatworkの方で認証済み）</li>
+<li>実装まわりで経験値少量ゲット</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+<h1 id="アーキテクチャ"><a href="#アーキテクチャ" class="headerlink" title="アーキテクチャ"></a>アーキテクチャ</h1><p><img src="%E3%82%A2%E3%83%BC%E3%82%AD%E3%83%86%E3%82%AF%E3%83%81%E3%83%A3.png" alt="Remote-Containers"></p>
+<h2 id="TO-bot"><a href="#TO-bot" class="headerlink" title="TO:bot"></a>TO:bot</h2><p>専用のbotユーザにTOをつけて話しかけると、webhookが叩かれ、apigatewayに送信</p>
+<ul>
+<li>IPアドレスのみの場合、IP一覧チェックを行い、解除&amp;更新もする</li>
+<li>BAN部屋のメッセージを引用された場合、IP一覧チェックを行い、解除&amp;更新もする</li>
+<li>それ以外の場合、デフォルトhelpメッセージを返す</li>
+</ul>
+<h2 id="APIgateway-lambda"><a href="#APIgateway-lambda" class="headerlink" title="APIgateway - lambda"></a>APIgateway - lambda</h2><p>chatwork webhookから受信し、lambdaでtoken検証をする。<br>問題ないの場合、bodyの解析を行う</p>
+<ul>
+<li>IPアドレスのみの場合、IP一覧チェックを行い、解除&amp;更新もする<ul>
+<li>ない場合は、その旨をchatworkに返す</li>
+</ul>
+</li>
+<li>BAN部屋のメッセージを引用された場合、IP一覧チェックを行い、解除&amp;更新もする<ul>
+<li>ない場合は、その旨をchatworkに返す</li>
+</ul>
+</li>
+<li>それ以外の場合、デフォルトhelpメッセージを返す</li>
+</ul>
+<h3 id="実装ポイント"><a href="#実装ポイント" class="headerlink" title="実装ポイント"></a>実装ポイント</h3><ul>
+<li>timeout 3s要注意(apigateway仕様)</li>
+<li>systemmanagerとs3のSDKを使って、shell実行やipチェックを行う</li>
+<li>返信メッセージを丁寧に表現</li>
+</ul>
+<h2 id="一覧チェック"><a href="#一覧チェック" class="headerlink" title="一覧チェック"></a>一覧チェック</h2><p>現在BANされているIPアドレスの一覧リストをテキストファイルとして、s3の指定場所に格納<br>lambdaでs3 SDK経由、都度指定されたIPが、リストに載ってるかをチェック</p>
+<ul>
+<li>載ってる場合、trueをlambdaに返し、その解除&amp;更新もする</li>
+<li>載ってない場合、falseをlambdaに返し、その旨をchatworkに返す</li>
+</ul>
+<h2 id="kick-system-manager-run-command"><a href="#kick-system-manager-run-command" class="headerlink" title="kick system manager run command"></a>kick system manager run command</h2><p>lambdaでsystemmanager SDKを利用し、指定EC2インスタンスにて、shell commandを実行</p>
+<h2 id="shell実行-解除-amp-更新"><a href="#shell実行-解除-amp-更新" class="headerlink" title="shell実行(解除&amp;更新)"></a>shell実行(解除&amp;更新)</h2><ul>
+<li>iptables -L sshguard –line-numbers -n | grep #BANされたIP# | cut -d’ ‘ -f1 | xargs -L 1 iptables -D sshguard </li>
+<li>systemctl restart sshguard</li>
+<li>iptables -L sshguard –line-numbers -n &gt; /tmp/sshguard_ban_ip/<code>hostname</code>.txt</li>
+<li>aws s3 sync /tmp/sshguard_ban_ip/ s3://#S3の指定bucket名#/<br>実行成功/失敗後、その旨をchatworkに返す</li>
+</ul>
+<h2 id="レスポンス"><a href="#レスポンス" class="headerlink" title="レスポンス"></a>レスポンス</h2><p>↑の各ステップでのレスポンス</p>
+<h2 id="cloudwatch-event-kick-system-manager-run-command"><a href="#cloudwatch-event-kick-system-manager-run-command" class="headerlink" title="cloudwatch event kick system manager run command"></a>cloudwatch event kick system manager run command</h2><p>短時間/回で、BANされたIPアドレス一覧を最新化する</p>
+<h2 id="shell実行-更新"><a href="#shell実行-更新" class="headerlink" title="shell実行(更新)"></a>shell実行(更新)</h2><ul>
+<li>iptables -L sshguard –line-numbers -n &gt; /tmp/sshguard_ban_ip/<code>hostname</code>.log</li>
+<li>aws s3 sync /tmp/sshguard_ban_ip/ #S3の指定bucket名#</li>
+</ul>
+<h2 id="一覧最新化"><a href="#一覧最新化" class="headerlink" title="一覧最新化"></a>一覧最新化</h2><p>↑での結果が反映される</p>
+<p>ついでに、s3バケットを静的コンテンツとして表示させるのもあり</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">&lt;!DOCTYPE html&gt;</span><br><span class="line">&lt;html lang=&quot;ja&quot;&gt;</span><br><span class="line">&lt;head&gt;</span><br><span class="line">&lt;meta http-equiv=&quot;CONTENT-TYPE&quot; cont</span><br><span class="line">ent=&quot;text/html; charset=utf-8&quot; /&gt;</span><br><span class="line">&lt;title&gt;BAN IP List&lt;/title&gt;</span><br><span class="line">&lt;/head&gt;</span><br><span class="line">&lt;body&gt;</span><br><span class="line">&lt;OBJECT DATA=&quot;./&lt;filename.txt&gt;&quot;TYPE=&quot;text/plain&quot; WIDTH=&quot;100%&quot; HEIGHT=&quot;100%&quot;&gt;&lt;/OBJECT&gt;</span><br><span class="line">&lt;/body&gt;</span><br><span class="line">&lt;/html&gt;</span><br></pre></td></tr></table></figure>
+
+<h1 id="成果物"><a href="#成果物" class="headerlink" title="成果物"></a>成果物</h1><p><strong>構成は全部terraformに載っており、lambda functionはpython 3.6を使わせていただきました。</strong></p>
+<h2 id="terraformコード"><a href="#terraformコード" class="headerlink" title="terraformコード"></a>terraformコード</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br><span class="line">89</span><br><span class="line">90</span><br><span class="line">91</span><br><span class="line">92</span><br><span class="line">93</span><br><span class="line">94</span><br><span class="line">95</span><br><span class="line">96</span><br><span class="line">97</span><br><span class="line">98</span><br><span class="line">99</span><br><span class="line">100</span><br><span class="line">101</span><br><span class="line">102</span><br><span class="line">103</span><br><span class="line">104</span><br><span class="line">105</span><br><span class="line">106</span><br><span class="line">107</span><br><span class="line">108</span><br><span class="line">109</span><br><span class="line">110</span><br><span class="line">111</span><br><span class="line">112</span><br><span class="line">113</span><br><span class="line">114</span><br><span class="line">115</span><br><span class="line">116</span><br><span class="line">117</span><br><span class="line">118</span><br><span class="line">119</span><br><span class="line">120</span><br><span class="line">121</span><br><span class="line">122</span><br><span class="line">123</span><br><span class="line">124</span><br><span class="line">125</span><br><span class="line">126</span><br><span class="line">127</span><br><span class="line">128</span><br><span class="line">129</span><br><span class="line">130</span><br><span class="line">131</span><br><span class="line">132</span><br><span class="line">133</span><br><span class="line">134</span><br><span class="line">135</span><br><span class="line">136</span><br><span class="line">137</span><br><span class="line">138</span><br><span class="line">139</span><br><span class="line">140</span><br><span class="line">141</span><br><span class="line">142</span><br><span class="line">143</span><br><span class="line">144</span><br><span class="line">145</span><br><span class="line">146</span><br><span class="line">147</span><br><span class="line">148</span><br><span class="line">149</span><br><span class="line">150</span><br><span class="line">151</span><br><span class="line">152</span><br><span class="line">153</span><br><span class="line">154</span><br><span class="line">155</span><br><span class="line">156</span><br><span class="line">157</span><br><span class="line">158</span><br><span class="line">159</span><br><span class="line">160</span><br><span class="line">161</span><br><span class="line">162</span><br><span class="line">163</span><br><span class="line">164</span><br><span class="line">165</span><br><span class="line">166</span><br><span class="line">167</span><br><span class="line">168</span><br><span class="line">169</span><br><span class="line">170</span><br><span class="line">171</span><br><span class="line">172</span><br><span class="line">173</span><br><span class="line">174</span><br><span class="line">175</span><br><span class="line">176</span><br><span class="line">177</span><br><span class="line">178</span><br><span class="line">179</span><br><span class="line">180</span><br><span class="line">181</span><br><span class="line">182</span><br><span class="line">183</span><br><span class="line">184</span><br><span class="line">185</span><br><span class="line">186</span><br><span class="line">187</span><br><span class="line">188</span><br><span class="line">189</span><br><span class="line">190</span><br><span class="line">191</span><br><span class="line">192</span><br><span class="line">193</span><br><span class="line">194</span><br><span class="line">195</span><br><span class="line">196</span><br><span class="line">197</span><br><span class="line">198</span><br><span class="line">199</span><br><span class="line">200</span><br><span class="line">201</span><br><span class="line">202</span><br><span class="line">203</span><br><span class="line">204</span><br><span class="line">205</span><br><span class="line">206</span><br><span class="line">207</span><br></pre></td><td class="code"><pre><span class="line">#</span><br><span class="line"># for sshguard self release</span><br><span class="line">#</span><br><span class="line">locals &#123;</span><br><span class="line">  ip_tables_chain_path = &quot;/tmp&quot;</span><br><span class="line">  # EC2 instance&apos;s name for running release action</span><br><span class="line">  target_instance_name = &quot;&quot;</span><br><span class="line">  ban_ip_pool = format(&quot;%s/%s.txt&quot;, local.ip_tables_chain_path, local.target_instance_name)</span><br><span class="line">  # S3 bucket name for contain ban list</span><br><span class="line">  s3_bucket_name = &quot;&quot;</span><br><span class="line">  tag_key = &quot;tag:bot&quot;</span><br><span class="line">  tag_value = &quot;release-sshguard&quot;</span><br><span class="line">&#125;</span><br><span class="line">resource &quot;aws_api_gateway_rest_api&quot; &quot;release-sshguard&quot; &#123;</span><br><span class="line">  name = &quot;release-sshguard&quot;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">resource &quot;aws_api_gateway_resource&quot; &quot;proxy&quot; &#123;</span><br><span class="line">   rest_api_id = aws_api_gateway_rest_api.release-sshguard.id</span><br><span class="line">   parent_id   = aws_api_gateway_rest_api.release-sshguard.root_resource_id</span><br><span class="line">   path_part   = &quot;&#123;proxy+&#125;&quot;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">resource &quot;aws_api_gateway_method&quot; &quot;proxyMethod&quot; &#123;</span><br><span class="line">   rest_api_id   = aws_api_gateway_rest_api.release-sshguard.id</span><br><span class="line">   resource_id   = aws_api_gateway_resource.proxy.id</span><br><span class="line">   http_method   = &quot;ANY&quot;</span><br><span class="line">   authorization = &quot;NONE&quot;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">resource &quot;aws_api_gateway_integration&quot; &quot;release-sshguard&quot; &#123;</span><br><span class="line">   rest_api_id = aws_api_gateway_rest_api.release-sshguard.id</span><br><span class="line">   resource_id = aws_api_gateway_method.proxyMethod.resource_id</span><br><span class="line">   http_method = aws_api_gateway_method.proxyMethod.http_method</span><br><span class="line"></span><br><span class="line">   integration_http_method = &quot;POST&quot;</span><br><span class="line">   type                    = &quot;AWS_PROXY&quot;</span><br><span class="line">   uri                     = aws_lambda_function.release-sshguard.invoke_arn</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">resource &quot;aws_api_gateway_method&quot; &quot;proxy_root&quot; &#123;</span><br><span class="line">   rest_api_id   = aws_api_gateway_rest_api.release-sshguard.id</span><br><span class="line">   resource_id   = aws_api_gateway_rest_api.release-sshguard.root_resource_id</span><br><span class="line">   http_method   = &quot;ANY&quot;</span><br><span class="line">   authorization = &quot;NONE&quot;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">resource &quot;aws_api_gateway_integration&quot; &quot;lambda_root&quot; &#123;</span><br><span class="line">   rest_api_id = aws_api_gateway_rest_api.release-sshguard.id</span><br><span class="line">   resource_id = aws_api_gateway_method.proxy_root.resource_id</span><br><span class="line">   http_method = aws_api_gateway_method.proxy_root.http_method</span><br><span class="line"></span><br><span class="line">   integration_http_method = &quot;POST&quot;</span><br><span class="line">   type                    = &quot;AWS_PROXY&quot;</span><br><span class="line">   uri                     = aws_lambda_function.release-sshguard.invoke_arn</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">resource &quot;aws_api_gateway_deployment&quot; &quot;apideploy&quot; &#123;</span><br><span class="line">   depends_on = [</span><br><span class="line">     aws_api_gateway_integration.release-sshguard,</span><br><span class="line">     aws_api_gateway_integration.lambda_root,</span><br><span class="line">   ]</span><br><span class="line"></span><br><span class="line">   rest_api_id = aws_api_gateway_rest_api.release-sshguard.id</span><br><span class="line">   stage_name  = &quot;test&quot;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">resource &quot;aws_lambda_function&quot; &quot;release-sshguard&quot; &#123;</span><br><span class="line">  function_name     = &quot;release-sshguard&quot;</span><br><span class="line">  handler           = &quot;release-sshguard.lambda_handler&quot;</span><br><span class="line">  s3_bucket         = local.lambda_bucket</span><br><span class="line">  s3_key            = local.lambda_main_key</span><br><span class="line">  s3_object_version = data.aws_s3_bucket_object.lambda_main.version_id</span><br><span class="line"></span><br><span class="line">  layers = [aws_lambda_layer_version.system-lib.arn]</span><br><span class="line"></span><br><span class="line">  memory_size = 512</span><br><span class="line">  timeout     = 3</span><br><span class="line"></span><br><span class="line">  runtime = local.lambda_runtime</span><br><span class="line">  role    = &quot;arn:aws:iam::596431367989:role/lambda_basic_vpc_execution&quot;</span><br><span class="line"></span><br><span class="line">  environment &#123;</span><br><span class="line">    variables = &#123;</span><br><span class="line">      ec2_tag_key = local.tag_key</span><br><span class="line">      ec2_tag_value = local.tag_value</span><br><span class="line">      ban_list_s3_bucket_name = local.s3_bucket_name</span><br><span class="line">      ec2_hostname = local.target_instance_name</span><br><span class="line">    &#125;</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">resource &quot;aws_cloudwatch_log_group&quot; &quot;release-sshguard&quot; &#123;</span><br><span class="line">  name              = format(&quot;%s%s&quot;, local.lambda_log_group_prefix, &quot;release-sshguard&quot;)</span><br><span class="line">  retention_in_days = 7</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">resource &quot;aws_lambda_permission&quot; &quot;release-sshguard&quot; &#123;</span><br><span class="line">  function_name = aws_lambda_function.release-sshguard.arn</span><br><span class="line">  principal     = &quot;apigateway.amazonaws.com&quot;</span><br><span class="line">  action        = &quot;lambda:InvokeFunction&quot;</span><br><span class="line"></span><br><span class="line">  source_arn = &quot;$&#123;aws_api_gateway_rest_api.release-sshguard.execution_arn&#125;/*/*&quot;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">resource &quot;aws_s3_bucket&quot; &quot;ban-list&quot; &#123;</span><br><span class="line">    bucket = local.s3_bucket_name</span><br><span class="line">    acl    = &quot;private&quot;</span><br><span class="line"></span><br><span class="line">    website &#123;</span><br><span class="line">        index_document = &quot;index.html&quot;</span><br><span class="line">        error_document = &quot;index.html&quot;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    policy = &lt;&lt;EOS</span><br><span class="line">&#123;</span><br><span class="line">    &quot;Version&quot;: &quot;2012-10-17&quot;,</span><br><span class="line">    &quot;Statement&quot;: [</span><br><span class="line">        &#123;</span><br><span class="line">            &quot;Sid&quot;: &quot;Office&quot;,</span><br><span class="line">            &quot;Effect&quot;: &quot;Allow&quot;,</span><br><span class="line">            &quot;Principal&quot;: &quot;*&quot;,</span><br><span class="line">            &quot;Action&quot;: &quot;s3:*&quot;,</span><br><span class="line">            &quot;Resource&quot;: &quot;arn:aws:s3:::$&#123;local.s3_bucket_name&#125;/*&quot;,</span><br><span class="line">            &quot;Condition&quot;: &#123;</span><br><span class="line">                &quot;IpAddress&quot;: &#123;</span><br><span class="line">                    &quot;aws:SourceIp&quot;: [</span><br><span class="line">                        &quot;your branch&apos;s ip address&quot;,</span><br><span class="line">                    ]</span><br><span class="line">                &#125;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">    ]</span><br><span class="line">&#125;</span><br><span class="line">EOS</span><br><span class="line"></span><br><span class="line">&#125;</span><br><span class="line">output &quot;api_url&quot; &#123;</span><br><span class="line">  value = aws_api_gateway_deployment.apideploy.invoke_url</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">#</span><br><span class="line"># update ban ip list via cloudwatch event</span><br><span class="line">#</span><br><span class="line">resource &quot;aws_iam_role&quot; &quot;update-sshguard-ban-ip&quot; &#123;</span><br><span class="line">  </span><br><span class="line">  name = &quot;update-sshguard-ban-ip&quot;</span><br><span class="line">  assume_role_policy = &lt;&lt;EOF</span><br><span class="line">&#123;</span><br><span class="line">      &quot;Version&quot;: &quot;2012-10-17&quot;,</span><br><span class="line">      &quot;Statement&quot;: [</span><br><span class="line">        &#123;</span><br><span class="line">          &quot;Action&quot;: &quot;sts:AssumeRole&quot;,</span><br><span class="line">          &quot;Principal&quot;: &#123;</span><br><span class="line">            &quot;Service&quot;: &quot;events.amazonaws.com&quot;</span><br><span class="line">          &#125;,</span><br><span class="line">          &quot;Effect&quot;: &quot;Allow&quot;,</span><br><span class="line">          &quot;Sid&quot;: &quot;&quot;</span><br><span class="line">        &#125;</span><br><span class="line">      ]</span><br><span class="line">    &#125;</span><br><span class="line">EOF</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">resource &quot;aws_iam_role_policy&quot; &quot;update-sshguard-ban-ip&quot; &#123;</span><br><span class="line">  name   = &quot;update-sshguard-ban-ip_additional&quot;</span><br><span class="line">  role   = aws_iam_role.update-sshguard-ban-ip.id</span><br><span class="line">  policy = &lt;&lt;JSON</span><br><span class="line">&#123;</span><br><span class="line">  &quot;Version&quot;: &quot;2012-10-17&quot;,</span><br><span class="line">  &quot;Statement&quot;: [</span><br><span class="line">    &#123;</span><br><span class="line">      &quot;Action&quot;: &quot;ssm:*&quot;,</span><br><span class="line">      &quot;Effect&quot;: &quot;Allow&quot;,</span><br><span class="line">      &quot;Resource&quot;: &quot;*&quot;</span><br><span class="line">    &#125;</span><br><span class="line">  ]</span><br><span class="line">&#125;</span><br><span class="line">JSON</span><br><span class="line"></span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">resource &quot;aws_cloudwatch_event_target&quot; &quot;update-sshguard-ban-ip&quot; &#123;</span><br><span class="line">  target_id = &quot;UpdateBanIPList&quot;</span><br><span class="line">  arn       = &quot;arn:aws:ssm:$&#123;var.aws_region&#125;::document/AWS-RunShellScript&quot;</span><br><span class="line">  input     = &lt;&lt;JSON</span><br><span class="line">  &#123;</span><br><span class="line">    &quot;commands&quot;: [</span><br><span class="line">      &quot;echo `date` &gt; $&#123;local.ban_ip_pool&#125;&quot;,</span><br><span class="line">      &quot;echo `hostname` &gt;&gt; $&#123;local.ban_ip_pool&#125;&quot;,</span><br><span class="line">      &quot;iptables -L sshguard --line-numbers -n &gt;&gt; $&#123;local.ban_ip_pool&#125;&quot;,</span><br><span class="line">      &quot;aws s3 cp $&#123;local.ban_ip_pool&#125; s3://$&#123;local.s3_bucket_name&#125;/&quot;</span><br><span class="line">    ]</span><br><span class="line">  &#125;</span><br><span class="line">  JSON</span><br><span class="line"></span><br><span class="line">  rule      = aws_cloudwatch_event_rule.lambda_every_one_minute.name</span><br><span class="line">  role_arn  = aws_iam_role.update-sshguard-ban-ip.arn</span><br><span class="line"></span><br><span class="line">  run_command_targets &#123;</span><br><span class="line">    key    = &quot;tag:bot&quot;</span><br><span class="line">    values = [local.tag_value]</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h2 id="lambda-functionコード"><a href="#lambda-functionコード" class="headerlink" title="lambda functionコード"></a>lambda functionコード</h2><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br><span class="line">89</span><br><span class="line">90</span><br><span class="line">91</span><br><span class="line">92</span><br><span class="line">93</span><br><span class="line">94</span><br><span class="line">95</span><br><span class="line">96</span><br><span class="line">97</span><br><span class="line">98</span><br><span class="line">99</span><br><span class="line">100</span><br><span class="line">101</span><br><span class="line">102</span><br><span class="line">103</span><br><span class="line">104</span><br><span class="line">105</span><br><span class="line">106</span><br><span class="line">107</span><br><span class="line">108</span><br><span class="line">109</span><br><span class="line">110</span><br><span class="line">111</span><br><span class="line">112</span><br><span class="line">113</span><br><span class="line">114</span><br><span class="line">115</span><br><span class="line">116</span><br><span class="line">117</span><br><span class="line">118</span><br><span class="line">119</span><br><span class="line">120</span><br><span class="line">121</span><br><span class="line">122</span><br><span class="line">123</span><br><span class="line">124</span><br><span class="line">125</span><br><span class="line">126</span><br><span class="line">127</span><br><span class="line">128</span><br><span class="line">129</span><br><span class="line">130</span><br><span class="line">131</span><br><span class="line">132</span><br><span class="line">133</span><br><span class="line">134</span><br><span class="line">135</span><br><span class="line">136</span><br><span class="line">137</span><br><span class="line">138</span><br><span class="line">139</span><br><span class="line">140</span><br><span class="line">141</span><br><span class="line">142</span><br><span class="line">143</span><br><span class="line">144</span><br><span class="line">145</span><br><span class="line">146</span><br><span class="line">147</span><br><span class="line">148</span><br><span class="line">149</span><br><span class="line">150</span><br><span class="line">151</span><br><span class="line">152</span><br><span class="line">153</span><br><span class="line">154</span><br><span class="line">155</span><br><span class="line">156</span><br><span class="line">157</span><br><span class="line">158</span><br><span class="line">159</span><br><span class="line">160</span><br><span class="line">161</span><br><span class="line">162</span><br><span class="line">163</span><br><span class="line">164</span><br><span class="line">165</span><br><span class="line">166</span><br><span class="line">167</span><br><span class="line">168</span><br><span class="line">169</span><br><span class="line">170</span><br><span class="line">171</span><br><span class="line">172</span><br><span class="line">173</span><br><span class="line">174</span><br><span class="line">175</span><br><span class="line">176</span><br><span class="line">177</span><br><span class="line">178</span><br><span class="line">179</span><br><span class="line">180</span><br><span class="line">181</span><br><span class="line">182</span><br><span class="line">183</span><br><span class="line">184</span><br><span class="line">185</span><br><span class="line">186</span><br><span class="line">187</span><br><span class="line">188</span><br><span class="line">189</span><br><span class="line">190</span><br><span class="line">191</span><br><span class="line">192</span><br><span class="line">193</span><br><span class="line">194</span><br><span class="line">195</span><br><span class="line">196</span><br><span class="line">197</span><br><span class="line">198</span><br><span class="line">199</span><br><span class="line">200</span><br><span class="line">201</span><br><span class="line">202</span><br><span class="line">203</span><br><span class="line">204</span><br><span class="line">205</span><br><span class="line">206</span><br><span class="line">207</span><br><span class="line">208</span><br><span class="line">209</span><br><span class="line">210</span><br><span class="line">211</span><br><span class="line">212</span><br><span class="line">213</span><br><span class="line">214</span><br><span class="line">215</span><br><span class="line">216</span><br><span class="line">217</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> os</span><br><span class="line"><span class="keyword">import</span> boto3</span><br><span class="line"><span class="keyword">import</span> logging</span><br><span class="line"><span class="keyword">import</span> ipaddress</span><br><span class="line"><span class="keyword">import</span> json</span><br><span class="line"><span class="keyword">import</span> requests</span><br><span class="line"></span><br><span class="line">logger = logging.getLogger()</span><br><span class="line">logger.setLevel(logging.INFO)</span><br><span class="line"></span><br><span class="line">ec2 = boto3.client(<span class="string">'ec2'</span>)</span><br><span class="line">ssm = boto3.client(<span class="string">'ssm'</span>, region_name=os.environ.get(<span class="string">'region_name'</span>))</span><br><span class="line">s3 = boto3.resource(<span class="string">'s3'</span>)</span><br><span class="line"></span><br><span class="line">s3_bucket_name = os.environ.get(<span class="string">'ban_list_s3_bucket_name'</span>)</span><br><span class="line">hostname = os.environ.get(<span class="string">'ec2_hostname'</span>)</span><br><span class="line">host_pool_filename = <span class="string">"%s.txt"</span> % hostname</span><br><span class="line">tag_key = os.environ.get(<span class="string">'ec2_tag_key'</span>)</span><br><span class="line">tag_value = os.environ.get(<span class="string">'ec2_tag_value'</span>)</span><br><span class="line">ip_tables_chain_path = <span class="string">'/tmp'</span></span><br><span class="line">ban_ip_pool = <span class="string">"%s/%s.txt"</span> % (ip_tables_chain_path, hostname)</span><br><span class="line"></span><br><span class="line"><span class="comment"># your token</span></span><br><span class="line">API_TOKEN = <span class="string">''</span></span><br><span class="line">endpoint = <span class="string">'https://api.chatwork.com/v2'</span></span><br><span class="line">request_timeout = <span class="number">3</span></span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">lambda_handler</span><span class="params">(event, context)</span>:</span></span><br><span class="line">    data = json.dumps(event)</span><br><span class="line">    j = json.loads(data)</span><br><span class="line">    webhook_body = eval(j[<span class="string">"body"</span>])</span><br><span class="line">    from_account_id = webhook_body[<span class="string">"webhook_event"</span>][<span class="string">"from_account_id"</span>]</span><br><span class="line">    room_id = webhook_body[<span class="string">"webhook_event"</span>][<span class="string">"room_id"</span>]</span><br><span class="line">    message_id = webhook_body[<span class="string">"webhook_event"</span>][<span class="string">"message_id"</span>]</span><br><span class="line">    webhook_text = webhook_body[<span class="string">"webhook_event"</span>][<span class="string">"body"</span>]</span><br><span class="line"></span><br><span class="line">    request_ip = <span class="string">""</span></span><br><span class="line">    open(ban_ip_pool, <span class="string">'w'</span>).close()</span><br><span class="line">    s3.meta.client.download_file(s3_bucket_name, host_pool_filename, ban_ip_pool)</span><br><span class="line"></span><br><span class="line">    <span class="keyword">if</span> is_valid_quote(webhook_text) <span class="keyword">is</span> <span class="keyword">True</span>:</span><br><span class="line">        print(<span class="string">"Mostly received a quote message"</span>)</span><br><span class="line">        temp_file_path = <span class="string">"/tmp/ban_ip_message.txt"</span></span><br><span class="line">        <span class="keyword">with</span> open(temp_file_path, <span class="string">'w'</span>) <span class="keyword">as</span> f:</span><br><span class="line">            print(webhook_text, file=f)</span><br><span class="line">        filtered_ip_address = filter_ip_address_from_tempfile(temp_file_path)</span><br><span class="line">        <span class="keyword">if</span> is_valid_ip(filtered_ip_address) <span class="keyword">is</span> <span class="keyword">not</span> <span class="keyword">True</span>:</span><br><span class="line">            print(<span class="string">"Do not find IP address from quote message."</span>)</span><br><span class="line">            print(<span class="string">"Sent help message."</span>)</span><br><span class="line">            bot_message(from_account_id, room_id, message_id, <span class="string">"help"</span>)</span><br><span class="line">            <span class="keyword">return</span></span><br><span class="line">        <span class="keyword">else</span>:</span><br><span class="line">            print(<span class="string">"ip valid succeed."</span>)</span><br><span class="line">            request_ip = filtered_ip_address</span><br><span class="line">    <span class="keyword">elif</span> pick_up_raw_ip(webhook_text) <span class="keyword">is</span> <span class="keyword">True</span>:</span><br><span class="line">        <span class="keyword">if</span> is_valid_ip(raw_ip) <span class="keyword">is</span> <span class="keyword">True</span>:</span><br><span class="line">            print(<span class="string">"Mostly received a single IP"</span>)</span><br><span class="line">            print(<span class="string">"ip valid succeed."</span>)</span><br><span class="line">            request_ip = raw_ip</span><br><span class="line">        <span class="keyword">else</span>:</span><br><span class="line">            print(<span class="string">"ip invalid."</span>)</span><br><span class="line">            <span class="keyword">if</span> <span class="string">"ありがとう"</span> <span class="keyword">in</span> webhook_text <span class="keyword">or</span> <span class="string">"thank"</span> <span class="keyword">in</span> webhook_text:</span><br><span class="line">                print(<span class="string">"Mostly got a thank you message."</span>)</span><br><span class="line">                bot_message(from_account_id, room_id, message_id, <span class="string">"pleasure"</span>)</span><br><span class="line">                <span class="keyword">return</span></span><br><span class="line">            <span class="keyword">else</span>:</span><br><span class="line">                bot_message(from_account_id, room_id, message_id, <span class="string">"help"</span>)</span><br><span class="line">                print(<span class="string">"Sent help message."</span>)</span><br><span class="line">                <span class="keyword">return</span></span><br><span class="line">    <span class="keyword">else</span>:</span><br><span class="line">        bot_message(from_account_id, room_id, message_id, <span class="string">"help"</span>)</span><br><span class="line">        print(<span class="string">"Sent help message."</span>)</span><br><span class="line">        <span class="keyword">return</span></span><br><span class="line"></span><br><span class="line">    <span class="keyword">if</span> is_request_ip_existed(request_ip, ban_ip_pool) <span class="keyword">is</span> <span class="keyword">not</span> <span class="keyword">True</span>:</span><br><span class="line">        print(<span class="string">"Request IP address has not existed on %s."</span> % ban_ip_pool)</span><br><span class="line">        <span class="comment"># bot返信（from_account_idに）</span></span><br><span class="line">        bot_message(from_account_id, room_id, message_id, <span class="string">"nohit"</span>)</span><br><span class="line">    <span class="keyword">else</span>:</span><br><span class="line">        print(<span class="string">"Request IP address has existed on %s."</span> % ban_ip_pool)</span><br><span class="line">        send_ssm_cmd(request_ip)</span><br><span class="line">        <span class="comment"># bot返信（from_account_idに）</span></span><br><span class="line">        bot_message(from_account_id, room_id, message_id, <span class="string">"hit"</span>)</span><br><span class="line">    <span class="keyword">return</span> <span class="string">'End'</span></span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">pick_up_raw_ip</span><span class="params">(post_message: str)</span> -&gt; bool:</span></span><br><span class="line">    <span class="keyword">global</span> raw_ip</span><br><span class="line">    <span class="keyword">try</span>:</span><br><span class="line">        raw_ip = post_message.rsplit(<span class="string">'\n'</span>, <span class="number">1</span>)[<span class="number">1</span>]</span><br><span class="line">        print(raw_ip)</span><br><span class="line">        <span class="keyword">return</span> <span class="keyword">True</span></span><br><span class="line">    <span class="keyword">except</span> (ValueError, IndexError):</span><br><span class="line">        <span class="keyword">return</span> <span class="keyword">False</span></span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">is_valid_ip</span><span class="params">(ip: str)</span> -&gt; bool:</span></span><br><span class="line">    <span class="keyword">try</span>:</span><br><span class="line">        ipaddress.ip_address(ip)</span><br><span class="line">        <span class="keyword">return</span> <span class="keyword">True</span></span><br><span class="line">    <span class="keyword">except</span> ValueError:</span><br><span class="line">        <span class="keyword">return</span> <span class="keyword">False</span></span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">is_valid_quote</span><span class="params">(message: str)</span> -&gt; bool:</span></span><br><span class="line">    <span class="keyword">try</span>:</span><br><span class="line">        <span class="keyword">if</span> <span class="string">"[qt]"</span> <span class="keyword">in</span> message:</span><br><span class="line">            <span class="keyword">return</span> <span class="keyword">True</span></span><br><span class="line">        <span class="keyword">else</span>:</span><br><span class="line">            <span class="keyword">return</span> <span class="keyword">False</span></span><br><span class="line">    <span class="keyword">except</span> ValueError:</span><br><span class="line">        <span class="keyword">return</span> <span class="keyword">False</span></span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">filter_ip_address_from_tempfile</span><span class="params">(tempfile_path: str)</span> -&gt; str:</span></span><br><span class="line">    <span class="keyword">with</span> open(tempfile_path) <span class="keyword">as</span> f:</span><br><span class="line">        lines = f.readlines()</span><br><span class="line">    lines_strip = []</span><br><span class="line">    <span class="keyword">for</span> line <span class="keyword">in</span> lines:</span><br><span class="line">        lines_strip.append(line.strip())</span><br><span class="line">    l_message = []</span><br><span class="line">    <span class="keyword">for</span> line <span class="keyword">in</span> lines_strip:</span><br><span class="line">        <span class="keyword">if</span> <span class="string">'Message    :'</span> <span class="keyword">in</span> line:</span><br><span class="line">            l_message.append(line)</span><br><span class="line">    l_ip = <span class="string">''</span>.join(l_message).split(<span class="string">':'</span>)</span><br><span class="line">    str_ip = <span class="string">''</span>.join(l_ip[<span class="number">1</span>]).replace(<span class="string">' '</span>, <span class="string">''</span>)</span><br><span class="line">    <span class="keyword">return</span> str_ip</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">is_request_ip_existed</span><span class="params">(request_ip: str, ban_ip_pool: str)</span> -&gt; bool:</span></span><br><span class="line">    <span class="keyword">with</span> open(ban_ip_pool) <span class="keyword">as</span> f:</span><br><span class="line">        lines = f.readlines()</span><br><span class="line">        print(lines)</span><br><span class="line">    lines_strip = []</span><br><span class="line">    <span class="keyword">for</span> line <span class="keyword">in</span> lines:</span><br><span class="line">        lines_strip.append(line.strip())</span><br><span class="line">    l_message = []</span><br><span class="line">    <span class="keyword">for</span> line <span class="keyword">in</span> lines_strip:</span><br><span class="line">        <span class="keyword">if</span> request_ip <span class="keyword">in</span> line:</span><br><span class="line">            l_message.append(line)</span><br><span class="line">            print(l_message)</span><br><span class="line">            <span class="keyword">return</span> <span class="keyword">True</span></span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">send_ssm_cmd</span><span class="params">(ban_ip: str)</span> -&gt; bool:</span></span><br><span class="line">    <span class="keyword">try</span>:</span><br><span class="line">        <span class="comment"># EC2 instances which tagged with release-sshguard</span></span><br><span class="line">        ec2_resp = ec2.describe_instances(Filters=[&#123;<span class="string">'Name'</span>: tag_key, <span class="string">'Values'</span>: [tag_value]&#125;])</span><br><span class="line"></span><br><span class="line">        ec2_count = len(ec2_resp[<span class="string">'Reservations'</span>])</span><br><span class="line">        <span class="keyword">if</span> ec2_count == <span class="number">0</span>:</span><br><span class="line">            logger.info(<span class="string">'No EC2 is running'</span>)</span><br><span class="line"></span><br><span class="line">        instances = [i[<span class="string">"InstanceId"</span>] <span class="keyword">for</span> r <span class="keyword">in</span> ec2_resp[<span class="string">"Reservations"</span>] <span class="keyword">for</span> i <span class="keyword">in</span> r[<span class="string">"Instances"</span>]]</span><br><span class="line"></span><br><span class="line">        ssm.send_command(</span><br><span class="line">            InstanceIds=instances,</span><br><span class="line">            DocumentName=<span class="string">"AWS-RunShellScript"</span>,</span><br><span class="line">            Parameters=&#123;</span><br><span class="line">                <span class="string">"commands"</span>: [</span><br><span class="line">                    <span class="string">"echo %s"</span> % ban_ip,</span><br><span class="line">                    <span class="string">"echo `date` &gt; %s"</span> % ban_ip_pool,</span><br><span class="line">                    <span class="string">"echo `hostname` &gt;&gt; %s"</span> % ban_ip_pool,</span><br><span class="line">                    <span class="string">"iptables -L sshguard --line-numbers -n | grep %s | cut -d' ' -f1 | xargs -L 1 iptables -D sshguard"</span> % ban_ip,</span><br><span class="line">                    <span class="string">"systemctl restart sshguard"</span>,</span><br><span class="line">                    <span class="string">"iptables -L sshguard --line-numbers -n &gt;&gt; %s"</span> % ban_ip_pool,</span><br><span class="line">                    <span class="string">"aws s3 cp %s s3://%s/"</span> % (ban_ip_pool, s3_bucket_name),</span><br><span class="line">                ],</span><br><span class="line">                <span class="string">"executionTimeout"</span>: [<span class="string">"3600"</span>]</span><br><span class="line">            &#125;,</span><br><span class="line">        )</span><br><span class="line">        print(<span class="string">"Released ip address %s"</span> % ban_ip)</span><br><span class="line">        <span class="keyword">return</span> <span class="keyword">True</span></span><br><span class="line"></span><br><span class="line">    <span class="keyword">except</span> Exception <span class="keyword">as</span> e:</span><br><span class="line">        logger.error(e)</span><br><span class="line">        <span class="keyword">raise</span> e</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">bot_message</span><span class="params">(account_id: int, room_id: int, message_id: str, message_type: str)</span>:</span></span><br><span class="line">    <span class="keyword">if</span> message_type <span class="keyword">is</span> <span class="string">'pleasure'</span>:</span><br><span class="line">        message = <span class="string">"Always a great pleasure."</span></span><br><span class="line">    <span class="keyword">elif</span> message_type <span class="keyword">is</span> <span class="string">'nohit'</span>:</span><br><span class="line">        message = <span class="string">'''</span></span><br><span class="line"><span class="string">[info][title]作業失敗[/title]</span></span><br><span class="line"><span class="string">BANリストに載ってないみたいので、</span></span><br><span class="line"><span class="string">もう一度接続をお試しください。</span></span><br><span class="line"><span class="string">駄目でしたら、SREメンバーまでご連絡ください。[/info]</span></span><br><span class="line"><span class="string">'''</span>.strip()</span><br><span class="line">    <span class="keyword">elif</span> message_type <span class="keyword">is</span> <span class="string">"hit"</span>:</span><br><span class="line">        message = <span class="string">'''</span></span><br><span class="line"><span class="string">[info][title]作業成功[/title]</span></span><br><span class="line"><span class="string">解除しました!!!</span></span><br><span class="line"><span class="string">Retryをお願いしまーす[/info]</span></span><br><span class="line"><span class="string">'''</span>.strip()</span><br><span class="line">    <span class="keyword">else</span>:</span><br><span class="line">        message = <span class="string">'''</span></span><br><span class="line"><span class="string">[info][title]もしやBAN解除したいの？[/title]</span></span><br><span class="line"><span class="string">- SSHブロック通知部屋の該当BAN通知メッセージを引用し、私にTOしてください</span></span><br><span class="line"><span class="string">- 直接Global IPを私にTOしてください</span></span><br><span class="line"><span class="string">    - https://www.cman.jp/network/support/go_access.cgi</span></span><br><span class="line"><span class="string">    - ここで表示されたIPの事</span></span><br><span class="line"><span class="string">- それでも駄目だったら、SREメンバーにお尋ねください[/info]</span></span><br><span class="line"><span class="string">'''</span>.strip()</span><br><span class="line"></span><br><span class="line">    reply_message = <span class="string">"[rp aid=%s to=%s-%s]%s"</span> % (account_id, room_id, message_id, message)</span><br><span class="line">    post_message_url = <span class="string">"%s/rooms/%s/messages"</span> % (endpoint, room_id)</span><br><span class="line">    headers = &#123;<span class="string">'X-ChatWorkToken'</span>: API_TOKEN&#125;</span><br><span class="line">    params = &#123;<span class="string">'body'</span>: reply_message&#125;</span><br><span class="line"></span><br><span class="line">    res = requests.post(post_message_url, headers=headers, data=params)</span><br><span class="line">    res.raise_for_status()</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="keyword">if</span> __name__ == <span class="string">'__main__'</span>:</span><br><span class="line">    print(lambda_handler(<span class="string">"event"</span>, <span class="string">"context"</span>))</span><br></pre></td></tr></table></figure>
+
+<p>誰かのご参考になって頂ければ幸いです。<br>ではでは〜</p>
+
+      
+    </div>
+
+    
+
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/JP/" rel="tag"># JP</a>
+          
+            <a href="/tags/python/" rel="tag"># python</a>
+          
+            <a href="/tags/aws/" rel="tag"># aws</a>
+          
+        </div>
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/watch-your-get-pip-script/" rel="next" title="python2のサポートが切れたget-pipスクリプト">
+                <i class="fa fa-chevron-left"></i> python2のサポートが切れたget-pipスクリプト
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/could-not-parse-pkey-no-start-line/" rel="prev" title="Capistranoデプロイする際にCould not parse PKey: no start lineで困った件">
+                Capistranoデプロイする際にCould not parse PKey: no start lineで困った件 <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+  </div>
+
+
+          </div>
+          
+
+  
+
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    
+      <div id="sidebar-dimmer"></div>
+    
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            Table of Contents
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            Overview
+          </li>
+        </ul>
+      
+
+      <section class="site-overview-wrap sidebar-panel">
+        <div class="site-overview">
+          <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+            
+              <img class="site-author-image" itemprop="image" src="/images-cache/avatar.JPG" alt="kuritan">
+            
+              <p class="site-author-name" itemprop="name">kuritan</p>
+              <p class="site-description motion-element" itemprop="description">情報弱者、ギガ難民</p>
+          </div>
+
+          
+            <nav class="site-state motion-element">
+              
+                <div class="site-state-item site-state-posts">
+                
+                  <a href="/archives/">
+                
+                    <span class="site-state-item-count">30</span>
+                    <span class="site-state-item-name">posts</span>
+                  </a>
+                </div>
+              
+
+              
+                
+                
+                <div class="site-state-item site-state-categories">
+                  <a href="/categories/index.html">
+                    
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                    <span class="site-state-item-count">4</span>
+                    <span class="site-state-item-name">categories</span>
+                  </a>
+                </div>
+              
+
+              
+                
+                
+                <div class="site-state-item site-state-tags">
+                  <a href="/tags/index.html">
+                    
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                    <span class="site-state-item-count">24</span>
+                    <span class="site-state-item-name">tags</span>
+                  </a>
+                </div>
+              
+            </nav>
+          
+
+          
+            <div class="feed-link motion-element">
+              <a href="/atom.xml" rel="alternate">
+                <i class="fa fa-rss"></i>
+                RSS
+              </a>
+            </div>
+          
+
+          
+            <div class="links-of-author motion-element">
+              
+                <span class="links-of-author-item">
+                  <a href="https://github.com/kuritan" target="_blank" title="GitHub"><i class="fa fa-fw fa-github"></i>GitHub</a>
+                  
+                </span>
+              
+                <span class="links-of-author-item">
+                  <a href="https://www.weibo.com/1935491594" target="_blank" title="Weibo"><i class="fa fa-fw fa-weibo"></i>Weibo</a>
+                  
+                </span>
+              
+                <span class="links-of-author-item">
+                  <a href="http://www.zhihu.com/people/kuritan" target="_blank" title="Zhihu"><i class="fa fa-fw fa-custom zhihu"></i>Zhihu</a>
+                  
+                </span>
+              
+                <span class="links-of-author-item">
+                  <a href="https://twitter.com/lizi1032" target="_blank" title="Twitter"><i class="fa fa-fw fa-twitter"></i>Twitter</a>
+                  
+                </span>
+              
+                <span class="links-of-author-item">
+                  <a href="https://www.facebook.com/yujia.zhai.50951" target="_blank" title="Facebook"><i class="fa fa-fw fa-facebook"></i>Facebook</a>
+                  
+                </span>
+              
+                <span class="links-of-author-item">
+                  <a href="https://instagram.com/kuriguri_28" target="_blank" title="Instagram"><i class="fa fa-fw fa-instagram"></i>Instagram</a>
+                  
+                </span>
+              
+            </div>
+          
+
+          
+          
+
+          
+          
+            <div class="links-of-blogroll motion-element links-of-blogroll-block">
+              <div class="links-of-blogroll-title">
+                <i class="fa  fa-fw fa-link"></i>
+                Links
+              </div>
+              <ul class="links-of-blogroll-list">
+                
+                  <li class="links-of-blogroll-item">
+                    <a href="https://matilde-lab.com/" title="Matilde Lab" target="_blank">Matilde Lab</a>
+                  </li>
+                
+              </ul>
+            </div>
+          
+
+          
+            
+          
+          
+
+        </div>
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#ニーズ"><span class="nav-number">1.</span> <span class="nav-text">ニーズ</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#考慮ポイント"><span class="nav-number">2.</span> <span class="nav-text">考慮ポイント</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#アーキテクチャ"><span class="nav-number">3.</span> <span class="nav-text">アーキテクチャ</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#TO-bot"><span class="nav-number">3.1.</span> <span class="nav-text">TO:bot</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#APIgateway-lambda"><span class="nav-number">3.2.</span> <span class="nav-text">APIgateway - lambda</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#実装ポイント"><span class="nav-number">3.2.1.</span> <span class="nav-text">実装ポイント</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#一覧チェック"><span class="nav-number">3.3.</span> <span class="nav-text">一覧チェック</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#kick-system-manager-run-command"><span class="nav-number">3.4.</span> <span class="nav-text">kick system manager run command</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#shell実行-解除-amp-更新"><span class="nav-number">3.5.</span> <span class="nav-text">shell実行(解除&amp;更新)</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#レスポンス"><span class="nav-number">3.6.</span> <span class="nav-text">レスポンス</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#cloudwatch-event-kick-system-manager-run-command"><span class="nav-number">3.7.</span> <span class="nav-text">cloudwatch event kick system manager run command</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#shell実行-更新"><span class="nav-number">3.8.</span> <span class="nav-text">shell実行(更新)</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#一覧最新化"><span class="nav-number">3.9.</span> <span class="nav-text">一覧最新化</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#成果物"><span class="nav-number">4.</span> <span class="nav-text">成果物</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#terraformコード"><span class="nav-number">4.1.</span> <span class="nav-text">terraformコード</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#lambda-functionコード"><span class="nav-number">4.2.</span> <span class="nav-text">lambda functionコード</span></a></li></ol></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+        <div class="back-to-top">
+          <i class="fa fa-arrow-up"></i>
+          
+            <span id="scrollpercent"><span>0</span>%</span>
+          
+        </div>
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">&copy; 2018 – <span itemprop="copyrightYear">2022</span>
+  <span class="with-love" id="animate">
+    <i class="fa fa-kuritan"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">kuritan</span>
+
+  
+
+  
+</div>
+
+
+
+
+
+
+
+
+
+
+
+        
+
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+
+    
+
+    
+	
+    
+
+    
+  </div>
+
+    
+    <script type="text/javascript" src="//cdn.bootcss.com/canvas-nest.js/1.0.0/canvas-nest.min.js"></script>
+    
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/canvas-nest/canvas-nest.min.js"></script>
+  
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=6.4.0"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=6.4.0"></script>
+
+
+
+  
+  
+
+
+  <script type="text/javascript" src="/js/src/affix.js?v=6.4.0"></script>
+
+  <script type="text/javascript" src="/js/src/schemes/pisces.js?v=6.4.0"></script>
+
+
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=6.4.0"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=6.4.0"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=6.4.0"></script>
+
+
+
+  
+
+
+
+  
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+
+  
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+</body>
+</html>

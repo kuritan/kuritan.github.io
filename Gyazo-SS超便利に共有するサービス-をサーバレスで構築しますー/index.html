@@ -1,0 +1,1024 @@
+<!DOCTYPE html>
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+
+<html class="theme-next gemini use-motion" lang="en">
+<head><meta name="generator" content="Hexo 3.9.0">
+  <meta charset="UTF-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#222">
+
+
+
+
+
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform">
+<meta http-equiv="Cache-Control" content="no-siteapp">
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css">
+
+<link href="/css/main.css?v=6.4.0" rel="stylesheet" type="text/css">
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images-cache/apple-touch-icon.JPG?v=6.4.0">
+
+
+  <link rel="icon" type="image/png" sizes="32x32" href="/images-cache/favicon-32x32.JPG?v=6.4.0">
+
+
+  <link rel="icon" type="image/png" sizes="16x16" href="/images-cache/favicon-16x16.JPG?v=6.4.0">
+
+
+  <link rel="mask-icon" href="/images/logo.svg?v=6.4.0" color="#222">
+
+
+
+
+
+
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Gemini',
+    version: '6.4.0',
+    sidebar: {"position":"left","display":"always","offset":12,"b2t":true,"scrollpercent":true,"onmobile":true},
+    fancybox: false,
+    fastclick: false,
+    lazyload: false,
+    tabs: true,
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+  
+
+
+
+
+  <meta name="description" content="久しぶりに、ブログを更新しないと〜 転職してからはや2ヶ月、入場した時と比べて、だいぶ仕事が増えました。（喜ぶところかなぁ？）最近は、サーバレスを中心に何件ものサービスを再構築しましたので、今回その一つのGyazoというサービスについて、お話しようを思います。">
+<meta name="keywords" content="JP,AWS,Work,Serverless">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Gyazo(SS超便利に共有するサービス)をサーバレスで構築しますー">
+<meta property="og:url" content="http://kuritan.github.io/Gyazo-SS超便利に共有するサービス-をサーバレスで構築しますー/index.html">
+<meta property="og:site_name" content="ビールのおつまみに">
+<meta property="og:description" content="久しぶりに、ブログを更新しないと〜 転職してからはや2ヶ月、入場した時と比べて、だいぶ仕事が増えました。（喜ぶところかなぁ？）最近は、サーバレスを中心に何件ものサービスを再構築しましたので、今回その一つのGyazoというサービスについて、お話しようを思います。">
+<meta property="og:locale" content="en">
+<meta property="og:image" content="http://kuritan.github.io/Gyazo-SS超便利に共有するサービス-をサーバレスで構築しますー/gyazo1.jpg">
+<meta property="og:image" content="http://kuritan.github.io/Gyazo-SS超便利に共有するサービス-をサーバレスで構築しますー/gyazo2.jpg">
+<meta property="og:image" content="http://kuritan.github.io/Gyazo-SS超便利に共有するサービス-をサーバレスで構築しますー/gyazo3.gif">
+<meta property="og:updated_time" content="2022-07-17T03:45:57.572Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="Gyazo(SS超便利に共有するサービス)をサーバレスで構築しますー">
+<meta name="twitter:description" content="久しぶりに、ブログを更新しないと〜 転職してからはや2ヶ月、入場した時と比べて、だいぶ仕事が増えました。（喜ぶところかなぁ？）最近は、サーバレスを中心に何件ものサービスを再構築しましたので、今回その一つのGyazoというサービスについて、お話しようを思います。">
+<meta name="twitter:image" content="http://kuritan.github.io/Gyazo-SS超便利に共有するサービス-をサーバレスで構築しますー/gyazo1.jpg">
+
+
+
+  <link rel="alternate" href="/atom.xml" title="ビールのおつまみに" type="application/atom+xml">
+
+
+
+
+  <link rel="canonical" href="http://kuritan.github.io/Gyazo-SS超便利に共有するサービス-をサーバレスで構築しますー/">
+
+
+
+<script type="text/javascript" id="page.configurations">
+  CONFIG.page = {
+    sidebar: "",
+  };
+</script>
+
+  <title>Gyazo(SS超便利に共有するサービス)をサーバレスで構築しますー | ビールのおつまみに</title>
+  
+
+
+
+
+<script async src="https://www.googletagmanager.com/gtag/js?id=UA-119591036-1"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+
+  gtag('config', 'UA-119591036-1');
+</script>
+
+
+
+
+
+
+  <noscript>
+  <style type="text/css">
+    .use-motion .motion-element,
+    .use-motion .brand,
+    .use-motion .menu-item,
+    .sidebar-inner,
+    .use-motion .post-block,
+    .use-motion .pagination,
+    .use-motion .comments,
+    .use-motion .post-header,
+    .use-motion .post-body,
+    .use-motion .collection-title { opacity: initial; }
+
+    .use-motion .logo,
+    .use-motion .site-title,
+    .use-motion .site-subtitle {
+      opacity: initial;
+      top: initial;
+    }
+
+    .use-motion {
+      .logo-line-before i { left: initial; }
+      .logo-line-after i { right: initial; }
+    }
+  </style>
+</noscript>
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="en">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail">
+    <div class="headband"></div>
+    
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/" class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">ビールのおつまみに</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+    
+      
+        <p class="site-subtitle">リモート副業探しています</p>
+      
+    
+  </div>
+
+  <div class="site-nav-toggle">
+    <button aria-label="Toggle navigation bar">
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+
+
+<nav class="site-nav">
+  
+    <ul id="menu" class="menu">
+      
+        
+        
+        
+          
+          <li class="menu-item menu-item-home">
+    <a href="/" rel="section">
+      <i class="menu-item-icon fa fa-fw fa-home"></i> <br>Home</a>
+  </li>
+        
+        
+        
+          
+          <li class="menu-item menu-item-tags">
+    <a href="/tags/" rel="section">
+      <i class="menu-item-icon fa fa-fw fa-tags"></i> <br>Tags<span class="badge">26</span></a>
+  </li>
+        
+        
+        
+          
+          <li class="menu-item menu-item-categories">
+    <a href="/categories/" rel="section">
+      <i class="menu-item-icon fa fa-fw fa-th"></i> <br>Categories<span class="badge">4</span></a>
+  </li>
+        
+        
+        
+          
+          <li class="menu-item menu-item-archives">
+    <a href="/archives/" rel="section">
+      <i class="menu-item-icon fa fa-fw fa-archive"></i> <br>Archives<span class="badge">30</span></a>
+  </li>
+
+      
+      
+    </ul>
+  
+
+  
+
+  
+</nav>
+
+
+
+  
+
+
+
+</div>
+    </header>
+
+    
+  
+  
+  
+    
+      
+    
+    <a href="https://github.com/kuritan" class="github-corner" target="_blank" title="Follow me on GitHub" aria-label="Follow me on GitHub"><svg width="80" height="80" viewbox="0 0 250 250" style="fill:#222; color:#fff; position: absolute; top: 0; border: 0; right: 0;" aria-hidden="true"><path d="M0,0 L115,115 L130,115 L142,142 L250,250 L250,0 Z"/><path d="M128.3,109.0 C113.8,99.7 119.0,89.6 119.0,89.6 C122.0,82.7 120.5,78.6 120.5,78.6 C119.2,72.0 123.4,76.3 123.4,76.3 C127.3,80.9 125.5,87.3 125.5,87.3 C122.9,97.6 130.6,101.9 134.4,103.2" fill="currentColor" style="transform-origin: 130px 106px;" class="octo-arm"/><path d="M115.0,115.0 C114.9,115.1 118.7,116.5 119.8,115.4 L133.7,101.6 C136.9,99.2 139.9,98.4 142.2,98.6 C133.8,88.0 127.5,74.4 143.8,58.0 C148.5,53.4 154.0,51.2 159.7,51.0 C160.3,49.4 163.2,43.6 171.4,40.1 C171.4,40.1 176.1,42.5 178.8,56.2 C183.1,58.6 187.2,61.8 190.9,65.4 C194.5,69.0 197.7,73.2 200.1,77.6 C213.8,80.2 216.3,84.9 216.3,84.9 C212.7,93.1 206.9,96.0 205.4,96.6 C205.1,102.4 203.0,107.8 198.3,112.5 C181.9,128.9 168.3,122.5 157.7,114.1 C157.9,116.9 156.7,120.9 152.7,124.9 L141.0,136.5 C139.8,137.7 141.6,141.9 141.8,141.8 Z" fill="currentColor" class="octo-body"/></svg>
+    
+      </a>
+    
+
+
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          
+            
+
+          
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://kuritan.github.io/Gyazo-SS超便利に共有するサービス-をサーバレスで構築しますー/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="kuritan">
+      <meta itemprop="description" content="情報弱者、ギガ難民">
+      <meta itemprop="image" content="/images-cache/avatar.JPG">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="ビールのおつまみに">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">Gyazo(SS超便利に共有するサービス)をサーバレスで構築しますー
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+
+            
+            
+            
+
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">Posted on</span>
+              
+
+              
+                
+              
+
+              <time title="Created: 2019-06-02 12:32:24" itemprop="dateCreated datePublished" datetime="2019-06-02T12:32:24+09:00">2019-06-02</time>
+            
+
+            
+              
+
+              
+                
+                <span class="post-meta-divider">|</span>
+                
+
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-calendar-check-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">Edited on</span>
+                
+                <time title="Modified: 2022-07-17 12:45:57" itemprop="dateModified" datetime="2022-07-17T12:45:57+09:00">2022-07-17</time>
+              
+            
+          </span>
+
+          
+            <span class="post-category">
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">In</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing"><a href="/categories/dev/" itemprop="url" rel="index"><span itemprop="name">dev</span></a></span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <p>久しぶりに、ブログを更新しないと〜</p>
+<p>転職してからはや2ヶ月、入場した時と比べて、だいぶ仕事が増えました。（喜ぶところかなぁ？）<br>最近は、サーバレスを中心に何件ものサービスを再構築しましたので、今回その一つのGyazoというサービスについて、お話しようを思います。</p>
+<a id="more"></a>
+
+<h1 id="予備知識"><a href="#予備知識" class="headerlink" title="予備知識"></a>予備知識</h1><ul>
+<li><a href="https://gyazo.com/ja" target="_blank" rel="noopener">Gyazoとは</a><br>一言で言うと、一瞬で取ったスクショを共有できるサービスです。  </li>
+<li><a href="https://github.com/gyazo/" target="_blank" rel="noopener">GyazoのGithubページ</a><br>一般サービスとしても利用可能ですが、会社で使う時、機密情報などに配慮して、やはり自社専用のものがいいかも。  </li>
+<li><a href="https://tech.fusic.co.jp/aws/aws-serverless-gyazo/" target="_blank" rel="noopener">サーバーレスな社内Gyazoの作り方(AWS SAM+Api Gateway+Lambda(Ruby)+S3)</a><br>重点的に参考させていただきました記事です。</li>
+</ul>
+<h1 id="なぜやったの？"><a href="#なぜやったの？" class="headerlink" title="なぜやったの？"></a>なぜやったの？</h1><ul>
+<li>元々、社内Gyazoとして、AWSのEC２を立て、ストレージをS3にし、実際利用何年も利用されている</li>
+<li>サーバの面倒をみないといけないので、そろそろ辛い感が表に出そう</li>
+<li>操作ミスで本番EC2インスタンスが削除された事故があったみたい</li>
+<li>業務改善とコスト低減の旗のもと、サーバレスアーキテクチャをどんどんやりたい</li>
+<li>新参者の自分には、このようなサービスのインパクトが丁度いい</li>
+</ul>
+<h1 id="どうやったの？"><a href="#どうやったの？" class="headerlink" title="どうやったの？"></a>どうやったの？</h1><h2 id="元々の設計は以下となります。"><a href="#元々の設計は以下となります。" class="headerlink" title="元々の設計は以下となります。"></a>元々の設計は以下となります。</h2><p><img src="gyazo1.jpg" alt="gyazo-sinatra"><br>ご察知の通り、かなりシンプルの構造です。<br>rubyのsinatraをAPPサーバーにし、Nginxを先頭に構え、後ろはS3バケットをストレージ、シンプルだが有効なアーキテクチャです。<br>実際、何年も問題なく、利用されていた。</p>
+<h2 id="今回の設計はこうだ"><a href="#今回の設計はこうだ" class="headerlink" title="今回の設計はこうだ"></a>今回の設計はこうだ</h2><p><img src="gyazo2.jpg" alt="gyazo-serverless">  </p>
+<h3 id="要件"><a href="#要件" class="headerlink" title="要件"></a>要件</h3><ol>
+<li>ユーザが指定カスタムドメインにアクセスすると、クライアントのダウンロードページと、機能説明ページを見える</li>
+<li>1.のカスタムドメインに向けて、画像ファイルをPOSTすると、S3に保存され、アクセスできるURLが返される</li>
+<li>2.で返されたURLにアクセスすると、画像が見える</li>
+<li>クライアントのコード改修をしない</li>
+<li>社内しかアクセスできない</li>
+<li>リスポンスが許容範囲内にしておきたい、かつコストを抑える</li>
+</ol>
+<p><strong>よっしゃー、じゃ今から、それぞれをご説明いたします</strong></p>
+<h3 id="Lambda関数"><a href="#Lambda関数" class="headerlink" title="Lambda関数"></a>Lambda関数</h3><p>クライアントのコードをしたくないので、無理やりでも、BOUNDARY処理を行う！</p>
+<table>
+<thead>
+<tr>
+<th align="center">key</th>
+<th align="center">value</th>
+</tr>
+</thead>
+<tbody><tr>
+<td align="center">Runtime</td>
+<td align="center">Ruby2.5</td>
+</tr>
+<tr>
+<td align="center">Handler</td>
+<td align="center">app.gyazo_upload</td>
+</tr>
+<tr>
+<td align="center">ENV</td>
+<td align="center">下に掲載</td>
+</tr>
+</tbody></table>
+<p>rubyを使うので、gemファイルもアップしておこう〜</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">source &quot;https://rubygems.org&quot;</span><br><span class="line"></span><br><span class="line">gem &quot;httparty&quot;</span><br><span class="line">gem &quot;aws-sdk-s3&quot;</span><br></pre></td></tr></table></figure>
+
+<p>関心のlambda関数がキタァァァー</p>
+<figure class="highlight ruby"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">require</span> <span class="string">'json'</span></span><br><span class="line"><span class="keyword">require</span> <span class="string">'aws-sdk-s3'</span></span><br><span class="line"><span class="keyword">require</span> <span class="string">'base64'</span></span><br><span class="line"><span class="keyword">require</span> <span class="string">'securerandom'</span></span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">gyazo_upload</span><span class="params">(<span class="symbol">event:</span>, <span class="symbol">context:</span>)</span></span></span><br><span class="line">  body = event[<span class="string">'body'</span>]</span><br><span class="line">  <span class="keyword">if</span> event[<span class="string">'isBase64Encoded'</span>]</span><br><span class="line">    <span class="comment"># decode処理</span></span><br><span class="line">    body = Base64.decode64(body)</span><br><span class="line">    <span class="comment"># boundary処理</span></span><br><span class="line">    tbody = body.split(ENV[<span class="string">'BOUNDARY'</span>])</span><br><span class="line">    sbody = tbody[<span class="number">2</span>].to_s.split(<span class="string">"\r\n\r\n"</span>)</span><br><span class="line">    hbody = sbody[<span class="number">1</span>].to_s.split(<span class="string">"\r\n--"</span>)</span><br><span class="line">    <span class="comment"># randomのファイル名生成</span></span><br><span class="line">    key = SecureRandom.urlsafe_base64</span><br><span class="line">    <span class="comment"># 保存パスを当日の日付に</span></span><br><span class="line">    date_dir = Time.now.strftime(<span class="string">"%y/%m/%d"</span>)</span><br><span class="line">    <span class="comment"># S3にアップする</span></span><br><span class="line">    object = Aws::S3::Resource</span><br><span class="line">             .new(<span class="symbol">region:</span>ENV[<span class="string">'REGION'</span>])</span><br><span class="line">             .bucket(ENV[<span class="string">'BUCKET_NAME'</span>])</span><br><span class="line">             .put_object(&#123; <span class="symbol">key:</span> <span class="string">"<span class="subst">#&#123;date_dir&#125;</span>/<span class="subst">#&#123;key&#125;</span>.png"</span>, <span class="symbol">body:</span> hbody[<span class="number">0</span>] &#125;)</span><br><span class="line">    <span class="comment"># ユーザに返すURLを整形</span></span><br><span class="line">    user_url = <span class="string">"https://"</span> + ENV[<span class="string">'DOMAIN'</span>] + <span class="string">"/<span class="subst">#&#123;date_dir&#125;</span>/<span class="subst">#&#123;key&#125;</span>.png"</span></span><br><span class="line">    p user_url</span><br><span class="line">    &#123;</span><br><span class="line">      <span class="symbol">statusCode:</span> <span class="number">200</span>,</span><br><span class="line">      <span class="symbol">body:</span> user_url</span><br><span class="line">    &#125;</span><br><span class="line">  <span class="keyword">else</span></span><br><span class="line">  <span class="comment"># cloudwatch envent対応のための空振り処理</span></span><br><span class="line">    mesbody = <span class="string">"exec by CloudWatch-Event."</span></span><br><span class="line">    &#123;</span><br><span class="line">      <span class="symbol">statusCode:</span> <span class="number">200</span>,</span><br><span class="line">      <span class="symbol">body:</span> mesbody</span><br><span class="line">    &#125;</span><br><span class="line">    puts mesbody</span><br><span class="line">  <span class="keyword">end</span></span><br><span class="line"><span class="keyword">end</span></span><br></pre></td></tr></table></figure>
+
+<p>cloudwatch eventの空振り処理について、また後ほどお話しよう。</p>
+<p>一応、ENVも貼っておきますー</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">#写真保存先バケット名</span><br><span class="line">BUCKET_NAME = gyazo</span><br><span class="line"></span><br><span class="line">#ユーザがアクセスしているドメイン名</span><br><span class="line">DOMAIN = example.jp</span><br><span class="line"></span><br><span class="line">#東京リージョン</span><br><span class="line">REGION = ap-northeast-1</span><br><span class="line"></span><br><span class="line">BOUNDARY = ご指定の文字</span><br></pre></td></tr></table></figure>
+
+<h3 id="S3-bucket"><a href="#S3-bucket" class="headerlink" title="S3 bucket"></a>S3 bucket</h3><p>社内しかアクセスできないということにしたいので、S3バケットのアクセスポリシーを弄ってみます！</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><span class="line">&#123;</span><br><span class="line">　　&quot;Version&quot;: &quot;2012-10-17&quot;,</span><br><span class="line">　　&quot;Id&quot;: &quot;S3PolicyId1&quot;,</span><br><span class="line">　　&quot;Statement&quot;: [</span><br><span class="line">　　　　&#123;</span><br><span class="line">　　　　　　&quot;Sid&quot;: &quot;IPAllow&quot;,</span><br><span class="line">　　　　　　&quot;Effect&quot;: &quot;Allow&quot;,</span><br><span class="line">　　　　　　&quot;Principal&quot;: &quot;*&quot;,</span><br><span class="line">　　　　　　&quot;Action&quot;: &quot;s3:GetObject&quot;,</span><br><span class="line">　　　　　　&quot;Resource&quot;: &quot;arn:aws:s3:::gyazo/*&quot;, #bucket名</span><br><span class="line">　　　　　　&quot;Condition&quot;: &#123;</span><br><span class="line">　　　　　　　　&quot;IpAddress&quot;: &#123;</span><br><span class="line">　　　　　　　　　&quot;aws:SourceIp&quot;: [</span><br><span class="line">　　　　　　　　　　　　&quot;XXX.XXX.XXX.XXX&quot; #このIPからしか見えない</span><br><span class="line">　　　　　　　　　]</span><br><span class="line">　　　　　　　　&#125;</span><br><span class="line">　　　　　　&#125;</span><br><span class="line">　　　　&#125;</span><br><span class="line">　　]</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h3 id="htmlページ"><a href="#htmlページ" class="headerlink" title="htmlページ"></a>htmlページ</h3><p>htmlページは割愛させてください。<br>社内gitlabのpages機能を使って、静的コンテンツをホスティングしています。</p>
+<h3 id="ALB-amp-Route53"><a href="#ALB-amp-Route53" class="headerlink" title="ALB &amp; Route53"></a>ALB &amp; Route53</h3><p>ここは今回の関心のところですね。<br>僕もずいぶん悩みました、なぜなら、元々のシステムでは、Nginxによるproxy_passで、URLを書き換えられることがあります。これによって、S3のendpointをユーザに隠し、ちょっとだけ短縮したURLを生成できた。<br>なので、後方互換性を保つため、Nginxの機能の代打も考えないといけない。<br>悩む末に、ALBのリスナールールを使うことになりました。  </p>
+<p>ルールは以下になります。<br><strong><em>HTTP:80</em></strong></p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">IF</span><br><span class="line">それ以外の場合はルーティングされないリクエスト</span><br><span class="line">THEN</span><br><span class="line">リダイレクト先https://#&#123;host&#125;:#&#123;port&#125;/#&#123;path&#125;?#&#123;query&#125;</span><br><span class="line">ステータスコード:HTTP_301</span><br></pre></td></tr></table></figure>
+
+<p><strong><em>HTTPS:443</em></strong></p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line">IF</span><br><span class="line">HTTP リクエストメソッドはGET</span><br><span class="line">パスが/*/*/*</span><br><span class="line">THEN</span><br><span class="line">リダイレクト先#&#123;protocol&#125;://s3EndoPoint:#&#123;port&#125;/#&#123;path&#125;?#&#123;query&#125;</span><br><span class="line">ステータスコード:HTTP_301</span><br><span class="line"></span><br><span class="line">IF</span><br><span class="line">HTTP リクエストメソッドはGET</span><br><span class="line">THEN</span><br><span class="line">リダイレクト先#&#123;protocol&#125;://downloadpage.html/?</span><br><span class="line">ステータスコード:HTTP_301</span><br><span class="line"></span><br><span class="line">IF</span><br><span class="line">それ以外の場合はルーティングされないリクエスト</span><br><span class="line">転送先 XXXXX(ターゲットグループ。そこからlambda関数に)</span><br></pre></td></tr></table></figure>
+
+<p>この３つのルールが実現できる機能を説明すると、</p>
+<ol>
+<li>HTTPのリクエストが来たら、HTTPSにリダイレクト</li>
+<li>GETのリクエスト＋パスが/* /* /*の形だったら、S3が格納している指定オブジェクトを表示</li>
+<li>GETのリクエストが来たら、静的コンテンツをホスティングされているWEBページを表示</li>
+<li>上記以外の場合、lambda関数に引き渡す</li>
+</ol>
+<h3 id="CloudWatch"><a href="#CloudWatch" class="headerlink" title="CloudWatch"></a>CloudWatch</h3><p>ここはちょっとしたおまけですね。<br>実際にテストすると、しょっちゅうURLが返るまで時間かかると時がありました。<br>試行錯誤後、cloudwatch eventを設定し、3分1回指定のlambda関数を起動されることによって、常にlambda関数のアクティブ状態を確保できた。まぁ、ちょっとコストかかるが、これくらいならいいじゃないかなぁ〜<br>もちろん、lambda関数の方の空振り処理はこれのためです。</p>
+<h1 id="成果物"><a href="#成果物" class="headerlink" title="成果物"></a>成果物</h1><p><img src="gyazo3.gif" alt="gyazo"></p>
+<p>これで、ぱっとできる超簡単なスクショ共有サービス（ノーメンテ）バージョンが完成だ！<br>それでは、この辺に終わりにしましょうか。<br>お疲れ様でした〜</p>
+
+      
+    </div>
+
+    
+
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/JP/" rel="tag"># JP</a>
+          
+            <a href="/tags/AWS/" rel="tag"># AWS</a>
+          
+            <a href="/tags/Work/" rel="tag"># Work</a>
+          
+            <a href="/tags/Serverless/" rel="tag"># Serverless</a>
+          
+        </div>
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/転職しました/" rel="next" title="転職しました">
+                <i class="fa fa-chevron-left"></i> 転職しました
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/AWS Summit 2019 @Tokyoに行きました/" rel="prev" title="AWS Summit 2019 @Tokyoに行きました">
+                AWS Summit 2019 @Tokyoに行きました <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+  </div>
+
+
+          </div>
+          
+
+  
+
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    
+      <div id="sidebar-dimmer"></div>
+    
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            Table of Contents
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            Overview
+          </li>
+        </ul>
+      
+
+      <section class="site-overview-wrap sidebar-panel">
+        <div class="site-overview">
+          <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+            
+              <img class="site-author-image" itemprop="image" src="/images-cache/avatar.JPG" alt="kuritan">
+            
+              <p class="site-author-name" itemprop="name">kuritan</p>
+              <p class="site-description motion-element" itemprop="description">情報弱者、ギガ難民</p>
+          </div>
+
+          
+            <nav class="site-state motion-element">
+              
+                <div class="site-state-item site-state-posts">
+                
+                  <a href="/archives/">
+                
+                    <span class="site-state-item-count">30</span>
+                    <span class="site-state-item-name">posts</span>
+                  </a>
+                </div>
+              
+
+              
+                
+                
+                <div class="site-state-item site-state-categories">
+                  <a href="/categories/index.html">
+                    
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                    <span class="site-state-item-count">4</span>
+                    <span class="site-state-item-name">categories</span>
+                  </a>
+                </div>
+              
+
+              
+                
+                
+                <div class="site-state-item site-state-tags">
+                  <a href="/tags/index.html">
+                    
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                    <span class="site-state-item-count">24</span>
+                    <span class="site-state-item-name">tags</span>
+                  </a>
+                </div>
+              
+            </nav>
+          
+
+          
+            <div class="feed-link motion-element">
+              <a href="/atom.xml" rel="alternate">
+                <i class="fa fa-rss"></i>
+                RSS
+              </a>
+            </div>
+          
+
+          
+            <div class="links-of-author motion-element">
+              
+                <span class="links-of-author-item">
+                  <a href="https://github.com/kuritan" target="_blank" title="GitHub"><i class="fa fa-fw fa-github"></i>GitHub</a>
+                  
+                </span>
+              
+                <span class="links-of-author-item">
+                  <a href="https://www.weibo.com/1935491594" target="_blank" title="Weibo"><i class="fa fa-fw fa-weibo"></i>Weibo</a>
+                  
+                </span>
+              
+                <span class="links-of-author-item">
+                  <a href="http://www.zhihu.com/people/kuritan" target="_blank" title="Zhihu"><i class="fa fa-fw fa-custom zhihu"></i>Zhihu</a>
+                  
+                </span>
+              
+                <span class="links-of-author-item">
+                  <a href="https://twitter.com/lizi1032" target="_blank" title="Twitter"><i class="fa fa-fw fa-twitter"></i>Twitter</a>
+                  
+                </span>
+              
+                <span class="links-of-author-item">
+                  <a href="https://www.facebook.com/yujia.zhai.50951" target="_blank" title="Facebook"><i class="fa fa-fw fa-facebook"></i>Facebook</a>
+                  
+                </span>
+              
+                <span class="links-of-author-item">
+                  <a href="https://instagram.com/kuriguri_28" target="_blank" title="Instagram"><i class="fa fa-fw fa-instagram"></i>Instagram</a>
+                  
+                </span>
+              
+            </div>
+          
+
+          
+          
+
+          
+          
+            <div class="links-of-blogroll motion-element links-of-blogroll-block">
+              <div class="links-of-blogroll-title">
+                <i class="fa  fa-fw fa-link"></i>
+                Links
+              </div>
+              <ul class="links-of-blogroll-list">
+                
+                  <li class="links-of-blogroll-item">
+                    <a href="https://matilde-lab.com/" title="Matilde Lab" target="_blank">Matilde Lab</a>
+                  </li>
+                
+              </ul>
+            </div>
+          
+
+          
+            
+          
+          
+
+        </div>
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#予備知識"><span class="nav-number">1.</span> <span class="nav-text">予備知識</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#なぜやったの？"><span class="nav-number">2.</span> <span class="nav-text">なぜやったの？</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#どうやったの？"><span class="nav-number">3.</span> <span class="nav-text">どうやったの？</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#元々の設計は以下となります。"><span class="nav-number">3.1.</span> <span class="nav-text">元々の設計は以下となります。</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#今回の設計はこうだ"><span class="nav-number">3.2.</span> <span class="nav-text">今回の設計はこうだ</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#要件"><span class="nav-number">3.2.1.</span> <span class="nav-text">要件</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Lambda関数"><span class="nav-number">3.2.2.</span> <span class="nav-text">Lambda関数</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#S3-bucket"><span class="nav-number">3.2.3.</span> <span class="nav-text">S3 bucket</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#htmlページ"><span class="nav-number">3.2.4.</span> <span class="nav-text">htmlページ</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#ALB-amp-Route53"><span class="nav-number">3.2.5.</span> <span class="nav-text">ALB &amp; Route53</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#CloudWatch"><span class="nav-number">3.2.6.</span> <span class="nav-text">CloudWatch</span></a></li></ol></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#成果物"><span class="nav-number">4.</span> <span class="nav-text">成果物</span></a></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+        <div class="back-to-top">
+          <i class="fa fa-arrow-up"></i>
+          
+            <span id="scrollpercent"><span>0</span>%</span>
+          
+        </div>
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">&copy; 2018 – <span itemprop="copyrightYear">2022</span>
+  <span class="with-love" id="animate">
+    <i class="fa fa-kuritan"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">kuritan</span>
+
+  
+
+  
+</div>
+
+
+
+
+
+
+
+
+
+
+
+        
+
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+
+    
+
+    
+	
+    
+
+    
+  </div>
+
+    
+    <script type="text/javascript" src="//cdn.bootcss.com/canvas-nest.js/1.0.0/canvas-nest.min.js"></script>
+    
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/canvas-nest/canvas-nest.min.js"></script>
+  
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=6.4.0"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=6.4.0"></script>
+
+
+
+  
+  
+
+
+  <script type="text/javascript" src="/js/src/affix.js?v=6.4.0"></script>
+
+  <script type="text/javascript" src="/js/src/schemes/pisces.js?v=6.4.0"></script>
+
+
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=6.4.0"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=6.4.0"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=6.4.0"></script>
+
+
+
+  
+
+
+
+  
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+
+  
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+</body>
+</html>

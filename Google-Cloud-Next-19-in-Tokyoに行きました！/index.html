@@ -1,0 +1,960 @@
+<!DOCTYPE html>
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+
+<html class="theme-next gemini use-motion" lang="en">
+<head><meta name="generator" content="Hexo 3.9.0">
+  <meta charset="UTF-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#222">
+
+
+
+
+
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform">
+<meta http-equiv="Cache-Control" content="no-siteapp">
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css">
+
+<link href="/css/main.css?v=6.4.0" rel="stylesheet" type="text/css">
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images-cache/apple-touch-icon.JPG?v=6.4.0">
+
+
+  <link rel="icon" type="image/png" sizes="32x32" href="/images-cache/favicon-32x32.JPG?v=6.4.0">
+
+
+  <link rel="icon" type="image/png" sizes="16x16" href="/images-cache/favicon-16x16.JPG?v=6.4.0">
+
+
+  <link rel="mask-icon" href="/images/logo.svg?v=6.4.0" color="#222">
+
+
+
+
+
+
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Gemini',
+    version: '6.4.0',
+    sidebar: {"position":"left","display":"always","offset":12,"b2t":true,"scrollpercent":true,"onmobile":true},
+    fancybox: false,
+    fastclick: false,
+    lazyload: false,
+    tabs: true,
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+  
+
+
+
+
+  <meta name="description" content="Google社主催のイベントGoogle Cloud Next’19 in Tokyoが07/30〜08/01に渡って、ザ・プリンス　パークタワー東京＆東京プリンスホテルで開催されました。僕も、業界トレンドや、他社取り込みを聞きたくて、その現場に行きました。">
+<meta name="keywords" content="JP,GCP">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Google Cloud Next&#39;19 in Tokyoに行きました！">
+<meta property="og:url" content="http://kuritan.github.io/Google-Cloud-Next-19-in-Tokyoに行きました！/index.html">
+<meta property="og:site_name" content="ビールのおつまみに">
+<meta property="og:description" content="Google社主催のイベントGoogle Cloud Next’19 in Tokyoが07/30〜08/01に渡って、ザ・プリンス　パークタワー東京＆東京プリンスホテルで開催されました。僕も、業界トレンドや、他社取り込みを聞きたくて、その現場に行きました。">
+<meta property="og:locale" content="en">
+<meta property="og:image" content="http://wx3.sinaimg.cn/mw690/735d420agy1g5izwu8l3nj20ks0rlgtf.jpg">
+<meta property="og:image" content="http://wx2.sinaimg.cn/mw690/735d420agy1g5jx8dx0ymj22io1w0b29.jpg">
+<meta property="og:image" content="http://wx3.sinaimg.cn/mw690/735d420agy1g5izwwxzazj21400u0quy.jpg">
+<meta property="og:image" content="http://wx4.sinaimg.cn/mw690/735d420agy1g5jx7w3d3fj22io1w0u0x.jpg">
+<meta property="og:image" content="http://wx1.sinaimg.cn/mw690/735d420agy1g5jx7mevvwj22io1w0x6p.jpg">
+<meta property="og:image" content="http://wx4.sinaimg.cn/mw690/735d420agy1g5izwxnecvj21400u0e81.jpg">
+<meta property="og:image" content="http://wx3.sinaimg.cn/mw690/735d420agy1g5izwx2yu8j21400u0wxx.jpg">
+<meta property="og:image" content="http://wx4.sinaimg.cn/mw690/735d420agy1g5jx83qchrj22io1w0kjl.jpg">
+<meta property="og:image" content="http://wx4.sinaimg.cn/mw690/735d420agy1g5jx88fohwj21w02io4qq.jpg">
+<meta property="og:image" content="http://wx1.sinaimg.cn/mw690/735d420agy1g5jx8hikhzj21w02io7wh.jpg">
+<meta property="og:updated_time" content="2022-07-17T03:45:57.572Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="Google Cloud Next&#39;19 in Tokyoに行きました！">
+<meta name="twitter:description" content="Google社主催のイベントGoogle Cloud Next’19 in Tokyoが07/30〜08/01に渡って、ザ・プリンス　パークタワー東京＆東京プリンスホテルで開催されました。僕も、業界トレンドや、他社取り込みを聞きたくて、その現場に行きました。">
+<meta name="twitter:image" content="http://wx3.sinaimg.cn/mw690/735d420agy1g5izwu8l3nj20ks0rlgtf.jpg">
+
+
+
+  <link rel="alternate" href="/atom.xml" title="ビールのおつまみに" type="application/atom+xml">
+
+
+
+
+  <link rel="canonical" href="http://kuritan.github.io/Google-Cloud-Next-19-in-Tokyoに行きました！/">
+
+
+
+<script type="text/javascript" id="page.configurations">
+  CONFIG.page = {
+    sidebar: "",
+  };
+</script>
+
+  <title>Google Cloud Next'19 in Tokyoに行きました！ | ビールのおつまみに</title>
+  
+
+
+
+
+<script async src="https://www.googletagmanager.com/gtag/js?id=UA-119591036-1"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+
+  gtag('config', 'UA-119591036-1');
+</script>
+
+
+
+
+
+
+  <noscript>
+  <style type="text/css">
+    .use-motion .motion-element,
+    .use-motion .brand,
+    .use-motion .menu-item,
+    .sidebar-inner,
+    .use-motion .post-block,
+    .use-motion .pagination,
+    .use-motion .comments,
+    .use-motion .post-header,
+    .use-motion .post-body,
+    .use-motion .collection-title { opacity: initial; }
+
+    .use-motion .logo,
+    .use-motion .site-title,
+    .use-motion .site-subtitle {
+      opacity: initial;
+      top: initial;
+    }
+
+    .use-motion {
+      .logo-line-before i { left: initial; }
+      .logo-line-after i { right: initial; }
+    }
+  </style>
+</noscript>
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="en">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail">
+    <div class="headband"></div>
+    
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/" class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">ビールのおつまみに</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+    
+      
+        <p class="site-subtitle">リモート副業探しています</p>
+      
+    
+  </div>
+
+  <div class="site-nav-toggle">
+    <button aria-label="Toggle navigation bar">
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+
+
+<nav class="site-nav">
+  
+    <ul id="menu" class="menu">
+      
+        
+        
+        
+          
+          <li class="menu-item menu-item-home">
+    <a href="/" rel="section">
+      <i class="menu-item-icon fa fa-fw fa-home"></i> <br>Home</a>
+  </li>
+        
+        
+        
+          
+          <li class="menu-item menu-item-tags">
+    <a href="/tags/" rel="section">
+      <i class="menu-item-icon fa fa-fw fa-tags"></i> <br>Tags<span class="badge">26</span></a>
+  </li>
+        
+        
+        
+          
+          <li class="menu-item menu-item-categories">
+    <a href="/categories/" rel="section">
+      <i class="menu-item-icon fa fa-fw fa-th"></i> <br>Categories<span class="badge">4</span></a>
+  </li>
+        
+        
+        
+          
+          <li class="menu-item menu-item-archives">
+    <a href="/archives/" rel="section">
+      <i class="menu-item-icon fa fa-fw fa-archive"></i> <br>Archives<span class="badge">30</span></a>
+  </li>
+
+      
+      
+    </ul>
+  
+
+  
+
+  
+</nav>
+
+
+
+  
+
+
+
+</div>
+    </header>
+
+    
+  
+  
+  
+    
+      
+    
+    <a href="https://github.com/kuritan" class="github-corner" target="_blank" title="Follow me on GitHub" aria-label="Follow me on GitHub"><svg width="80" height="80" viewbox="0 0 250 250" style="fill:#222; color:#fff; position: absolute; top: 0; border: 0; right: 0;" aria-hidden="true"><path d="M0,0 L115,115 L130,115 L142,142 L250,250 L250,0 Z"/><path d="M128.3,109.0 C113.8,99.7 119.0,89.6 119.0,89.6 C122.0,82.7 120.5,78.6 120.5,78.6 C119.2,72.0 123.4,76.3 123.4,76.3 C127.3,80.9 125.5,87.3 125.5,87.3 C122.9,97.6 130.6,101.9 134.4,103.2" fill="currentColor" style="transform-origin: 130px 106px;" class="octo-arm"/><path d="M115.0,115.0 C114.9,115.1 118.7,116.5 119.8,115.4 L133.7,101.6 C136.9,99.2 139.9,98.4 142.2,98.6 C133.8,88.0 127.5,74.4 143.8,58.0 C148.5,53.4 154.0,51.2 159.7,51.0 C160.3,49.4 163.2,43.6 171.4,40.1 C171.4,40.1 176.1,42.5 178.8,56.2 C183.1,58.6 187.2,61.8 190.9,65.4 C194.5,69.0 197.7,73.2 200.1,77.6 C213.8,80.2 216.3,84.9 216.3,84.9 C212.7,93.1 206.9,96.0 205.4,96.6 C205.1,102.4 203.0,107.8 198.3,112.5 C181.9,128.9 168.3,122.5 157.7,114.1 C157.9,116.9 156.7,120.9 152.7,124.9 L141.0,136.5 C139.8,137.7 141.6,141.9 141.8,141.8 Z" fill="currentColor" class="octo-body"/></svg>
+    
+      </a>
+    
+
+
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          
+            
+
+          
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://kuritan.github.io/Google-Cloud-Next-19-in-Tokyoに行きました！/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="kuritan">
+      <meta itemprop="description" content="情報弱者、ギガ難民">
+      <meta itemprop="image" content="/images-cache/avatar.JPG">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="ビールのおつまみに">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">Google Cloud Next'19 in Tokyoに行きました！
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+
+            
+            
+            
+
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">Posted on</span>
+              
+
+              
+                
+              
+
+              <time title="Created: 2019-08-01 10:12:04" itemprop="dateCreated datePublished" datetime="2019-08-01T10:12:04+09:00">2019-08-01</time>
+            
+
+            
+              
+
+              
+                
+                <span class="post-meta-divider">|</span>
+                
+
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-calendar-check-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">Edited on</span>
+                
+                <time title="Modified: 2022-07-17 12:45:57" itemprop="dateModified" datetime="2022-07-17T12:45:57+09:00">2022-07-17</time>
+              
+            
+          </span>
+
+          
+            <span class="post-category">
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">In</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing"><a href="/categories/Event/" itemprop="url" rel="index"><span itemprop="name">Event</span></a></span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <p>Google社主催のイベントGoogle Cloud Next’19 in Tokyoが07/30〜08/01に渡って、ザ・プリンス　パークタワー東京＆東京プリンスホテルで開催されました。僕も、業界トレンドや、他社取り込みを聞きたくて、その現場に行きました。</p>
+<a id="more"></a>
+
+<h1 id="現地へ"><a href="#現地へ" class="headerlink" title="現地へ"></a>現地へ</h1><p>今回自分は後半の7/31~8/1だけ参加しましたので、初日の様子はお届けできませんので、ご勘弁ください。<br><img src="http://wx3.sinaimg.cn/mw690/735d420agy1g5izwu8l3nj20ks0rlgtf.jpg" alt="ザ・プリンス　パークタワー東京"><br>スローガンとして、「かつてないクラウドを体験しよう。」と掲げられているみたい。<br><img src="http://wx2.sinaimg.cn/mw690/735d420agy1g5jx8dx0ymj22io1w0b29.jpg" alt="スローガン"></p>
+<p>早速受付でチェックインし、中に入ろうじゃないか。<br><img src="http://wx3.sinaimg.cn/mw690/735d420agy1g5izwwxzazj21400u0quy.jpg" alt="オフシャル資料集"></p>
+<h1 id="基調講演"><a href="#基調講演" class="headerlink" title="基調講演"></a>基調講演</h1><p>基本的には、GoogleCloudのお偉方や日本ローカルの大手IT企業からの未来展望や、現状おさらいを行いました。<br>ご興味のある方は、youtubeでご覧いただけます。<br><a href="https://www.youtube.com/watch?v=MgXa9kLPUiA&feature=youtu.be" target="_blank" rel="noopener">基調講演</a></p>
+<h1 id="Expo"><a href="#Expo" class="headerlink" title="Expo"></a>Expo</h1><p>今回の場所はホテルの宴会場ですので、ブースとして、はっきり言って狭いのです！IT会社向け、事業会社向け、様々のソリューションや、製品の紹介＆デモが展示され、商談もリラックスの雰囲気の中、交わされた感じかと思います。<br><img src="http://wx4.sinaimg.cn/mw690/735d420agy1g5jx7w3d3fj22io1w0u0x.jpg" alt="賑やかな現場1"><br><img src="http://wx1.sinaimg.cn/mw690/735d420agy1g5jx7mevvwj22io1w0x6p.jpg" alt="賑やかな現場2"><br><img src="http://wx4.sinaimg.cn/mw690/735d420agy1g5izwxnecvj21400u0e81.jpg" alt="賑やかな現場3"></p>
+<p>僕は最近kubernetesを中心に仕事をさせていただきますので、SRE、GKEや、CI/CDなどの領域に関してのプースを探しました。<br>残念ながら、特に気になったものがありませんでしたー</p>
+<h1 id="各セッション"><a href="#各セッション" class="headerlink" title="各セッション"></a>各セッション</h1><p>目当てはやはり各セッションのプレゼンです。<br>メルパイやアサヒグループのGKE取り込み、SREなど、他社の本番環境での設定やイディア、選択の軸を聞き、大変有意義の時間を過ごしました。<br><img src="http://wx3.sinaimg.cn/mw690/735d420agy1g5izwx2yu8j21400u0wxx.jpg" alt="k8s"></p>
+<h1 id="現地周辺"><a href="#現地周辺" class="headerlink" title="現地周辺"></a>現地周辺</h1><p>両ホテルの間は増上寺が挟まって、シャトルバスも運行されていました。<br>そこまで遠くはないですが、なぜシャトルバスいるの？と思われるかもしれませんが、その原因は、東京の異常の暑さだー<br>エアコンから離れたくない！！！！<br><img src="http://wx4.sinaimg.cn/mw690/735d420agy1g5jx83qchrj22io1w0kjl.jpg" alt="googleシャトルバス"><br>が、僕は勇気を出して、徒歩で、隣のホテルに一回往復しました！<br>東京プリンスホテルの方は、ブースエリアがなく、セッション開催のみとなっていました。<br>やっぱパークタワー東京の方が面白い〜<br><img src="http://wx4.sinaimg.cn/mw690/735d420agy1g5jx88fohwj21w02io4qq.jpg" alt="next&#39;19"></p>
+<p>来年もまた、next’20とかが開催されるみたいで、その時また現場の様子をお届けしますー</p>
+<p><img src="http://wx1.sinaimg.cn/mw690/735d420agy1g5jx8hikhzj21w02io7wh.jpg" alt="next&#39;19"></p>
+
+      
+    </div>
+
+    
+
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/JP/" rel="tag"># JP</a>
+          
+            <a href="/tags/GCP/" rel="tag"># GCP</a>
+          
+        </div>
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/夏休み、ドイツに行こうーミュンヘン編/" rel="next" title="夏休み、ドイツに行こうーミュンヘン編">
+                <i class="fa fa-chevron-left"></i> 夏休み、ドイツに行こうーミュンヘン編
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/本番環境のパブリッククラウドサービス間移行/" rel="prev" title="本番環境のパブリッククラウドサービス間移行">
+                本番環境のパブリッククラウドサービス間移行 <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+  </div>
+
+
+          </div>
+          
+
+  
+
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    
+      <div id="sidebar-dimmer"></div>
+    
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            Table of Contents
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            Overview
+          </li>
+        </ul>
+      
+
+      <section class="site-overview-wrap sidebar-panel">
+        <div class="site-overview">
+          <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+            
+              <img class="site-author-image" itemprop="image" src="/images-cache/avatar.JPG" alt="kuritan">
+            
+              <p class="site-author-name" itemprop="name">kuritan</p>
+              <p class="site-description motion-element" itemprop="description">情報弱者、ギガ難民</p>
+          </div>
+
+          
+            <nav class="site-state motion-element">
+              
+                <div class="site-state-item site-state-posts">
+                
+                  <a href="/archives/">
+                
+                    <span class="site-state-item-count">30</span>
+                    <span class="site-state-item-name">posts</span>
+                  </a>
+                </div>
+              
+
+              
+                
+                
+                <div class="site-state-item site-state-categories">
+                  <a href="/categories/index.html">
+                    
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                    <span class="site-state-item-count">4</span>
+                    <span class="site-state-item-name">categories</span>
+                  </a>
+                </div>
+              
+
+              
+                
+                
+                <div class="site-state-item site-state-tags">
+                  <a href="/tags/index.html">
+                    
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                    <span class="site-state-item-count">24</span>
+                    <span class="site-state-item-name">tags</span>
+                  </a>
+                </div>
+              
+            </nav>
+          
+
+          
+            <div class="feed-link motion-element">
+              <a href="/atom.xml" rel="alternate">
+                <i class="fa fa-rss"></i>
+                RSS
+              </a>
+            </div>
+          
+
+          
+            <div class="links-of-author motion-element">
+              
+                <span class="links-of-author-item">
+                  <a href="https://github.com/kuritan" target="_blank" title="GitHub"><i class="fa fa-fw fa-github"></i>GitHub</a>
+                  
+                </span>
+              
+                <span class="links-of-author-item">
+                  <a href="https://www.weibo.com/1935491594" target="_blank" title="Weibo"><i class="fa fa-fw fa-weibo"></i>Weibo</a>
+                  
+                </span>
+              
+                <span class="links-of-author-item">
+                  <a href="http://www.zhihu.com/people/kuritan" target="_blank" title="Zhihu"><i class="fa fa-fw fa-custom zhihu"></i>Zhihu</a>
+                  
+                </span>
+              
+                <span class="links-of-author-item">
+                  <a href="https://twitter.com/lizi1032" target="_blank" title="Twitter"><i class="fa fa-fw fa-twitter"></i>Twitter</a>
+                  
+                </span>
+              
+                <span class="links-of-author-item">
+                  <a href="https://www.facebook.com/yujia.zhai.50951" target="_blank" title="Facebook"><i class="fa fa-fw fa-facebook"></i>Facebook</a>
+                  
+                </span>
+              
+                <span class="links-of-author-item">
+                  <a href="https://instagram.com/kuriguri_28" target="_blank" title="Instagram"><i class="fa fa-fw fa-instagram"></i>Instagram</a>
+                  
+                </span>
+              
+            </div>
+          
+
+          
+          
+
+          
+          
+            <div class="links-of-blogroll motion-element links-of-blogroll-block">
+              <div class="links-of-blogroll-title">
+                <i class="fa  fa-fw fa-link"></i>
+                Links
+              </div>
+              <ul class="links-of-blogroll-list">
+                
+                  <li class="links-of-blogroll-item">
+                    <a href="https://matilde-lab.com/" title="Matilde Lab" target="_blank">Matilde Lab</a>
+                  </li>
+                
+              </ul>
+            </div>
+          
+
+          
+            
+          
+          
+
+        </div>
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#現地へ"><span class="nav-number">1.</span> <span class="nav-text">現地へ</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#基調講演"><span class="nav-number">2.</span> <span class="nav-text">基調講演</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#Expo"><span class="nav-number">3.</span> <span class="nav-text">Expo</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#各セッション"><span class="nav-number">4.</span> <span class="nav-text">各セッション</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#現地周辺"><span class="nav-number">5.</span> <span class="nav-text">現地周辺</span></a></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+        <div class="back-to-top">
+          <i class="fa fa-arrow-up"></i>
+          
+            <span id="scrollpercent"><span>0</span>%</span>
+          
+        </div>
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">&copy; 2018 – <span itemprop="copyrightYear">2022</span>
+  <span class="with-love" id="animate">
+    <i class="fa fa-kuritan"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">kuritan</span>
+
+  
+
+  
+</div>
+
+
+
+
+
+
+
+
+
+
+
+        
+
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+
+    
+
+    
+	
+    
+
+    
+  </div>
+
+    
+    <script type="text/javascript" src="//cdn.bootcss.com/canvas-nest.js/1.0.0/canvas-nest.min.js"></script>
+    
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/canvas-nest/canvas-nest.min.js"></script>
+  
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=6.4.0"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=6.4.0"></script>
+
+
+
+  
+  
+
+
+  <script type="text/javascript" src="/js/src/affix.js?v=6.4.0"></script>
+
+  <script type="text/javascript" src="/js/src/schemes/pisces.js?v=6.4.0"></script>
+
+
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=6.4.0"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=6.4.0"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=6.4.0"></script>
+
+
+
+  
+
+
+
+  
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+
+  
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+</body>
+</html>

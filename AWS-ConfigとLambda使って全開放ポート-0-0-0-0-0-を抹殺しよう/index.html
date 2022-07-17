@@ -1,0 +1,979 @@
+<!DOCTYPE html>
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+
+<html class="theme-next gemini use-motion" lang="en">
+<head><meta name="generator" content="Hexo 3.9.0">
+  <meta charset="UTF-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#222">
+
+
+
+
+
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform">
+<meta http-equiv="Cache-Control" content="no-siteapp">
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css">
+
+<link href="/css/main.css?v=6.4.0" rel="stylesheet" type="text/css">
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images-cache/apple-touch-icon.JPG?v=6.4.0">
+
+
+  <link rel="icon" type="image/png" sizes="32x32" href="/images-cache/favicon-32x32.JPG?v=6.4.0">
+
+
+  <link rel="icon" type="image/png" sizes="16x16" href="/images-cache/favicon-16x16.JPG?v=6.4.0">
+
+
+  <link rel="mask-icon" href="/images/logo.svg?v=6.4.0" color="#222">
+
+
+
+
+
+
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Gemini',
+    version: '6.4.0',
+    sidebar: {"position":"left","display":"always","offset":12,"b2t":true,"scrollpercent":true,"onmobile":true},
+    fancybox: false,
+    fastclick: false,
+    lazyload: false,
+    tabs: true,
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+  
+
+
+
+
+  <meta name="description" content="突然ですが、こんなお悩みがお持ちでしょうか。  社内developer共用のAWSアカウントを作って、クラウド知識を社内に布教しようと思った 勝手に全開放(ingress 0.0.0.0/0)のSecurityGroupが適用された 気づいたら、もうインターネットで天然のハニーポット扱い  こんなアナタに、今日の品物をオススメします！">
+<meta name="keywords" content="JP,AWS">
+<meta property="og:type" content="article">
+<meta property="og:title" content="AWS ConfigとLambda使って全開放ポート(0.0.0.0&#x2F;0に向けた)を抹殺しよう">
+<meta property="og:url" content="http://kuritan.github.io/AWS-ConfigとLambda使って全開放ポート-0-0-0-0-0-を抹殺しよう/index.html">
+<meta property="og:site_name" content="ビールのおつまみに">
+<meta property="og:description" content="突然ですが、こんなお悩みがお持ちでしょうか。  社内developer共用のAWSアカウントを作って、クラウド知識を社内に布教しようと思った 勝手に全開放(ingress 0.0.0.0/0)のSecurityGroupが適用された 気づいたら、もうインターネットで天然のハニーポット扱い  こんなアナタに、今日の品物をオススメします！">
+<meta property="og:locale" content="en">
+<meta property="og:image" content="http://kuritan.github.io/AWS-ConfigとLambda使って全開放ポート-0-0-0-0-0-を抹殺しよう/config1.jpg">
+<meta property="og:image" content="http://kuritan.github.io/AWS-ConfigとLambda使って全開放ポート-0-0-0-0-0-を抹殺しよう/config2.jpg">
+<meta property="og:image" content="http://kuritan.github.io/AWS-ConfigとLambda使って全開放ポート-0-0-0-0-0-を抹殺しよう/config3.jpg">
+<meta property="og:updated_time" content="2022-07-17T03:45:57.568Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="AWS ConfigとLambda使って全開放ポート(0.0.0.0&#x2F;0に向けた)を抹殺しよう">
+<meta name="twitter:description" content="突然ですが、こんなお悩みがお持ちでしょうか。  社内developer共用のAWSアカウントを作って、クラウド知識を社内に布教しようと思った 勝手に全開放(ingress 0.0.0.0/0)のSecurityGroupが適用された 気づいたら、もうインターネットで天然のハニーポット扱い  こんなアナタに、今日の品物をオススメします！">
+<meta name="twitter:image" content="http://kuritan.github.io/AWS-ConfigとLambda使って全開放ポート-0-0-0-0-0-を抹殺しよう/config1.jpg">
+
+
+
+  <link rel="alternate" href="/atom.xml" title="ビールのおつまみに" type="application/atom+xml">
+
+
+
+
+  <link rel="canonical" href="http://kuritan.github.io/AWS-ConfigとLambda使って全開放ポート-0-0-0-0-0-を抹殺しよう/">
+
+
+
+<script type="text/javascript" id="page.configurations">
+  CONFIG.page = {
+    sidebar: "",
+  };
+</script>
+
+  <title>AWS ConfigとLambda使って全開放ポート(0.0.0.0/0に向けた)を抹殺しよう | ビールのおつまみに</title>
+  
+
+
+
+
+<script async src="https://www.googletagmanager.com/gtag/js?id=UA-119591036-1"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+
+  gtag('config', 'UA-119591036-1');
+</script>
+
+
+
+
+
+
+  <noscript>
+  <style type="text/css">
+    .use-motion .motion-element,
+    .use-motion .brand,
+    .use-motion .menu-item,
+    .sidebar-inner,
+    .use-motion .post-block,
+    .use-motion .pagination,
+    .use-motion .comments,
+    .use-motion .post-header,
+    .use-motion .post-body,
+    .use-motion .collection-title { opacity: initial; }
+
+    .use-motion .logo,
+    .use-motion .site-title,
+    .use-motion .site-subtitle {
+      opacity: initial;
+      top: initial;
+    }
+
+    .use-motion {
+      .logo-line-before i { left: initial; }
+      .logo-line-after i { right: initial; }
+    }
+  </style>
+</noscript>
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="en">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail">
+    <div class="headband"></div>
+    
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/" class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">ビールのおつまみに</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+    
+      
+        <p class="site-subtitle">リモート副業探しています</p>
+      
+    
+  </div>
+
+  <div class="site-nav-toggle">
+    <button aria-label="Toggle navigation bar">
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+
+
+<nav class="site-nav">
+  
+    <ul id="menu" class="menu">
+      
+        
+        
+        
+          
+          <li class="menu-item menu-item-home">
+    <a href="/" rel="section">
+      <i class="menu-item-icon fa fa-fw fa-home"></i> <br>Home</a>
+  </li>
+        
+        
+        
+          
+          <li class="menu-item menu-item-tags">
+    <a href="/tags/" rel="section">
+      <i class="menu-item-icon fa fa-fw fa-tags"></i> <br>Tags<span class="badge">26</span></a>
+  </li>
+        
+        
+        
+          
+          <li class="menu-item menu-item-categories">
+    <a href="/categories/" rel="section">
+      <i class="menu-item-icon fa fa-fw fa-th"></i> <br>Categories<span class="badge">4</span></a>
+  </li>
+        
+        
+        
+          
+          <li class="menu-item menu-item-archives">
+    <a href="/archives/" rel="section">
+      <i class="menu-item-icon fa fa-fw fa-archive"></i> <br>Archives<span class="badge">30</span></a>
+  </li>
+
+      
+      
+    </ul>
+  
+
+  
+
+  
+</nav>
+
+
+
+  
+
+
+
+</div>
+    </header>
+
+    
+  
+  
+  
+    
+      
+    
+    <a href="https://github.com/kuritan" class="github-corner" target="_blank" title="Follow me on GitHub" aria-label="Follow me on GitHub"><svg width="80" height="80" viewbox="0 0 250 250" style="fill:#222; color:#fff; position: absolute; top: 0; border: 0; right: 0;" aria-hidden="true"><path d="M0,0 L115,115 L130,115 L142,142 L250,250 L250,0 Z"/><path d="M128.3,109.0 C113.8,99.7 119.0,89.6 119.0,89.6 C122.0,82.7 120.5,78.6 120.5,78.6 C119.2,72.0 123.4,76.3 123.4,76.3 C127.3,80.9 125.5,87.3 125.5,87.3 C122.9,97.6 130.6,101.9 134.4,103.2" fill="currentColor" style="transform-origin: 130px 106px;" class="octo-arm"/><path d="M115.0,115.0 C114.9,115.1 118.7,116.5 119.8,115.4 L133.7,101.6 C136.9,99.2 139.9,98.4 142.2,98.6 C133.8,88.0 127.5,74.4 143.8,58.0 C148.5,53.4 154.0,51.2 159.7,51.0 C160.3,49.4 163.2,43.6 171.4,40.1 C171.4,40.1 176.1,42.5 178.8,56.2 C183.1,58.6 187.2,61.8 190.9,65.4 C194.5,69.0 197.7,73.2 200.1,77.6 C213.8,80.2 216.3,84.9 216.3,84.9 C212.7,93.1 206.9,96.0 205.4,96.6 C205.1,102.4 203.0,107.8 198.3,112.5 C181.9,128.9 168.3,122.5 157.7,114.1 C157.9,116.9 156.7,120.9 152.7,124.9 L141.0,136.5 C139.8,137.7 141.6,141.9 141.8,141.8 Z" fill="currentColor" class="octo-body"/></svg>
+    
+      </a>
+    
+
+
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          
+            
+
+          
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://kuritan.github.io/AWS-ConfigとLambda使って全開放ポート-0-0-0-0-0-を抹殺しよう/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="kuritan">
+      <meta itemprop="description" content="情報弱者、ギガ難民">
+      <meta itemprop="image" content="/images-cache/avatar.JPG">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="ビールのおつまみに">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">AWS ConfigとLambda使って全開放ポート(0.0.0.0/0に向けた)を抹殺しよう
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+
+            
+            
+            
+
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">Posted on</span>
+              
+
+              
+                
+              
+
+              <time title="Created: 2019-11-07 18:17:34" itemprop="dateCreated datePublished" datetime="2019-11-07T18:17:34+09:00">2019-11-07</time>
+            
+
+            
+              
+
+              
+                
+                <span class="post-meta-divider">|</span>
+                
+
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-calendar-check-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">Edited on</span>
+                
+                <time title="Modified: 2022-07-17 12:45:57" itemprop="dateModified" datetime="2022-07-17T12:45:57+09:00">2022-07-17</time>
+              
+            
+          </span>
+
+          
+            <span class="post-category">
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">In</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing"><a href="/categories/infra/" itemprop="url" rel="index"><span itemprop="name">infra</span></a></span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <p>突然ですが、こんなお悩みがお持ちでしょうか。</p>
+<ul>
+<li>社内developer共用のAWSアカウントを作って、クラウド知識を社内に布教しようと思った</li>
+<li>勝手に全開放(ingress 0.0.0.0/0)のSecurityGroupが適用された</li>
+<li>気づいたら、もうインターネットで天然のハニーポット扱い</li>
+</ul>
+<p>こんなアナタに、今日の品物をオススメします！</p>
+<a id="more"></a>
+
+<h1 id="機能紹介"><a href="#機能紹介" class="headerlink" title="機能紹介"></a>機能紹介</h1><ul>
+<li>AWS Configを利用しSecurityGroupを常時監視し、ingressで0.0.0.0/0 allowのルールを検索</li>
+<li>発見次第、SNS経由で発信</li>
+<li>予め設置したlambda関数がトリガーされ、該当全開放ルールをリプレース</li>
+<li>インシデントマネジャーからアラート受信（オプション）</li>
+</ul>
+<p><img src="config1.jpg" alt="全体イメージ"></p>
+<h1 id="どうやって使うの？"><a href="#どうやって使うの？" class="headerlink" title="どうやって使うの？"></a>どうやって使うの？</h1><p>基本は全部githubにあげて、READMEに記載しましたが、ちょっとだけ解説します。<br>セルフサービスの方は、下記リンクへどうぞ<br><strong><a href="https://github.com/kuritan/aws_config_replace_unauthorized_ports" target="_blank" rel="noopener">Github repo</a></strong></p>
+<h2 id="AWS-Config"><a href="#AWS-Config" class="headerlink" title="AWS Config"></a>AWS Config</h2><p>まず、Config機能を有効化し、EC2リソースにモニタリングできるように設定してください。（全リソースでも構いませんが、費用感が若干違う）</p>
+<h2 id="費用感"><a href="#費用感" class="headerlink" title="費用感"></a>費用感</h2><p><a href="https://aws.amazon.com/jp/config/pricing/" target="_blank" rel="noopener">AWS Config料金</a><br>新料金プランになってから、だいぶ安くなりました。<br>LambdaFunctionも使い道よりますが、たいていは安価のイメージで、料金について、あんまり心配する必要がない風に考えています。<br>参考までに、月間 $5 前後の感じですかね。</p>
+<h2 id="AWS-Config-Rule"><a href="#AWS-Config-Rule" class="headerlink" title="AWS Config Rule"></a>AWS Config Rule</h2><p>ルールを新規追加しましょう。<br>AWS提供のモノで大丈夫です、名前は「VPC_SG_OPEN_ONLY_TO_AUTHORIZED_PORTS」  </p>
+<p><img src="config2.jpg" alt="config"></p>
+<h2 id="AWS-Config-Rule-修復アクション"><a href="#AWS-Config-Rule-修復アクション" class="headerlink" title="AWS Config Rule 修復アクション"></a>AWS Config Rule 修復アクション</h2><p>ここは、今回の肝ですね。<br>AWS提供の修復アクションはいろいろあって、中に「vpc-sg-open-only-to-authorized-ports」こいうものが使いそうだが、実際やってみました。<br>結果、駄目でしたー<br>何が駄目というと、デフォルトVPC以外のSecurityGroupには対応できないことです。<br>これじゃ監視の意味が薄いので、VPC関係なく対応してもらいたいですね。<br>ここは、やはり自前でlambda関数で対応する道を選びました。  </p>
+<p>ちょっと話が長くなたっが、ここで「PublishSNSNotification」という修復アクションを選択してください。<br>もちろん、それに合わせてIAMロールも準備してあげてくださいね。<br><img src="config3.jpg" alt="config rule"></p>
+<p>修復アクションの実行履歴は、AWS SystemManagerで確認できます。</p>
+<h2 id="AWS-SNS-トピック"><a href="#AWS-SNS-トピック" class="headerlink" title="AWS SNS トピック"></a>AWS SNS トピック</h2><p>新規SNSトピックを作りましょう。<br>あとで、lambda関数とインシデントマネジャーをこちらのサブスクリプションに入れるような感じですね。</p>
+<h2 id="AWS-Lambda-Function"><a href="#AWS-Lambda-Function" class="headerlink" title="AWS Lambda Function"></a>AWS Lambda Function</h2><p>コードは以下となります。<br>ENVとして、authorized_global_ipv4を設定しましょう。(0.0.0.0/0にリプレースするIPに設定、例えばオフィス拠点のグローバルIP)<br>unauthorized_ipv4 は明示的に0.0.0.0/0を表明するためのもので、素直に0.0.0.0/0に設定してくださいね。</p>
+<p>元々全VPC対応したいから自前でやるので、関数を非VPCにしてから、IAMはお任せしますね。</p>
+<p>Runtime: Python3.6</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br></pre></td><td class="code"><pre><span class="line">import os</span><br><span class="line">import json</span><br><span class="line">import boto3</span><br><span class="line"> </span><br><span class="line">def lambda_handler(event, context):</span><br><span class="line">    message_unicode = event[&apos;Records&apos;][0][&apos;Sns&apos;][&apos;Message&apos;]</span><br><span class="line">    print(message_unicode)</span><br><span class="line">    id = message_unicode.strip(&apos;&#123; &quot;&apos;).strip(&apos;&quot;&#125;&apos;)</span><br><span class="line">    print(id)</span><br><span class="line"></span><br><span class="line">    unauthorized_ipv4 = os.environ[&apos;unauthorized_ipv4&apos;]</span><br><span class="line">    authorized_global_ipv4 = os.environ[&apos;global_ipv4&apos;]</span><br><span class="line"></span><br><span class="line">    describe_sg_all = boto3.client(&apos;ec2&apos;)</span><br><span class="line">    handle_sg_all = boto3.resource(&apos;ec2&apos;)</span><br><span class="line">    describe_sg = describe_sg_all.describe_security_groups(GroupIds=[id])</span><br><span class="line">    handle_sg = handle_sg_all.SecurityGroup(id)</span><br><span class="line">    </span><br><span class="line">    print(describe_sg)</span><br><span class="line">    </span><br><span class="line">    for i in describe_sg[&apos;SecurityGroups&apos;]:</span><br><span class="line">        print(&quot;Security Group Name: &quot;+i[&apos;GroupName&apos;])</span><br><span class="line">        print(&quot;The Ingress rules are as follows: &quot;)</span><br><span class="line">        for j in i[&apos;IpPermissions&apos;]:</span><br><span class="line">            print(&quot;IP Protocol: &quot;+j[&apos;IpProtocol&apos;])</span><br><span class="line">            try:</span><br><span class="line">                print(&quot;FromPORT: &quot;+str(j[&apos;FromPort&apos;]))</span><br><span class="line">                print(&quot;ToPORT: &quot;+str(j[&apos;ToPort&apos;]))</span><br><span class="line"></span><br><span class="line">                for k in j[&apos;IpRanges&apos;]:</span><br><span class="line">                    print(&quot;IP Ranges: &quot;+k[&apos;CidrIp&apos;])</span><br><span class="line"></span><br><span class="line">                    if k[&apos;CidrIp&apos;] == unauthorized_ipv4 :</span><br><span class="line">                        authorize_response = handle_sg.authorize_ingress(</span><br><span class="line">                                    IpPermissions=[</span><br><span class="line">                                        &#123;</span><br><span class="line">                                            &apos;FromPort&apos;: int(j[&apos;FromPort&apos;]),</span><br><span class="line">                                            &apos;IpProtocol&apos;: j[&apos;IpProtocol&apos;],</span><br><span class="line">                                            &apos;ToPort&apos;: int(j[&apos;ToPort&apos;]),</span><br><span class="line">                                            &apos;IpRanges&apos;: [</span><br><span class="line">                                                &#123;</span><br><span class="line">                                                    &apos;CidrIp&apos;: authorized_global_ipv4</span><br><span class="line">                                                &#125;</span><br><span class="line">                                            ]</span><br><span class="line">                                        &#125;</span><br><span class="line">                                    ]</span><br><span class="line">                        )</span><br><span class="line">                        revoke_response = handle_sg.revoke_ingress(</span><br><span class="line">                                    IpPermissions=[</span><br><span class="line">                                        &#123;</span><br><span class="line">                                            &apos;FromPort&apos;: int(j[&apos;FromPort&apos;]),</span><br><span class="line">                                            &apos;IpProtocol&apos;: j[&apos;IpProtocol&apos;],</span><br><span class="line">                                            &apos;ToPort&apos;: int(j[&apos;ToPort&apos;]),</span><br><span class="line">                                            &apos;IpRanges&apos;: [</span><br><span class="line">                                                &#123;</span><br><span class="line">                                                    &apos;CidrIp&apos;: unauthorized_ipv4</span><br><span class="line">                                                &#125;</span><br><span class="line">                                            ]</span><br><span class="line">                                        &#125;</span><br><span class="line">                                    ]</span><br><span class="line">                        )</span><br><span class="line">                        print(&quot;Security Group Changed&quot;)</span><br><span class="line">                    else:</span><br><span class="line">                        print(&quot;No Security Group Changed&quot;)</span><br><span class="line">            except Exception as e:</span><br><span class="line">                    print(e.args)</span><br><span class="line">                    print(&quot;No value for ports and ip ranges available for this security group&quot;)</span><br><span class="line">                    continue</span><br><span class="line">        return &apos;end&apos;</span><br></pre></td></tr></table></figure>
+
+<p>トリガーを先程作ったSNSトピックに設定し、テストに以下のようなモノを作りましょう。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">&#123;</span><br><span class="line">  &quot;Records&quot;: [</span><br><span class="line">    &#123;</span><br><span class="line">      &quot;Sns&quot;: &#123;</span><br><span class="line">        &quot;Timestamp&quot;: &quot;2016-11-17T08:34:04.436Z&quot;,</span><br><span class="line">        &quot;Message&quot;: &quot;&#123; \&quot;sg-XXXXX\&quot;&#125;&quot;</span><br><span class="line">      &#125;</span><br><span class="line">    &#125;</span><br><span class="line">  ]</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>テストのため、実際0.0.0.0/0のSecurityGroup（portはどうでもいいが、80,443でいいかなぁ）を作って、IDをとって、上記の「sg-XXXXX」に書き換えてください。</p>
+<p>lambda関数のページで「テスト」を押したら、実行されるはずですね。  </p>
+<h1 id="インシデントマネジャー-オプション"><a href="#インシデントマネジャー-オプション" class="headerlink" title="インシデントマネジャー(オプション)"></a>インシデントマネジャー(オプション)</h1><p>今の所属会社はインシデント管理のため、Pagerdutyを使っています。<br>それのEMAILアドレスを上記SNSトピックにサブスクすれば、全開放のSecurityGroup IDが送信されます。</p>
+<h1 id="まとめ"><a href="#まとめ" class="headerlink" title="まとめ"></a>まとめ</h1><p>ここまで終わりです。お疲れ様でした。<br>一回苦労すれば、後々は安心ですから、やる価値はあるかと思いますよー  </p>
+<p>じゃ今回もここまでにします。<br>またねー</p>
+
+      
+    </div>
+
+    
+
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/JP/" rel="tag"># JP</a>
+          
+            <a href="/tags/AWS/" rel="tag"># AWS</a>
+          
+        </div>
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/kubernetesについて社内発表した/" rel="next" title="kubernetesについて社内発表した">
+                <i class="fa fa-chevron-left"></i> kubernetesについて社内発表した
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/MySQLカラムサイズがデカすぎた件/" rel="prev" title="MySQLカラムサイズがデカすぎた件">
+                MySQLカラムサイズがデカすぎた件 <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+  </div>
+
+
+          </div>
+          
+
+  
+
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    
+      <div id="sidebar-dimmer"></div>
+    
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            Table of Contents
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            Overview
+          </li>
+        </ul>
+      
+
+      <section class="site-overview-wrap sidebar-panel">
+        <div class="site-overview">
+          <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+            
+              <img class="site-author-image" itemprop="image" src="/images-cache/avatar.JPG" alt="kuritan">
+            
+              <p class="site-author-name" itemprop="name">kuritan</p>
+              <p class="site-description motion-element" itemprop="description">情報弱者、ギガ難民</p>
+          </div>
+
+          
+            <nav class="site-state motion-element">
+              
+                <div class="site-state-item site-state-posts">
+                
+                  <a href="/archives/">
+                
+                    <span class="site-state-item-count">30</span>
+                    <span class="site-state-item-name">posts</span>
+                  </a>
+                </div>
+              
+
+              
+                
+                
+                <div class="site-state-item site-state-categories">
+                  <a href="/categories/index.html">
+                    
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                    <span class="site-state-item-count">4</span>
+                    <span class="site-state-item-name">categories</span>
+                  </a>
+                </div>
+              
+
+              
+                
+                
+                <div class="site-state-item site-state-tags">
+                  <a href="/tags/index.html">
+                    
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                    <span class="site-state-item-count">24</span>
+                    <span class="site-state-item-name">tags</span>
+                  </a>
+                </div>
+              
+            </nav>
+          
+
+          
+            <div class="feed-link motion-element">
+              <a href="/atom.xml" rel="alternate">
+                <i class="fa fa-rss"></i>
+                RSS
+              </a>
+            </div>
+          
+
+          
+            <div class="links-of-author motion-element">
+              
+                <span class="links-of-author-item">
+                  <a href="https://github.com/kuritan" target="_blank" title="GitHub"><i class="fa fa-fw fa-github"></i>GitHub</a>
+                  
+                </span>
+              
+                <span class="links-of-author-item">
+                  <a href="https://www.weibo.com/1935491594" target="_blank" title="Weibo"><i class="fa fa-fw fa-weibo"></i>Weibo</a>
+                  
+                </span>
+              
+                <span class="links-of-author-item">
+                  <a href="http://www.zhihu.com/people/kuritan" target="_blank" title="Zhihu"><i class="fa fa-fw fa-custom zhihu"></i>Zhihu</a>
+                  
+                </span>
+              
+                <span class="links-of-author-item">
+                  <a href="https://twitter.com/lizi1032" target="_blank" title="Twitter"><i class="fa fa-fw fa-twitter"></i>Twitter</a>
+                  
+                </span>
+              
+                <span class="links-of-author-item">
+                  <a href="https://www.facebook.com/yujia.zhai.50951" target="_blank" title="Facebook"><i class="fa fa-fw fa-facebook"></i>Facebook</a>
+                  
+                </span>
+              
+                <span class="links-of-author-item">
+                  <a href="https://instagram.com/kuriguri_28" target="_blank" title="Instagram"><i class="fa fa-fw fa-instagram"></i>Instagram</a>
+                  
+                </span>
+              
+            </div>
+          
+
+          
+          
+
+          
+          
+            <div class="links-of-blogroll motion-element links-of-blogroll-block">
+              <div class="links-of-blogroll-title">
+                <i class="fa  fa-fw fa-link"></i>
+                Links
+              </div>
+              <ul class="links-of-blogroll-list">
+                
+                  <li class="links-of-blogroll-item">
+                    <a href="https://matilde-lab.com/" title="Matilde Lab" target="_blank">Matilde Lab</a>
+                  </li>
+                
+              </ul>
+            </div>
+          
+
+          
+            
+          
+          
+
+        </div>
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#機能紹介"><span class="nav-number">1.</span> <span class="nav-text">機能紹介</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#どうやって使うの？"><span class="nav-number">2.</span> <span class="nav-text">どうやって使うの？</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#AWS-Config"><span class="nav-number">2.1.</span> <span class="nav-text">AWS Config</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#費用感"><span class="nav-number">2.2.</span> <span class="nav-text">費用感</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#AWS-Config-Rule"><span class="nav-number">2.3.</span> <span class="nav-text">AWS Config Rule</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#AWS-Config-Rule-修復アクション"><span class="nav-number">2.4.</span> <span class="nav-text">AWS Config Rule 修復アクション</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#AWS-SNS-トピック"><span class="nav-number">2.5.</span> <span class="nav-text">AWS SNS トピック</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#AWS-Lambda-Function"><span class="nav-number">2.6.</span> <span class="nav-text">AWS Lambda Function</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#インシデントマネジャー-オプション"><span class="nav-number">3.</span> <span class="nav-text">インシデントマネジャー(オプション)</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#まとめ"><span class="nav-number">4.</span> <span class="nav-text">まとめ</span></a></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+        <div class="back-to-top">
+          <i class="fa fa-arrow-up"></i>
+          
+            <span id="scrollpercent"><span>0</span>%</span>
+          
+        </div>
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">&copy; 2018 – <span itemprop="copyrightYear">2022</span>
+  <span class="with-love" id="animate">
+    <i class="fa fa-kuritan"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">kuritan</span>
+
+  
+
+  
+</div>
+
+
+
+
+
+
+
+
+
+
+
+        
+
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+
+    
+
+    
+	
+    
+
+    
+  </div>
+
+    
+    <script type="text/javascript" src="//cdn.bootcss.com/canvas-nest.js/1.0.0/canvas-nest.min.js"></script>
+    
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/canvas-nest/canvas-nest.min.js"></script>
+  
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=6.4.0"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=6.4.0"></script>
+
+
+
+  
+  
+
+
+  <script type="text/javascript" src="/js/src/affix.js?v=6.4.0"></script>
+
+  <script type="text/javascript" src="/js/src/schemes/pisces.js?v=6.4.0"></script>
+
+
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=6.4.0"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=6.4.0"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=6.4.0"></script>
+
+
+
+  
+
+
+
+  
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+
+  
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+</body>
+</html>
