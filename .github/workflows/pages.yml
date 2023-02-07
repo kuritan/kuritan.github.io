@@ -49,10 +49,12 @@ jobs:
       # 安装主题
       - name: Update Theme
         run: git submodule update
-      #- name: Clean
+      - name: Clean
       #  run: npm run clean
+        run: hexo clean
       - name: Build
-        run: npm run build
+        #run: npm run build
+        run: hexo generate
       - name: Deploy
         uses: peaceiris/actions-gh-pages@v3
         with:
