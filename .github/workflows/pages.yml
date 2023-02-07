@@ -70,7 +70,7 @@ jobs:
           full_commit_message: ${{ github.event.head_commit.message }}
           github_token: ${{ secrets.GITHUB_TOKEN }}
           # GITHUB_TOKEN不是个人访问令牌，GitHub Actions 运行器会自动创建一个GITHUB_TOKEN密钥以在您的工作流程中进行身份验证。因此，您无需任何配置即可立即开始部署
-          publish_branch: gitpages # default: gh-pages
+          publish_branch: master # default: gh-pages
           publish_dir: ./public
           allow_empty_commit: true # 允许空提交
       # Use the output from the `deploy` step(use for test action)
