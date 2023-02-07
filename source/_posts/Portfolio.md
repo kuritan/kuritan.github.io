@@ -57,7 +57,7 @@ tags:
 
 - Japanese(N1, ビジネス以上、ネイティブ未満)
 - English(TOEIC 835)
-- Mandarin(Native)
+- Chinese Mandarin(Native)
 
 ### Tech Coaching
 
