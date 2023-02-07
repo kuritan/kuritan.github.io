@@ -47,8 +47,8 @@ jobs:
       #   run: git rm -f --cached themes/tenacity
         # run: git submodule deinit themes/tenacity && git rm themes/tenacity
       # 安装主题
-      - name: Install Theme
-        run: git submodule add https://github.com/theme-next/hexo-theme-next.git themes/next
+      - name: Update Theme
+        run: git submodule update
       - name: Clean
         run: npm run clean
       - name: Build
