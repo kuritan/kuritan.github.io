@@ -49,8 +49,8 @@ jobs:
       # 安装主题
       - name: Update Theme
         run: git submodule update
-      - name: Clean
-        run: npm run clean
+      #- name: Clean
+      #  run: npm run clean
       - name: Build
         run: npm run build
       - name: Deploy
