@@ -7,8 +7,8 @@ tags:
  - Work
 ---
 ## Profile
-- 社会人9年目
-- Role: Site Reliability Engineer
+- 社会人10年目
+- Role: DevOps Engineer
 - Google Cloud Certified Professional Cloud Developer
 - Aboutme: https://matilde-lab.com/
 - Blog: https://kuritan.github.io
@@ -17,8 +17,9 @@ tags:
 <!--more-->
 
 ## PR(TL;DR)
->某上場Web企業でSenior SRE（SiteReliabilityEngineer）をやっております  
->パブリッククラウド・オンプレミス環境企画・構築・運用・監視・DevOps 経験5年+  
+>某外資ITにてkubernetes製品のテクニカルサポート担当 
+>&& 某上場Web企業でSenior SRE（SiteReliabilityEngineer）経験あり  
+>&& パブリッククラウド・オンプレミス環境企画・構築・運用・監視・DevOps 経験5年+  
 >&& ユーザ系エンタープライズ企業情シス担当経験 3年+  
 >&& Networkアプライアンスメーカーのプリセールス経験 1年+
 
@@ -47,7 +48,7 @@ tags:
 
 ### Coding
 
-- Shell実務経験あり(5年+)
+- Shell実務経験あり(6年+)
 - Python実務経験あり(4年+)
 - TerraformによるInfrastructure as Code経験(3年+)
 - Ruby(On Rails), Golang微経験
@@ -78,9 +79,21 @@ tags:
 
 ## 職務経歴(現職)
 
-### 某上場ソーシャルゲーム会社(2019/04~)
+### 某外資IT会社(2022/08~)
 
-- Senior SRE(2021/04~)
+- テクニカルサポート エンジニア(2019/04~2021/03)
+  - AWS、オンプレミス
+  - OS：Ubuntu
+  - ミドルウェア：PostgreSQL, Redis, KongGateway等
+  - チャット：Webex
+  - コード管理：Gitlab
+  - 仮想化：Docker, Kubernetes
+
+## 職務経歴(過去)
+
+### 某上場ソーシャルゲーム会社(2019/04~2022/08)
+
+- Senior SRE(2021/04~2022/08)
 - SRE部 エンジニア(2019/04~2021/03)
   - クラウド：AWS,GCP,IDCF,IIJ GIO
   - OS：CentOS
@@ -92,8 +105,6 @@ tags:
   - 監視：Mackerel,Zabbix,Consul
   - 構成管理：Terraform,Chef,Ansible等
     - Infrastructure as Codeをポリシーとした構成管理を行っています。
-
-## 職務経歴(過去)
 
 ### 某上場ITサービス会社(2017/10~2019/03)
 
