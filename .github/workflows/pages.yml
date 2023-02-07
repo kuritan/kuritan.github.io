@@ -38,9 +38,13 @@ jobs:
       # 查看文件
       - name: Look Dir List
         run: tree -L 3 -a
+      - name: Install hexo-cli
+        run: npm install hexo-cli -g
       # 第一次或者依赖发生变化的时候执行 Install Dependencies，其它构建的时候不需要这一步
       - name: Install Dependencies
         run: npm install
+      - name: Install deployer
+        run: npm install hexo-deployer-git save
       - name: Look Dir List
         run: tree -L 3 -a
       # - name: clean theme cache
