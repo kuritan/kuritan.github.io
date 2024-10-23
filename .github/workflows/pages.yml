@@ -63,7 +63,7 @@ jobs:
         uses: peaceiris/actions-gh-pages@v3
         with:
           #deploy_key: ${{ secrets.ACTIONS_DEPLOY_KEY  }}
-          deploy_key: ${{ secrets.GIT_PUSH_KEY }}
+          personal_token: ${{ secrets.GIT_PUSH_KEY }}
           user_name: kuritan
           user_email: yujia.zhai@hotmail.com
           # 获取提交文章源码时的commit message，作为发布gh-pages分支的信息
